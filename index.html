@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kovid Anand - AI Product Manager Portfolio</title>
+  <link rel="stylesheet" href="style.css"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;900&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.0.35/bundled/lenis.min.js"></script>
+</head>
+<body>
+
+  <div class="noise" aria-hidden="true"></div>
+
+  <div id="cursorDot"  class="cursor-dot"  aria-hidden="true"></div>
+  <div id="cursorRing" class="cursor-ring" aria-hidden="true">
+    <span class="cursor-label" id="cursorLabel"></span>
+  </div>
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-letters">
+      <span class="ll" style="--i:0">A</span><span class="ll" style="--i:1">N</span><span class="ll" style="--i:2">A</span><span class="ll" style="--i:3">N</span><span class="ll" style="--i:4">D</span>
+    </div>
+    <div class="loader-bar-wrap"><div class="loader-bar-fill" id="loaderBar"></div></div>
+  </div>
+
+  <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+
+  <nav class="navbar" id="navbar">
+    <a href="#hero" class="nav-logo">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M3 25 L14 3 L25 25" stroke="url(#nLg)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 18 H20"           stroke="url(#nLg)" stroke-width="2.8" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="nLg" x1="3" y1="25" x2="25" y2="3" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#0066ff"/>
+            <stop offset="100%" stop-color="#8a2be2"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>KOVID</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about"        class="nav-link" data-s="about">About</a></li>
+      <li><a href="#skills"       class="nav-link" data-s="skills">Skills</a></li>
+      <li><a href="#projects"     class="nav-link" data-s="projects">Projects</a></li>
+      <li><a href="#experience"   class="nav-link" data-s="experience">Experience</a></li>
+      <li><a href="#certifications" class="nav-link" data-s="certifications">Certs</a></li>
+      <li><a href="#contact"      class="nav-link" data-s="contact">Contact</a></li>
+    </ul>
+
+    <a href="#contact" class="btn-nav magnetic" data-magnetic>
+      <span>Hire Me</span>
+      <i class="fa-solid fa-arrow-up-right"></i>
+    </a>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <section class="hero" id="hero">
+    <canvas id="meshCanvas" class="mesh-canvas" aria-hidden="true"></canvas>
+    <div class="grid-bg" aria-hidden="true"></div>
+
+    <div class="hero-inner container">
+      <div class="avail-chip" id="heroChip">
+        <span class="chip-ping"></span>
+        Available for 2026 opportunities
+      </div>
+
+      <h1 class="hero-h1" id="heroH1">
+        <span class="h1-line">
+          <span class="h1w">Hi,</span>
+          <span class="h1w">I'm</span>
+        </span>
+        <span class="h1-line h1-gradient">
+          <span class="h1w">Kovid</span>
+          <span class="h1w">Anand</span>
+        </span>
+      </h1>
+
+      <div class="hero-sub">
+        <span class="sub-static">Future </span>
+        <span class="sub-typed" id="typedEl"></span>
+        <span class="sub-caret">_</span>
+      </div>
+
+      <p class="hero-tagline" id="heroTagline">
+        Building data-driven solutions and transitioning into AI Product Management with real-world impact.
+      </p>
+
+      <div class="hero-btns" id="heroBtns">
+        <a href="#projects" class="btn btn-primary magnetic" data-magnetic data-cursor="View">
+          <span>Explore Work</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="#contact"  class="btn btn-outline magnetic" data-magnetic data-cursor="Talk">
+          <span>Let's Talk</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-cue">
+      <div class="sc-pill"><div class="sc-dot"></div></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <section class="marquee-section" aria-label="Technologies and tools">
+    <div class="marquee-wrapper">
+      <div class="marquee-track" id="marqueeTrack">
+        <div class="marquee-item">
+          <span class="marquee-icon"><i class="fa-brands fa-python"></i></span>
+          <span>Python</span>
+        </div>
+        <div class="marquee-item">
+          <span class="marquee-icon"><i class="fa-solid fa-database"></i></span>
+          <span>SQL</span>
+        </div>
+        <div class="marquee-item">
+          <span class="marquee-icon"><i class="fa-solid fa-chart-line"></i></span>
+          <span>Power BI</span>
+        </div>
+        <div class="marquee-item">
+          <span class="marquee-icon"><i class="fa-brands fa-pandas"></i></span>
+          <span>Pandas</span>
+        </div>
+        <div class="marquee-item">
+          <span class="marquee-icon"><i class="fa-solid fa-brain"></i></span>
+          <span>Machine Learning</span>
+        </div>
+        <div class="marquee-item">
+          <span class="marquee-icon"><i class="fa-solid fa-chart-bar"></i></span>
+          <span>Data Analytics</span>
+        </div>
+        <div class="marquee-item">
+          <span class="marquee-icon"><i class="fa-solid fa-lightbulb"></i></span>
+          <span>Product Strategy</span>
+        </div>
+        <div class="marquee-item">
+          <span class="marquee-icon"><i class="fa-solid fa-code"></i></span>
+          <span>NumPy</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about section" id="about">
+    <div class="container">
+      <p class="eyebrow reveal-up">About</p>
+      <h2 class="big-quote reveal-words" id="aboutHed">
+        I turn data into insights and build solutions that solve real business problems. <em>love</em>.
+      </h2>
+
+      <div class="about-cols">
+        <div class="about-copy">
+          <p class="ap reveal-up" data-delay="0.0">
+            I am a Bachelor’s student in Data Science at SRM Institute of Science and Technology with a strong academic record <strong>(9.8+ CGPA and department rank holder)</strong>. I specialize in data analytics, SQL, and machine learning, with a focus on <strong>solving real-world business problems</strong> using data-driven approaches.
+          </p>
+          <p class="ap reveal-up" data-delay="0.1">
+           My goal is to transition into an <strong>AI Product Management</strong> role, where I can combine data, technology, and strategy to build impactful and scalable products.
+          </p>
+          <div class="about-pills">
+            <span class="about-pill">Python</span>
+            <span class="about-pill">SQL</span>
+            <span class="about-pill">Pandas</span>
+            <span class="about-pill">NumPy</span>
+            <span class="about-pill">scikit-learn</span>
+            <span class="about-pill">Machine Learning</span>
+            <span class="about-pill">Data Analytics</span>
+            <span class="about-pill">Business Analysis</span>
+            <span class="about-pill">Power BI</span>
+            <span class="about-pill">Excel</span>
+          </div>
+        </div>
+
+        <div class="about-numbers">
+          <div class="an-block reveal-up" data-delay="0.0">
+            <div class="an-num"><span class="cnt" data-target="9.80">0</span><span class="an-unit">/10</span></div>
+            <p class="an-label">CGPA</p>
+          </div>
+          <div class="an-block reveal-up" data-delay="0.1">
+            <div class="an-num"><span class="cnt" data-target="10">0</span><span class="an-unit">+</span></div>
+            <p class="an-label">Projects</p>
+          </div>
+          <div class="an-block reveal-up" data-delay="0.2">
+            <div class="an-num"><span class="cnt" data-target="1">0</span><span class="an-unit"></span></div>
+            <p class="an-label">Department Rank</p>
+          </div>
+          <div class="an-block reveal-up" data-delay="0.3">
+            <div class="an-num"><span class="cnt" data-target="5">0</span><span class="an-unit">+</span></div>
+            <p class="an-label">Core Skills</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="skills section" id="skills">
+    <div class="container">
+      <p class="eyebrow reveal-up">Skills</p>
+      <h2 class="sec-hed reveal-words">What I <em>bring</em></h2>
+
+      <div class="bento">
+        <div class="bcard bcard-lg reveal-up" data-delay="0.0">
+          <div class="bc-glow"></div>
+          <i class="fa-solid fa-lightbulb bc-ico"></i>
+          <h3>Product Thinking</h3>
+          <p>Business Analysis · Problem Solving · KPIs · User Understanding</p>
+          <div class="bc-meter" data-pct="88"><div class="bc-track"><div class="bc-fill"></div></div><span>88%</span></div>
+        </div>
+
+        <div class="bcard reveal-up" data-delay="0.1">
+          <div class="bc-glow glow-purple"></div>
+          <i class="fa-solid fa-brain bc-ico ico-purple"></i>
+          <h3>Machine Learning</h3>
+          <p>Python · scikit-learn · Model Evaluation · Predictive Analysis</p>
+          <div class="bc-meter" data-pct="85"><div class="bc-track"><div class="bc-fill"></div></div><span>85%</span></div>
+        </div>
+
+        <div class="bcard reveal-up" data-delay="0.2">
+          <div class="bc-glow glow-green"></div>
+          <i class="fa-solid fa-chart-bar bc-ico ico-green"></i>
+          <h3>Data Analytics</h3>
+          <p>SQL · Pandas · Power BI · Data Visualization</p>
+          <div class="bc-meter" data-pct="90"><div class="bc-track"><div class="bc-fill"></div></div><span>90%</span></div>
+        </div>
+
+        <div class="bcard reveal-up" data-delay="0.3">
+          <div class="bc-glow glow-pink"></div>
+          <i class="fa-solid fa-pen-ruler bc-ico ico-pink"></i>
+          <h3>SQL & Data Handling</h3>
+          <p>Joins · Aggregations · Business Queries · Data Cleaning</p>
+          <div class="bc-meter" data-pct="92"><div class="bc-track"><div class="bc-fill"></div></div><span>92%</span></div>
+        </div>
+
+        <div class="bcard reveal-up" data-delay="0.4">
+          <div class="bc-glow glow-yellow"></div>
+          <i class="fa-solid fa-code bc-ico ico-yellow"></i>
+          <h3>Tools & Technologies</h3>
+          <p>Python · Excel · Power BI · Jupyter · VS Code</p>
+          <div class="bc-meter" data-pct="82"><div class="bc-track"><div class="bc-fill"></div></div><span>82%</span></div>
+        </div>
+
+        <div class="bcard bcard-wide reveal-up" data-delay="0.5">
+          <div class="bc-glow glow-orange"></div>
+          <i class="fa-solid fa-users bc-ico ico-orange"></i>
+          <h3>Communication & Problem Solving</h3>
+          <p>Analytical Thinking · Structured Approach · Clear Communication</p>
+          <div class="bc-meter" data-pct="95"><div class="bc-track"><div class="bc-fill"></div></div><span>95%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects section" id="projects">
+    <div class="container">
+      <p class="eyebrow reveal-up">Projects</p>
+      <h2 class="sec-hed reveal-words">Things I've <em>built</em></h2>
+
+      <div class="proj-list">
+        <article class="proj-item proj-featured reveal-up" data-delay="0.0">
+          <span class="proj-num">01</span>
+          <div class="proj-body">
+            <div class="proj-badge-chip">✦ Featured</div>
+            <h3 class="proj-name">Walmart Sales Analysis</h3>
+            <p class="proj-desc">Performed retail sales analysis to identify seasonal trends, revenue patterns, and top-performing product categories.</p>
+            <div class="proj-tags"><span>SQL</span><span>Data Analysis</span><span>Retail Insights</span></div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/kovidanand/SQL-Walmart_Sales_Analysis_P8" target="_blank" class="proj-btn"><i class="fa-brands fa-github"></i></a>
+          </div>
+          <div class="proj-hover-bg"></div>
+        </article>
+
+        <article class="proj-item proj-featured reveal-up" data-delay="0.1">
+          <span class="proj-num">02</span>
+          <div class="proj-body">
+            <h3 class="proj-name">EcomExpress Sales Dashboard</h3>
+            <p class="proj-desc">Built a Power BI dashboard to track logistics performance, sales KPIs, and delivery insights.</p>
+            <div class="proj-tags"><span>Power BI</span><span>KPIs</span></div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/kovidanand/PBi-EcomExpress_sales_dashboard" target="_blank" class="proj-btn"><i class="fa-brands fa-github"></i></a>
+          </div>
+          <div class="proj-hover-bg"></div>
+        </article>
+        
+        <article class="proj-item reveal-up" data-delay="0.2">
+          <span class="proj-num">03</span>
+          <div class="proj-body">
+            <h3 class="proj-name">Netflix Content Analysis</h3>
+            <p class="proj-desc">Analyzed Netflix dataset using SQL to understand content distribution and audience preferences.</p>
+            <div class="proj-tags"><span>SQL</span><span>Streaming Data</span></div>
+          </div>
+          <div class="proj-links">
+            <a href="https://github.com/kovidanand/SQL-Netflix_Analysis_P4" target="_blank" class="proj-btn"><i class="fa-brands fa-github"></i></a>
+          </div>
+          <div class="proj-hover-bg"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience section" id="experience">
+    <div class="container">
+      <p class="eyebrow reveal-up">Experience</p>
+      <h2 class="sec-hed reveal-words">My <em>Journey</em></h2>
+
+      <div class="timeline-modern">
+        
+        <div class="tm-item reveal-up" data-delay="0.0">
+          <div class="tm-dot"></div>
+          <div class="tm-content">
+            <div class="tm-header">
+              <h3>AI-ML Virtual Internship</h3>
+              <span class="tm-date">July – September 2025</span>
+            </div>
+            <p class="tm-org"><i class="fa-solid fa-building"></i> AICTE & EduSkills</p>
+            <ul class="tm-list">
+              <li>Applied ML models and improved analytical thinking</li>
+              <li>Worked on structured problem solving and algorithm optimization</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tm-item reveal-up" data-delay="0.1">
+          <div class="tm-dot tm-dot-purple"></div>
+          <div class="tm-content">
+            <div class="tm-header">
+              <h3>AI-ML Virtual Internship</h3>
+              <span class="tm-date">April – June 2025</span>
+            </div>
+            <p class="tm-org"><i class="fa-brands fa-google"></i> AICTE & Google Developers</p>
+            <ul class="tm-list">
+              <li>Worked on ML concepts and handled real-world complex datasets</li>
+              <li>Built a foundational understanding of end-to-end AI workflows</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tm-item reveal-up" data-delay="0.2">
+          <div class="tm-dot tm-dot-green"></div>
+          <div class="tm-content">
+            <div class="tm-header">
+              <h3>Data Science Internship</h3>
+              <span class="tm-date">March – May 2025</span>
+            </div>
+            <p class="tm-org"><i class="fa-solid fa-chart-pie"></i> Acmegrade</p>
+            <ul class="tm-list">
+              <li>Hands-on exposure to data analysis, cleaning, and preprocessing</li>
+              <li>Developed predictive models utilizing Machine Learning basics</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="certifications section" id="certifications">
+    <div class="container">
+      <p class="eyebrow reveal-up">Credentials</p>
+      <h2 class="sec-hed reveal-words">Licenses & <em>Certifications</em></h2>
+      <p class="cert-subhint reveal-up" data-delay="0.05">Click any certificate to view full credentials.</p>
+
+      <div class="cert-grid">
+        
+        <div class="cert-card cert-reveal" data-delay="0.0" data-cert-key="google-analytics">
+          <div class="cert-icon"><i class="fa-brands fa-google"></i></div>
+          <h3>Google Analytics</h3>
+          <p>Google</p>
+        </div>
+
+        <div class="cert-card cert-reveal" data-delay="0.05" data-cert-key="sql-advanced">
+          <div class="cert-icon"><i class="fa-solid fa-database"></i></div>
+          <h3>SQL (HackerRank)</h3>
+          <p>HackerRank</p>
+        </div>
+
+        <div class="cert-card cert-reveal" data-delay="0.1" data-cert-key="databricks-sql">
+          <div class="cert-icon"><i class="fa-solid fa-cubes"></i></div>
+          <h3>Databricks Academy</h3>
+          <p>Databricks</p>
+        </div>
+
+        <div class="cert-card cert-reveal" data-delay="0.15" data-cert-key="product-roadmap">
+          <div class="cert-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+          <h3>Product Roadmap (Coursera)</h3>
+          <p>Coursera</p>
+        </div>
+
+        <div class="cert-card cert-reveal" data-delay="0.2" data-cert-key="business-analysis">
+          <div class="cert-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Business Analysis (Coursera)</h3>
+          <p>Coursera</p>
+        </div>
+
+        <div class="cert-card cert-reveal" data-delay="0.25" data-cert-key="tata-analytics">
+          <div class="cert-icon"><i class="fa-solid fa-chart-simple"></i></div>
+          <h3>TATA Forage Data Analysis</h3>
+          <p>Forage</p>
+        </div>
+
+        <div class="cert-card cert-reveal" data-delay="0.3" data-cert-key="excel-dashboarding">
+          <div class="cert-icon"><i class="fa-solid fa-table"></i></div>
+          <h3>Excel & Dashboarding (Coursera)</h3>
+          <p>Coursera</p>
+        </div>
+
+        <div class="cert-card cert-reveal" data-delay="0.35" data-cert-key="ml-foundations">
+          <div class="cert-icon"><i class="fa-brands fa-aws"></i></div>
+          <h3>Machine Learning Foundations</h3>
+          <p>AWS</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="achievements section" id="achievements">
+    <div class="container">
+      <p class="eyebrow reveal-up">Wins</p>
+      <h2 class="sec-hed reveal-words">Milestones & <em>Recognition</em></h2>
+
+      <div class="ach-grid">
+        <div class="ach-card ach-hero-card reveal-up" data-delay="0.0">
+          <div class="ach-glow"></div>
+          <span class="ach-shadow-num">01</span>
+          <i class="fa-solid fa-trophy ach-ico"></i>
+          <span class="ach-yr">Academic</span>
+          <h3>Department Rank Holder</h3>
+          <p>Maintaining a 9.8+ CGPA with consistent academic excellence at SRM IST.</p>
+        </div>
+
+        <div class="ach-card reveal-up" data-delay="0.1">
+          <div class="ach-glow glow-gold"></div>
+          <span class="ach-shadow-num">02</span>
+          <i class="fa-solid fa-book-open ach-ico ico-gold"></i>
+          <span class="ach-yr">2025</span>
+          <h3>NLP Research Publication</h3>
+          <p>Published "Progress in Natural Language Processing" in IJBER.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact section" id="contact">
+    <div class="container">
+      <p class="eyebrow reveal-up">Contact</p>
+      <h2 class="contact-big reveal-words">Let's build something <em>great</em> together.</h2>
+      <p class="contact-sub reveal-up" data-delay="0.1">Internships · Product collaborations · AI strategy conversations</p>
+
+      <a href="mailto:kovidanand05@gmail.com" class="email-cta reveal-up magnetic" data-magnetic data-delay="0.2">
+        <span>kovidanand05@gmail.com</span>
+        <i class="fa-solid fa-arrow-up-right"></i>
+      </a>
+
+      <div class="contact-bottom">
+        <div class="socials reveal-up" data-delay="0.3">
+          <a href="https://www.linkedin.com/in/kovidanand05/" target="_blank" class="soc-link magnetic" data-magnetic>
+            <i class="fa-brands fa-linkedin"></i><span>LinkedIn</span><i class="fa-solid fa-arrow-up-right sa"></i>
+          </a>
+          <a href="https://github.com/kovidanand" target="_blank" class="soc-link magnetic" data-magnetic>
+            <i class="fa-brands fa-github"></i><span>GitHub</span><i class="fa-solid fa-arrow-up-right sa"></i>
+          </a>
+          <a href="https://x.com/kovidAnand19" target="_blank" class="soc-link magnetic" data-magnetic>
+            <i class="fa-brands fa-x-twitter"></i><span>Twitter</span><i class="fa-solid fa-arrow-up-right sa"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-row">
+      <span>© 2026 Anand · AI Product Manager</span>
+      <span>Crafted with precision &amp; <span class="heart">♥</span></span>
+    </div>
+  </footer>
+
+  <div class="cert-modal" id="certModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Certificate preview">
+    <div class="cert-modal-backdrop" id="certModalBackdrop"></div>
+    <button class="cert-modal-close" id="certModalClose" aria-label="Close certificate preview">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="cert-modal-content">
+      <div class="cert-modal-loading" id="certModalLoading" aria-hidden="true">
+        <span class="cert-spinner"></span>
+      </div>
+      <div class="certificate-wrapper">
+        <iframe
+          id="certPreviewFrame"
+          title="Certificate preview"
+          loading="lazy"
+          scrolling="yes"
+          referrerpolicy="no-referrer-when-downgrade"
+          allow="autoplay"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
