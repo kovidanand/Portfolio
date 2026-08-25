@@ -106,6 +106,10 @@
           <span>Explore Work</span>
           <i class="fa-solid fa-arrow-right"></i>
         </a>
+        <button type="button" class="btn btn-outline magnetic" id="resumeOpen" data-magnetic data-cursor="Resume">
+          <span>Resume</span>
+          <i class="fa-solid fa-file-lines"></i>
+        </button>
         <a href="#contact"  class="btn btn-outline magnetic" data-magnetic data-cursor="Talk">
           <span>Let's Talk</span>
         </a>
@@ -530,5 +534,86 @@
   </div>
 
   <script src="script.js"></script>
+  <div class="chatbot-widget">
+    <div class="chatbot-teaser" id="chatbotTeaser" role="status">
+      <span>👋 What do you want to know about Kovid?</span>
+      <button type="button" id="chatbotTeaserClose" aria-label="Dismiss chatbot message">✕</button>
+    </div>
+
+    <section class="chatbot-panel" id="chatbotPanel" aria-hidden="true" aria-label="Kovid's AI Assistant">
+      <header class="chatbot-header">
+        <div class="chatbot-header-identity">
+          <span class="chatbot-avatar" aria-hidden="true"><i class="fa-solid fa-robot"></i></span>
+          <div>
+            <h2>Kovid's AI Assistant</h2>
+            <p><span class="chatbot-status-dot"></span> Online</p>
+          </div>
+        </div>
+        <button class="chatbot-close" id="chatbotClose" type="button" aria-label="Close chatbot">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </header>
+
+      <div class="chatbot-messages" id="chatbotMessages" aria-live="polite"></div>
+
+      <div class="chatbot-composer">
+        <div class="chatbot-quick-replies" aria-label="Quick questions">
+          <button class="chatbot-quick-reply" type="button">About</button>
+          <button class="chatbot-quick-reply" type="button">Skills</button>
+          <button class="chatbot-quick-reply" type="button">Experience</button>
+          <button class="chatbot-quick-reply" type="button">Projects</button>
+          <button class="chatbot-quick-reply" type="button">Publications</button>
+          <button class="chatbot-quick-reply" type="button">Contact</button>
+          <button class="chatbot-quick-reply" type="button">Resume</button>
+        </div>
+        <form class="chatbot-form" id="chatbotForm">
+          <input id="chatbotInput" type="text" autocomplete="off" placeholder="Ask about Kovid..." aria-label="Ask Kovid's AI Assistant" />
+          <button class="chatbot-send" id="chatbotSend" type="submit" aria-label="Send message">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <button class="chatbot-toggle" id="chatbotToggle" type="button" aria-label="Open chatbot" aria-expanded="false">
+      <i class="fa-solid fa-robot chatbot-toggle-robot"></i>
+    </button>
+  </div>
+  <script src="chatbot.js"></script>
+  <div class="resume-modal" id="resumeModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle">
+    <div class="resume-modal-backdrop" id="resumeModalBackdrop"></div>
+    <div class="resume-viewer">
+      <header class="resume-viewer-header">
+        <div>
+          <p class="resume-viewer-kicker">Document Viewer</p>
+          <h2 id="resumeModalTitle">Kovid Anand · Resume</h2>
+        </div>
+        <div class="resume-viewer-actions">
+          <a class="resume-viewer-action" href="https://drive.google.com/uc?export=download&id=1K-1pu7f1o-23fwB0GyP1M63fQtQr-4cg" aria-label="Download resume">
+            <i class="fa-solid fa-download"></i><span>Download</span>
+          </a>
+          <button class="resume-viewer-action" id="resumeZoomOut" type="button" aria-label="Zoom out">
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+          </button>
+          <button class="resume-viewer-action" id="resumeZoomReset" type="button" aria-label="Reset zoom">
+            <i class="fa-solid fa-arrows-to-dot"></i>
+          </button>
+          <button class="resume-viewer-action" id="resumeZoomIn" type="button" aria-label="Zoom in">
+            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          </button>
+          <button class="resume-viewer-action" id="resumeFullscreen" type="button" aria-label="Enter fullscreen">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+          <button class="resume-viewer-action" id="resumeClose" type="button" aria-label="Close resume viewer">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </header>
+      <div class="resume-document-wrap" id="resumeDocumentWrap">
+        <iframe id="resumeFrame" title="Kovid Anand resume" loading="lazy" src="https://drive.google.com/file/d/1K-1pu7f1o-23fwB0GyP1M63fQtQr-4cg/preview?rm=minimal"></iframe>
+      </div>
+    </div>
+  </div>
+  <script src="resume-viewer.js"></script>
 </body>
 </html>
