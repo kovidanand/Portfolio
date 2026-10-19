@@ -4,6 +4,7 @@
   const closeButton = document.getElementById('resumeClose');
   const backdrop = document.getElementById('resumeModalBackdrop');
   const documentWrap = document.getElementById('resumeDocumentWrap');
+  const frame = document.getElementById('resumeFrame');
   const zoomIn = document.getElementById('resumeZoomIn');
   const zoomOut = document.getElementById('resumeZoomOut');
   const zoomReset = document.getElementById('resumeZoomReset');
@@ -21,6 +22,9 @@
 
   const openViewer = () => {
     previousFocus = document.activeElement;
+    if (frame && (!frame.src || frame.src === 'about:blank' || frame.getAttribute('src') === '') && frame.dataset.src) {
+      frame.src = frame.dataset.src;
+    }
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';

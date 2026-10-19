@@ -3,41 +3,37 @@
    Light Mode Upgrade · Performance & Timeline fixed
 ════════════════════════════════════════════════════════ */
 
-window.addEventListener('load', () => {
+const init = () => {
 
   gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
   /* ════════════════════════════════════════════════
-     1.  PAGE LOADER (Fast Cinematic)
+     1.  PAGE LOADER (Snappy & Instant Reveal)
   ════════════════════════════════════════════════ */
   const loader  = document.getElementById('loader');
   const lBar    = document.getElementById('loaderBar');
   const letters = document.querySelectorAll('.ll');
 
   // Fast stagger in
-  requestAnimationFrame(() => letters.forEach(l => l.classList.add('in')));
+  letters.forEach(l => l.classList.add('in'));
+  if (lBar) lBar.style.width = '100%';
 
-  let pct = 0;
-  const fillTimer = setInterval(() => {
-    pct += Math.random() * 30; // Faster increment
-    if(pct >= 100){ 
-      pct = 100; 
-      clearInterval(fillTimer); 
-    }
-    if(lBar) lBar.style.width = pct + '%';
-  }, 40);
-
-  // Quick slide up
-  gsap.to(loader, {
-    yPercent: -100, 
-    duration: 0.8, 
-    ease: 'power3.inOut', 
-    delay: 0.8, // Reduced delay
-    onComplete: () => { 
-      loader.style.display = 'none'; 
-      revealHero(); 
-    }
-  });
+  if (loader) {
+    gsap.to(loader, {
+      yPercent: -100, 
+      duration: 0.38, 
+      ease: 'power3.inOut', 
+      delay: 0.08,
+      onStart: () => {
+        revealHero();
+      },
+      onComplete: () => { 
+        loader.style.display = 'none'; 
+      }
+    });
+  } else {
+    revealHero();
+  }
 
 
   /* ════════════════════════════════════════════════
@@ -414,5 +410,10 @@ window.addEventListener('load', () => {
       trigger:'.hero', start:'top top', end:'70% top', scrub:true
     }
   });
+};
 
-});
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
