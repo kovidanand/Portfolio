@@ -102,36 +102,14 @@ window.addEventListener('load', () => {
 
 
   /* ════════════════════════════════════════════════
-     3.  CURSOR & SPOTLIGHT
+     3.  SPOTLIGHT (AMBIENT LIGHTING)
   ════════════════════════════════════════════════ */
-  const dot  = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  const cLabel = document.getElementById('cursorLabel');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
   window.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    if(dot){ dot.style.left = mx+'px'; dot.style.top = my+'px'; }
     const sp = document.getElementById('spotlight');
-    if(sp) sp.style.setProperty('--mx', mx+'px'), sp.style.setProperty('--my', my+'px');
-  });
-
-  const animRing = () => {
-    rx += (mx-rx)*.15; ry += (my-ry)*.15;
-    if(ring){ ring.style.left=rx+'px'; ring.style.top=ry+'px'; }
-    requestAnimationFrame(animRing);
-  };
-  animRing();
-
-  document.querySelectorAll('a, button, .tm-content, .bcard, .cert-card, [data-magnetic]').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      document.body.classList.add('cur-hover');
-      if(cLabel && el.dataset.cursor) cLabel.textContent = el.dataset.cursor;
-    });
-    el.addEventListener('mouseleave', () => {
-      document.body.classList.remove('cur-hover');
-      if(cLabel) cLabel.textContent = '';
-    });
+    if(sp) {
+      sp.style.setProperty('--mx', e.clientX + 'px');
+      sp.style.setProperty('--my', e.clientY + 'px');
+    }
   });
 
 
