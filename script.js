@@ -1,300 +1,170 @@
-/* ════════════════════════════════════════════════════════
-   ANAND · PORTFOLIO  ·  script.js
-   Light Mode Upgrade · Performance & Timeline fixed
-════════════════════════════════════════════════════════ */
+/**
+ * KOVID ANAND · PORTFOLIO 2.0
+ * script.js - Core UI interactions, scroll reveal, typing telemetry, and modal handlers.
+ */
 
-const init = () => {
+const initPortfolio = () => {
+  'use strict';
 
-  gsap.registerPlugin(ScrollTrigger, TextPlugin);
+  // 1. Snappy Page Loader
+  const loader = document.getElementById('loader');
+  const loaderBar = document.getElementById('loaderBar');
 
-  /* ════════════════════════════════════════════════
-     1.  PAGE LOADER (Snappy & Instant Reveal)
-  ════════════════════════════════════════════════ */
-  const loader  = document.getElementById('loader');
-  const lBar    = document.getElementById('loaderBar');
-  const letters = document.querySelectorAll('.ll');
-
-  // Fast stagger in
-  letters.forEach(l => l.classList.add('in'));
-  if (lBar) lBar.style.width = '100%';
+  if (loaderBar) loaderBar.style.width = '100%';
 
   if (loader) {
-    gsap.to(loader, {
-      yPercent: -100, 
-      duration: 0.38, 
-      ease: 'power3.inOut', 
-      delay: 0.08,
-      onStart: () => {
-        revealHero();
-      },
-      onComplete: () => { 
-        loader.style.display = 'none'; 
-      }
-    });
-  } else {
-    revealHero();
+    window.setTimeout(() => {
+      loader.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out';
+      loader.style.opacity = '0';
+      loader.style.transform = 'translateY(-20px)';
+      window.setTimeout(() => {
+        loader.style.display = 'none';
+      }, 350);
+    }, 150);
   }
 
-
-  /* ════════════════════════════════════════════════
-     2.  MESH GRADIENT CANVAS (Light Pastel)
-  ════════════════════════════════════════════════ */
-  const canvas = document.getElementById('meshCanvas');
-  if(canvas){
-    const ctx = canvas.getContext('2d');
-    let W, H;
-    const resize = () => { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; };
-    resize();
-    window.addEventListener('resize', resize);
-
-    // Subtle pastel gradients for light mode
-    const nodes = [
-      { x:.2, y:.3, r:.6, col:'rgba(0,102,255,',   a:.08 },
-      { x:.8, y:.2, r:.5, col:'rgba(138,43,226,',  a:.06 },
-      { x:.5, y:.8, r:.7, col:'rgba(224,28,213,',  a:.04 },
-      { x:.1, y:.8, r:.5, col:'rgba(0,182,122,',   a:.05 },
-      { x:.9, y:.7, r:.6, col:'rgba(255,98,0,',    a:.04 },
-    ];
-    
-    const speeds = nodes.map(() => ({
-      vx: (Math.random()-.5)*.001,
-      vy: (Math.random()-.5)*.001,
-      va: (Math.random()-.5)*.002,
-    }));
-
-    let mouseNX = .5, mouseNY = .5;
-    window.addEventListener('mousemove', e => {
-      mouseNX = e.clientX / window.innerWidth;
-      mouseNY = e.clientY / window.innerHeight;
-    });
-
-    function drawMesh(){
-      ctx.clearRect(0, 0, W, H);
-      nodes.forEach((n, i) => {
-        const mx = (mouseNX - .5) * .08;
-        const my = (mouseNY - .5) * .06;
-        const px = (n.x + mx) * W;
-        const py = (n.y + my) * H;
-        const rad = n.r * Math.max(W, H);
-        const a = Math.max(.02, Math.min(.12, n.a));
-
-        const g = ctx.createRadialGradient(px, py, 0, px, py, rad);
-        g.addColorStop(0, n.col + a + ')');
-        g.addColorStop(1, n.col + '0)');
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, W, H);
-
-        n.x += speeds[i].vx;
-        n.y += speeds[i].vy;
-        n.a += speeds[i].va;
-        if(n.x < 0 || n.x > 1) speeds[i].vx *= -1;
-        if(n.y < 0 || n.y > 1) speeds[i].vy *= -1;
-        if(n.a < .02 || n.a > .12) speeds[i].va *= -1;
-      });
-      requestAnimationFrame(drawMesh);
-    }
-    drawMesh();
-  }
-
-
-  /* ════════════════════════════════════════════════
-     3.  SPOTLIGHT (AMBIENT LIGHTING)
-  ════════════════════════════════════════════════ */
-  window.addEventListener('mousemove', e => {
-    const sp = document.getElementById('spotlight');
-    if(sp) {
-      sp.style.setProperty('--mx', e.clientX + 'px');
-      sp.style.setProperty('--my', e.clientY + 'px');
-    }
-  });
-
-
-  /* ════════════════════════════════════════════════
-     4.  MAGNETIC BUTTONS
-  ════════════════════════════════════════════════ */
-  document.querySelectorAll('[data-magnetic]').forEach(el => {
-    el.addEventListener('mousemove', e => {
-      const r  = el.getBoundingClientRect();
-      const xc = r.left + r.width  / 2;
-      const yc = r.top  + r.height / 2;
-      const dx = (e.clientX - xc) * .3;
-      const dy = (e.clientY - yc) * .3;
-      gsap.to(el, { x:dx, y:dy, duration:.4, ease:'power2.out' });
-    });
-    el.addEventListener('mouseleave', () => {
-      gsap.to(el, { x:0, y:0, duration:.6, ease:'elastic.out(1,.5)' });
-    });
-  });
-
-
-  /* ════════════════════════════════════════════════
-     5.  NAVBAR
-  ════════════════════════════════════════════════ */
+  // 2. Navbar Scroll Behavior & Active Section Spy
   const navbar = document.getElementById('navbar');
   const navLinks = document.querySelectorAll('.nav-link');
   const sections = document.querySelectorAll('section[id]');
 
-  const onScroll = () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-    let cur = '';
-    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 200) cur = s.id; });
-    navLinks.forEach(l => l.classList.toggle('active', l.dataset.s === cur));
+  const handleScroll = () => {
+    if (navbar) {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    }
+
+    let currentSectionId = '';
+    const scrollPos = window.scrollY + 220;
+
+    sections.forEach((sec) => {
+      if (scrollPos >= sec.offsetTop) {
+        currentSectionId = sec.id;
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.toggle('active', link.getAttribute('data-s') === currentSectionId);
+    });
   };
-  window.addEventListener('scroll', onScroll, { passive:true });
 
-  const ham  = document.getElementById('hamburger');
-  const menu = document.getElementById('navLinks');
-  ham.addEventListener('click', () => {
-    ham.classList.toggle('open');
-    menu.classList.toggle('open');
-  });
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    ham.classList.remove('open'); menu.classList.remove('open');
-  }));
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
 
+  // 3. Mobile Navigation Hamburger Menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinksMenu = document.getElementById('navLinks');
 
-  /* ════════════════════════════════════════════════
-     6.  HERO ENTRANCE
-  ════════════════════════════════════════════════ */
-  function revealHero(){
-    const tl = gsap.timeline({ defaults:{ ease:'power3.out' } });
+  if (hamburger && navLinksMenu) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinksMenu.classList.toggle('open');
+    });
 
-    tl.to('#heroChip',    { opacity:1, y:0, duration:.5 })
-      .to('#heroH1',      { opacity:1, duration:.01 },       '-=.2')
-      .to('.h1w',         { y:'0%', duration:.8, stagger:.06, ease:'expo.out' }, '-=.1')
-      .to('.hero-sub',    { opacity:1, duration:.5 },        '-=.3')
-      .to('#heroTagline', { opacity:1, y:0, duration:.5 },   '-=.2')
-      .to('#heroBtns',    { opacity:1, y:0, duration:.5 },   '-=.2')
-      .call(startTyping, null, '-=.1');
+    navLinksMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinksMenu.classList.remove('open');
+      });
+    });
   }
 
-
-  /* ════════════════════════════════════════════════
-     7.  TYPING ANIMATION
-  ════════════════════════════════════════════════ */
+  // 4. Hero Role Typing Telemetry
   const typedEl = document.getElementById('typedEl');
-  const roles   = ['AI Product Manager','Data Analyst','ML Engineer','Builder'];
-  let ri = 0, ci = 0, del = false;
+  if (typedEl) {
+    const roles = [
+      'AI Product Manager',
+      'Quantitative Data Analyst',
+      'Machine Learning Engineer',
+      'Data-Driven Builder'
+    ];
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
 
-  function startTyping(){ typeNext(); }
-  function typeNext(){
-    const word = roles[ri];
-    if(!del){
-      typedEl.textContent = word.slice(0, ++ci);
-      if(ci === word.length){ del = true; setTimeout(typeNext, 2000); return; }
-    } else {
-      typedEl.textContent = word.slice(0, --ci);
-      if(ci === 0){ del = false; ri = (ri+1)%roles.length; setTimeout(typeNext, 400); return; }
-    }
-    setTimeout(typeNext, del ? 30 : 60);
+    const typeStep = () => {
+      const currentRole = roles[roleIdx];
+      if (!isDeleting) {
+        typedEl.textContent = currentRole.slice(0, ++charIdx);
+        if (charIdx === currentRole.length) {
+          isDeleting = true;
+          setTimeout(typeStep, 2200);
+          return;
+        }
+      } else {
+        typedEl.textContent = currentRole.slice(0, --charIdx);
+        if (charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          setTimeout(typeStep, 350);
+          return;
+        }
+      }
+      setTimeout(typeStep, isDeleting ? 28 : 55);
+    };
+
+    setTimeout(typeStep, 400);
   }
 
+  // 5. Capability Matrix Category Filtering
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const capCards = document.querySelectorAll('.capability-card');
 
-  /* ════════════════════════════════════════════════
-     8.  WORD-BY-WORD REVEAL 
-  ════════════════════════════════════════════════ */
-  document.querySelectorAll('.reveal-words').forEach(el => {
-    const html = el.innerHTML;
-    el.innerHTML = html.replace(/(<em>[^<]*<\/em>|[^\s<]+)/g, match =>
-      `<span class="rw-word"><span class="rw-inner">${match}</span></span> `
-    );
+  if (filterBtns.length && capCards.length) {
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
 
-    const inners = el.querySelectorAll('.rw-inner');
-    gsap.fromTo(inners,
-      { y:'105%' },
-      { y:'0%', duration:0.6, stagger:.03, ease:'expo.out',
-        scrollTrigger:{ trigger:el, start:'top 90%', toggleActions:'play none none none' }
-      }
-    );
-  });
-
-
-  /* ════════════════════════════════════════════════
-     9.  GENERIC REVEAL-UP
-  ════════════════════════════════════════════════ */
-  document.querySelectorAll('.reveal-up').forEach(el => {
-    const d = parseFloat(el.dataset.delay || 0);
-    gsap.fromTo(el,
-      { opacity:0, y:30 },
-      { opacity:1, y:0, duration:.6, delay:d, ease:'power3.out',
-        scrollTrigger:{ trigger:el, start:'top 90%', toggleActions:'play none none none' }
-      }
-    );
-  });
-
-  /* ════════════════════════════════════════════════
-     10.5 CERTIFICATE STAGGER REVEAL (INTERSECTION OBSERVER)
-  ════════════════════════════════════════════════ */
-  const certRevealCards = document.querySelectorAll('.cert-card.cert-reveal');
-  if(certRevealCards.length){
-    const supportsIO = 'IntersectionObserver' in window;
-
-    if(supportsIO){
-      const certObserver = new IntersectionObserver((entries, obs) => {
-        entries.forEach((entry) => {
-          if(!entry.isIntersecting) return;
-          const card = entry.target;
-          const index = [...certRevealCards].indexOf(card);
-          setTimeout(() => card.classList.add('in'), Math.max(0, index) * 85);
-          obs.unobserve(card);
-        });
-      }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
-
-      certRevealCards.forEach((card) => certObserver.observe(card));
-    } else {
-      certRevealCards.forEach((card) => card.classList.add('in'));
-    }
-  }
-
-
-  /* ════════════════════════════════════════════════
-     10. SKILL METER FILL (FIXED)
-     Natively powered by GSAP to avoid CSS transition conflicts
-  ════════════════════════════════════════════════ */
-  document.querySelectorAll('.bc-meter').forEach(m => {
-    const fill = m.querySelector('.bc-fill');
-    const pct  = m.getAttribute('data-pct');
-
-    // Reset initially
-    gsap.set(fill, { width: '0%' });
-
-    ScrollTrigger.create({
-      trigger: m,
-      start: 'top 95%',
-      onEnter: () => {
-        gsap.to(fill, {
-          width: pct + '%',
-          duration: 1.2,
-          ease: 'power3.out'
-        });
-      }
-    });
-  });
-
-
-  /* ════════════════════════════════════════════════
-     11. COUNTER ANIMATION
-  ════════════════════════════════════════════════ */
-  document.querySelectorAll('.cnt').forEach(el => {
-    const target  = parseFloat(el.dataset.target);
-    const isFloat = String(target).includes('.');
-    ScrollTrigger.create({
-      trigger: el, start:'top 90%',
-      onEnter: () => {
-        gsap.fromTo(el,
-          { innerText: 0 },
-          { innerText: target, duration:1.8, ease:'power2.out',
-            snap:{ innerText: isFloat ? .1 : 1 },
-            onUpdate(){ el.innerText = isFloat ? parseFloat(el.innerText).toFixed(1) : Math.round(el.innerText); }
+        const filter = btn.getAttribute('data-filter');
+        capCards.forEach((card) => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
           }
-        );
-      }
+        });
+      });
     });
-  });
+  }
 
-  /* ════════════════════════════════════════════════
-     12. CERTIFICATE PREVIEW MODAL
-  ════════════════════════════════════════════════ */
+  // 6. Number Counter Telemetry
+  const counters = document.querySelectorAll('.cnt');
+  if (counters.length && 'IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseFloat(el.getAttribute('data-target'));
+        const isFloat = String(target).includes('.');
+        const duration = 1600;
+        const startTime = performance.now();
+
+        const updateCount = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const currentVal = target * easeProgress;
+
+          el.textContent = isFloat ? currentVal.toFixed(2) : Math.floor(currentVal);
+
+          if (progress < 1) {
+            requestAnimationFrame(updateCount);
+          } else {
+            el.textContent = isFloat ? target.toFixed(2) : target;
+          }
+        };
+
+        requestAnimationFrame(updateCount);
+        obs.unobserve(el);
+      });
+    }, { threshold: 0.3 });
+
+    counters.forEach((c) => counterObserver.observe(c));
+  }
+
+  // 7. Certificate Preview Modal
   const certModal = document.getElementById('certModal');
   const certBackdrop = document.getElementById('certModalBackdrop');
   const certCloseBtn = document.getElementById('certModalClose');
@@ -302,6 +172,7 @@ const init = () => {
   const certModalLoading = document.getElementById('certModalLoading');
   const certFrame = document.getElementById('certPreviewFrame');
   const certCards = document.querySelectorAll('.cert-card[data-cert-key]');
+
   const defaultPreviewUrl = 'https://drive.google.com/file/d/18LAPknODLqJ-3NgODIN2An59Fa8U-0fa/preview?rm=minimal';
   const certPreviewMap = {
     'google-analytics': 'https://drive.google.com/file/d/18LAPknODLqJ-3NgODlN2An59Fa8U-0fa/preview?rm=minimal',
@@ -314,36 +185,30 @@ const init = () => {
     'ml-foundations': 'https://drive.google.com/file/d/1UFVPXLkI9Imz6ch0B7QjwRw8w3wNEjun/preview?rm=minimal',
   };
 
-  const normalizeDrivePreviewUrl = (url) => {
-    if(!url) return defaultPreviewUrl;
+  const normalizeDriveUrl = (url) => {
+    if (!url) return defaultPreviewUrl;
     const m = url.match(/drive\.google\.com\/file\/d\/([^/?]+)/i);
-    if(m && m[1]) return `https://drive.google.com/file/d/${m[1]}/preview?rm=minimal`;
-    if(/\/view(\?.*)?$/i.test(url)) return url.replace(/\/view(\?.*)?$/i, '/preview?rm=minimal');
-    if(/\/preview(\?.*)?$/i.test(url)){
-      return url.includes('rm=minimal')
-        ? url
-        : `${url}${url.includes('?') ? '&' : '?'}rm=minimal`;
-    }
-    return `${url.replace(/\/+$/, '')}/preview?rm=minimal`;
+    if (m && m[1]) return `https://drive.google.com/file/d/${m[1]}/preview?rm=minimal`;
+    return url;
   };
 
   const openCertModal = (url) => {
-    if(!certModal || !certFrame) return;
-    if(certModalContent) certModalContent.classList.add('loading');
-    if(certModalLoading) certModalLoading.setAttribute('aria-hidden', 'false');
-    certFrame.src = normalizeDrivePreviewUrl(url);
+    if (!certModal || !certFrame) return;
+    if (certModalContent) certModalContent.classList.add('loading');
+    if (certModalLoading) certModalLoading.setAttribute('aria-hidden', 'false');
+    certFrame.src = normalizeDriveUrl(url);
     certModal.classList.add('open');
     certModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   };
 
   const closeCertModal = () => {
-    if(!certModal || !certFrame) return;
+    if (!certModal || !certFrame) return;
     certModal.classList.remove('open');
     certModal.setAttribute('aria-hidden', 'true');
     certFrame.src = '';
-    if(certModalContent) certModalContent.classList.remove('loading');
-    if(certModalLoading) certModalLoading.setAttribute('aria-hidden', 'true');
+    if (certModalContent) certModalContent.classList.remove('loading');
+    if (certModalLoading) certModalLoading.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   };
 
@@ -353,67 +218,54 @@ const init = () => {
       openCertModal(certPreviewMap[key] || defaultPreviewUrl);
     });
   });
-  if(certFrame){
+
+  if (certFrame) {
     certFrame.addEventListener('load', () => {
-      if(certModalContent) certModalContent.classList.remove('loading');
-      if(certModalLoading) certModalLoading.setAttribute('aria-hidden', 'true');
+      if (certModalContent) certModalContent.classList.remove('loading');
+      if (certModalLoading) certModalLoading.setAttribute('aria-hidden', 'true');
     });
   }
 
-  if(certCloseBtn) certCloseBtn.addEventListener('click', closeCertModal);
-  if(certBackdrop) certBackdrop.addEventListener('click', closeCertModal);
+  if (certCloseBtn) certCloseBtn.addEventListener('click', closeCertModal);
+  if (certBackdrop) certBackdrop.addEventListener('click', closeCertModal);
   document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape' && certModal && certModal.classList.contains('open')) {
+    if (e.key === 'Escape' && certModal && certModal.classList.contains('open')) {
       closeCertModal();
     }
   });
 
-  /* ════════════════════════════════════════════════
-     13. READING PROGRESS BAR
-  ════════════════════════════════════════════════ */
-    /* ════════════════════════════════════════════════
-      MARQUEE: ensure seamless infinite loop by duplicating items
-      We duplicate the track's content once (so there are two sets)
-      and let the CSS translateX(-50%) animate across one set.
-    ════════════════════════════════════════════════ */
-    (function setupSeamlessMarquee(){
-     const track = document.getElementById('marqueeTrack');
-     if(!track) return;
-     // Avoid double-cloning on hot-reload / repeated runs
-     if(track.dataset.cloned === 'true') return;
-     const content = track.innerHTML;
-     // Duplicate the content so animation can translate exactly -50%
-     track.innerHTML = content + content;
-     track.dataset.cloned = 'true';
-    })();
+  // 8. Seamless Marquee Content Duplication
+  const marqueeTrack = document.getElementById('marqueeTrack');
+  if (marqueeTrack && marqueeTrack.dataset.cloned !== 'true') {
+    marqueeTrack.innerHTML += marqueeTrack.innerHTML;
+    marqueeTrack.dataset.cloned = 'true';
+  }
 
+  // 9. Precision Reading Progress Bar
   const progressBar = document.createElement('div');
   Object.assign(progressBar.style, {
-    position:'fixed',top:'0',left:'0',height:'3px',width:'0%',
-    background:'linear-gradient(90deg, #0066ff, #8a2be2)',
-    zIndex:'9999',transition:'width .1s linear',
-    pointerEvents:'none',
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    height: '2.5px',
+    width: '0%',
+    background: 'linear-gradient(90deg, #3b82f6, #06b6d4)',
+    zIndex: '9999',
+    transition: 'width 0.1s linear',
+    pointerEvents: 'none'
   });
   document.body.appendChild(progressBar);
+
   window.addEventListener('scroll', () => {
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    progressBar.style.width = (window.scrollY / h * 100) + '%';
-  }, { passive:true });
-
-
-  /* ════════════════════════════════════════════════
-     14. HERO SCROLL PARALLAX
-  ════════════════════════════════════════════════ */
-  gsap.to('.hero-inner', {
-    scale:.96, opacity:0, y: -50, ease:'none',
-    scrollTrigger:{
-      trigger:'.hero', start:'top top', end:'70% top', scrub:true
+    const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+    if (scrollTotal > 0) {
+      progressBar.style.width = (window.scrollY / scrollTotal * 100) + '%';
     }
-  });
+  }, { passive: true });
 };
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', initPortfolio);
 } else {
-  init();
+  initPortfolio();
 }
