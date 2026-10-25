@@ -1,7 +1,8 @@
 /**
- * KOVID ANAND PORTFOLIO 2.0
- * three-hero.js - Interactive 3D Spatial Data & Neural Polyhedron
- * Built with Three.js r128 - Performant, responsive, battery-friendly.
+ * KOVID ANAND · PORTFOLIO V2 (LIGHT THEME)
+ * three-hero.js - Tactile, Sculptural 3D Art Piece for Light Environment
+ * Featuring realistic materials: Frosted Optical Glass, Satin Metallic Rings,
+ * Pearlescent Core, Studio Lighting & Contact Shadows.
  */
 
 (() => {
@@ -10,10 +11,8 @@
   const container = document.getElementById('heroThreeContainer');
   if (!container) return;
 
-  // Reduced motion preference check
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // WebGL Availability Check
   const hasWebGL = () => {
     try {
       const canvas = document.createElement('canvas');
@@ -28,10 +27,11 @@
     return;
   }
 
-  // Scene, Camera, Renderer
+  // Scene setup
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-  camera.position.z = 7.5;
+
+  const camera = new THREE.PerspectiveCamera(42, container.clientWidth / container.clientHeight, 0.1, 100);
+  camera.position.set(0, 0.4, 7.2);
 
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
@@ -41,130 +41,163 @@
   renderer.setSize(container.clientWidth, container.clientHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
+  renderer.toneMappingExposure = 1.15;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
 
-  // Group to hold all 3D components
-  const masterGroup = new THREE.Group();
-  scene.add(masterGroup);
+  // Master group for floating sculpture
+  const sculptureGroup = new THREE.Group();
+  scene.add(sculptureGroup);
 
-  // 1. Core Geometric Polyhedron (Icosahedron with wireframe and vertices)
-  const coreGeometry = new THREE.IcosahedronGeometry(1.8, 1);
+  // ── MATERIALS (Designed specifically for clean light environment) ──
   
-  // Wireframe
-  const wireMaterial = new THREE.MeshBasicMaterial({
-    color: 0x3b82f6,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.38
+  // 1. Satin Cobalt Core Ring & Accents
+  const cobaltMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0x2563eb,
+    metalness: 0.65,
+    roughness: 0.22,
+    clearcoat: 0.4,
+    clearcoatRoughness: 0.15,
+    reflectivity: 0.9
   });
-  const wireMesh = new THREE.Mesh(coreGeometry, wireMaterial);
-  masterGroup.add(wireMesh);
 
-  // Glowing Vertices
-  const vertexPointsGeo = new THREE.BufferGeometry();
-  const corePos = coreGeometry.attributes.position.array;
-  vertexPointsGeo.setAttribute('position', new THREE.BufferAttribute(corePos, 3));
-  
-  const vertexMaterial = new THREE.PointsMaterial({
-    color: 0x60a5fa,
-    size: 0.09,
-    transparent: true,
-    opacity: 0.85
+  // 2. Pearlescent Ceramic / Polished Ivory
+  const ceramicMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xfdfdfd,
+    roughness: 0.18,
+    metalness: 0.1,
+    clearcoat: 0.8,
+    clearcoatRoughness: 0.1
   });
-  const vertexPoints = new THREE.Points(vertexPointsGeo, vertexMaterial);
-  masterGroup.add(vertexPoints);
 
-  // 2. Inner Crystalline Polyhedron (Faceted, deep glass)
-  const innerGeometry = new THREE.IcosahedronGeometry(1.1, 0);
-  const innerMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0x0f172a,
-    emissive: 0x1d4ed8,
-    emissiveIntensity: 0.45,
-    roughness: 0.2,
-    metalness: 0.8,
+  // 3. Frosted Optical Glass (Translucent with light refraction)
+  const glassMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 0.05,
+    roughness: 0.12,
+    transmission: 0.78,
+    thickness: 1.2,
+    ior: 1.52,
     transparent: true,
-    opacity: 0.75,
-    flatShading: true
+    opacity: 0.88
   });
-  const innerMesh = new THREE.Mesh(innerGeometry, innerMaterial);
-  masterGroup.add(innerMesh);
 
-  // 3. Nested Orbital Technical Rings
-  const createOrbitalRing = (radius, tube, color, rotX, rotY) => {
-    const ringGeo = new THREE.TorusGeometry(radius, tube, 16, 100);
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: color,
-      transparent: true,
-      opacity: 0.45,
-      wireframe: true
-    });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    ringMesh.rotation.x = rotX;
-    ringMesh.rotation.y = rotY;
-    return ringMesh;
-  };
+  // 4. Fine Brushed Silver/Titanium
+  const titaniumMaterial = new THREE.MeshStandardMaterial({
+    color: 0xd4d4d8,
+    metalness: 0.85,
+    roughness: 0.28
+  });
 
-  const ring1 = createOrbitalRing(2.6, 0.012, 0x38bdf8, Math.PI / 3, 0);
-  const ring2 = createOrbitalRing(3.1, 0.010, 0x818cf8, -Math.PI / 4, Math.PI / 6);
-  const ring3 = createOrbitalRing(3.5, 0.008, 0x06b6d4, Math.PI / 6, -Math.PI / 3);
+  // ── 3D SCULPTURAL COMPONENTS ──
 
-  masterGroup.add(ring1);
-  masterGroup.add(ring2);
-  masterGroup.add(ring3);
+  // Component A: Central Multi-Faceted Crystal Core
+  const coreGeo = new THREE.IcosahedronGeometry(1.35, 0);
+  const coreMesh = new THREE.Mesh(coreGeo, glassMaterial);
+  coreMesh.castShadow = true;
+  sculptureGroup.add(coreMesh);
 
-  // 4. Dimensional Data Dust Particles
-  const particleCount = 240;
-  const particleGeo = new THREE.BufferGeometry();
-  const particlePositions = new Float32Array(particleCount * 3);
-  const particleScales = new Float32Array(particleCount);
+  // Component B: Inner Geometric Jewel (floating inside the glass)
+  const innerJewelGeo = new THREE.OctahedronGeometry(0.72, 0);
+  const innerJewelMesh = new THREE.Mesh(innerJewelGeo, cobaltMaterial);
+  sculptureGroup.add(innerJewelMesh);
 
-  for (let i = 0; i < particleCount; i++) {
-    const r = 2.4 + Math.random() * 3.2;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos((Math.random() * 2) - 1);
+  // Component C: Nested Orbital Torus Rings
+  // Primary cobalt orbital ring
+  const primaryRingGeo = new THREE.TorusGeometry(2.1, 0.055, 32, 128);
+  const primaryRingMesh = new THREE.Mesh(primaryRingGeo, cobaltMaterial);
+  primaryRingMesh.rotation.x = Math.PI / 3.2;
+  primaryRingMesh.rotation.y = Math.PI / 7;
+  sculptureGroup.add(primaryRingMesh);
 
-    particlePositions[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
-    particlePositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-    particlePositions[i * 3 + 2] = r * Math.cos(phi);
-    particleScales[i] = Math.random() * 0.06 + 0.02;
+  // Secondary ivory floating ring
+  const secondaryRingGeo = new THREE.TorusGeometry(2.45, 0.045, 32, 128);
+  const secondaryRingMesh = new THREE.Mesh(secondaryRingGeo, ceramicMaterial);
+  secondaryRingMesh.rotation.x = -Math.PI / 4;
+  secondaryRingMesh.rotation.y = -Math.PI / 5;
+  sculptureGroup.add(secondaryRingMesh);
+
+  // Tertiary delicate titanium ring
+  const tertiaryRingGeo = new THREE.TorusGeometry(2.78, 0.03, 32, 128);
+  const tertiaryRingMesh = new THREE.Mesh(tertiaryRingGeo, titaniumMaterial);
+  tertiaryRingMesh.rotation.x = Math.PI / 2.2;
+  tertiaryRingMesh.rotation.z = Math.PI / 4;
+  sculptureGroup.add(tertiaryRingMesh);
+
+  // Component D: Interconnected Floating Node Spheres
+  const nodeCount = 8;
+  const nodesGroup = new THREE.Group();
+  sculptureGroup.add(nodesGroup);
+
+  const nodeGeo = new THREE.SphereGeometry(0.11, 24, 24);
+  const satelliteMeshes = [];
+
+  for (let i = 0; i < nodeCount; i++) {
+    const angle = (i / nodeCount) * Math.PI * 2;
+    const rad = 2.1;
+    const mesh = new THREE.Mesh(nodeGeo, i % 2 === 0 ? cobaltMaterial : ceramicMaterial);
+    mesh.position.set(
+      Math.cos(angle) * rad,
+      Math.sin(angle) * 0.35,
+      Math.sin(angle) * rad
+    );
+    nodesGroup.add(mesh);
+    satelliteMeshes.push(mesh);
   }
 
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-  const particleMat = new THREE.PointsMaterial({
-    color: 0x93c5fd,
-    size: 0.045,
-    transparent: true,
-    opacity: 0.65
-  });
-  const particleSystem = new THREE.Points(particleGeo, particleMat);
-  masterGroup.add(particleSystem);
+  // Component E: Soft Ground Contact Shadow (simulates depth in light studio)
+  const shadowCanvas = document.createElement('canvas');
+  shadowCanvas.width = 256;
+  shadowCanvas.height = 256;
+  const ctx = shadowCanvas.getContext('2d');
+  const gradient = ctx.createRadialGradient(128, 128, 10, 128, 128, 120);
+  gradient.addColorStop(0, 'rgba(30, 41, 59, 0.16)');
+  gradient.addColorStop(0.4, 'rgba(30, 41, 59, 0.06)');
+  gradient.addColorStop(1, 'rgba(30, 41, 59, 0)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 256, 256);
 
-  // Lights
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+  const shadowTexture = new THREE.CanvasTexture(shadowCanvas);
+  const shadowGeo = new THREE.PlaneGeometry(6.5, 6.5);
+  const shadowMat = new THREE.MeshBasicMaterial({
+    map: shadowTexture,
+    transparent: true,
+    depthWrite: false
+  });
+  const shadowPlane = new THREE.Mesh(shadowGeo, shadowMat);
+  shadowPlane.rotation.x = -Math.PI / 2;
+  shadowPlane.position.y = -2.45;
+  scene.add(shadowPlane);
+
+  // ── STUDIO LIGHTING FOR LIGHT THEME ──
+  // Ambient diffuse light
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.25);
   scene.add(ambientLight);
 
-  const keyLight = new THREE.PointLight(0x3b82f6, 2.5, 30);
-  keyLight.position.set(5, 5, 5);
+  // Warm key light from top-left
+  const keyLight = new THREE.DirectionalLight(0xfffbf0, 2.2);
+  keyLight.position.set(6, 8, 7);
   scene.add(keyLight);
 
-  const fillLight = new THREE.PointLight(0x06b6d4, 1.8, 30);
-  fillLight.position.set(-5, -4, 4);
+  // Soft cool fill light from right
+  const fillLight = new THREE.DirectionalLight(0xe0f2fe, 1.4);
+  fillLight.position.set(-6, -2, 5);
   scene.add(fillLight);
 
-  const topRimLight = new THREE.PointLight(0x818cf8, 1.5, 20);
-  topRimLight.position.set(0, 6, -4);
-  scene.add(topRimLight);
+  // Backlight for glass refraction rim
+  const rimLight = new THREE.PointLight(0x38bdf8, 2.0, 15);
+  rimLight.position.set(0, 4, -4);
+  scene.add(rimLight);
 
-  // Pointer & Drag Interaction State
+  // ── INTERACTIVITY & POINTER CONTROLS ──
   let mouseX = 0;
   let mouseY = 0;
   let targetRotationX = 0;
   let targetRotationY = 0;
   let isDragging = false;
-  let previousPointerX = 0;
-  let previousPointerY = 0;
-  let isHovered = false;
+  let prevPointerX = 0;
+  let prevPointerY = 0;
 
   const onPointerMove = (e) => {
     const rect = container.getBoundingClientRect();
@@ -175,19 +208,19 @@
     mouseY = y;
 
     if (isDragging) {
-      const deltaX = e.clientX - previousPointerX;
-      const deltaY = e.clientY - previousPointerY;
+      const deltaX = e.clientX - prevPointerX;
+      const deltaY = e.clientY - prevPointerY;
       targetRotationY += deltaX * 0.007;
       targetRotationX += deltaY * 0.007;
-      previousPointerX = e.clientX;
-      previousPointerY = e.clientY;
+      prevPointerX = e.clientX;
+      prevPointerY = e.clientY;
     }
   };
 
   const onPointerDown = (e) => {
     isDragging = true;
-    previousPointerX = e.clientX;
-    previousPointerY = e.clientY;
+    prevPointerX = e.clientX;
+    prevPointerY = e.clientY;
     container.style.cursor = 'grabbing';
   };
 
@@ -199,34 +232,30 @@
   container.addEventListener('pointermove', onPointerMove, { passive: true });
   container.addEventListener('pointerdown', onPointerDown);
   window.addEventListener('pointerup', onPointerUp);
-  container.addEventListener('pointerenter', () => { isHovered = true; });
-  container.addEventListener('pointerleave', () => { isHovered = false; });
 
-  // Touch handlers for mobile
+  // Touch support for mobile
   container.addEventListener('touchstart', (e) => {
     if (e.touches.length === 1) {
       isDragging = true;
-      previousPointerX = e.touches[0].clientX;
-      previousPointerY = e.touches[0].clientY;
+      prevPointerX = e.touches[0].clientX;
+      prevPointerY = e.touches[0].clientY;
     }
   }, { passive: true });
 
   container.addEventListener('touchmove', (e) => {
     if (isDragging && e.touches.length === 1) {
-      const deltaX = e.touches[0].clientX - previousPointerX;
-      const deltaY = e.touches[0].clientY - previousPointerY;
+      const deltaX = e.touches[0].clientX - prevPointerX;
+      const deltaY = e.touches[0].clientY - prevPointerY;
       targetRotationY += deltaX * 0.006;
       targetRotationX += deltaY * 0.006;
-      previousPointerX = e.touches[0].clientX;
-      previousPointerY = e.touches[0].clientY;
+      prevPointerX = e.touches[0].clientX;
+      prevPointerY = e.touches[0].clientY;
     }
   }, { passive: true });
 
-  container.addEventListener('touchend', () => {
-    isDragging = false;
-  }, { passive: true });
+  container.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
 
-  // Resize handler
+  // Responsive resize
   const onResize = () => {
     if (!container) return;
     const width = container.clientWidth;
@@ -237,7 +266,7 @@
   };
   window.addEventListener('resize', onResize, { passive: true });
 
-  // Liveness & Visibility optimization: stop render loop when scrolled offscreen
+  // Visibility optimization (pause when scrolled offscreen)
   let isVisible = true;
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
@@ -257,40 +286,36 @@
     if (!isVisible) return;
 
     const delta = clock.getDelta();
-    const speedMultiplier = prefersReducedMotion ? 0.2 : 1.0;
+    const speed = prefersReducedMotion ? 0.2 : 1.0;
 
-    // Default continuous ambient rotation
+    // Ambient floating oscillation
+    const time = clock.getElapsedTime() * speed;
+    sculptureGroup.position.y = Math.sin(time * 0.8) * 0.08;
+    shadowPlane.scale.setScalar(1 + Math.sin(time * 0.8) * 0.04);
+
     if (!isDragging) {
-      masterGroup.rotation.y += 0.0035 * speedMultiplier;
-      masterGroup.rotation.x += 0.0018 * speedMultiplier;
-      
-      // Gentle cursor parallax influence
-      targetRotationY += (mouseX * 0.35 - targetRotationY) * 0.035;
+      // Gentle continuous rotation
+      sculptureGroup.rotation.y += 0.004 * speed;
+      sculptureGroup.rotation.x += 0.0015 * speed;
+
+      // Pointer parallax lerp
+      targetRotationY += (mouseX * 0.38 - targetRotationY) * 0.035;
       targetRotationX += (-mouseY * 0.35 - targetRotationX) * 0.035;
     }
 
-    // Smooth inertia interpolation
-    masterGroup.rotation.y += (targetRotationY - masterGroup.rotation.y) * 0.08;
-    masterGroup.rotation.x += (targetRotationX - masterGroup.rotation.x) * 0.08;
+    sculptureGroup.rotation.y += (targetRotationY - sculptureGroup.rotation.y) * 0.07;
+    sculptureGroup.rotation.x += (targetRotationX - sculptureGroup.rotation.x) * 0.07;
 
-    // Independent nested rotations for dynamic dimensionality
-    ring1.rotation.z += 0.006 * speedMultiplier;
-    ring2.rotation.y += 0.008 * speedMultiplier;
-    ring3.rotation.x -= 0.005 * speedMultiplier;
+    // Nested relative rotations
+    primaryRingMesh.rotation.z += 0.006 * speed;
+    secondaryRingMesh.rotation.x -= 0.005 * speed;
+    tertiaryRingMesh.rotation.y += 0.004 * speed;
 
-    innerMesh.rotation.y -= 0.004 * speedMultiplier;
-    innerMesh.rotation.z += 0.002 * speedMultiplier;
+    coreMesh.rotation.y += 0.002 * speed;
+    innerJewelMesh.rotation.y -= 0.008 * speed;
+    innerJewelMesh.rotation.x += 0.004 * speed;
 
-    particleSystem.rotation.y -= 0.0015 * speedMultiplier;
-
-    // Dynamic light hover modulation
-    if (isHovered) {
-      keyLight.intensity = THREE.MathUtils.lerp(keyLight.intensity, 3.2, 0.05);
-      fillLight.intensity = THREE.MathUtils.lerp(fillLight.intensity, 2.4, 0.05);
-    } else {
-      keyLight.intensity = THREE.MathUtils.lerp(keyLight.intensity, 2.2, 0.05);
-      fillLight.intensity = THREE.MathUtils.lerp(fillLight.intensity, 1.6, 0.05);
-    }
+    nodesGroup.rotation.y += 0.003 * speed;
 
     renderer.render(scene, camera);
   };

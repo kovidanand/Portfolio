@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kovid Anand · AI Product &amp; Data Engineering Portfolio</title>
+  <title>Kovid Anand · AI Product &amp; Data Science Portfolio</title>
   <meta name="description" content="Kovid Anand · Data Science undergraduate at SRM IST (9.80 CGPA). Quantitative analytics, machine learning pipelines, and AI Product Management."/>
   <meta name="author" content="Kovid Anand"/>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
@@ -11,25 +11,19 @@
   <!-- Google Fonts: Outfit, Inter, DM Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet"/>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=3.0"/>
+  <link rel="stylesheet" href="style.css?v=4.0"/>
 </head>
 <body>
 
-  <!-- Ambient Grid Background -->
-  <div class="bg-grid" aria-hidden="true"></div>
-
-  <!-- Page Loader -->
+  <!-- Minimal Loader -->
   <div class="loader" id="loader" aria-hidden="true">
-    <div class="loader-brand">
-      <span>KOVID ANAND</span>
-    </div>
-    <div class="loader-mono">[SYS.INIT // PORTFOLIO 2.0]</div>
+    <div class="loader-brand">KOVID ANAND</div>
     <div class="loader-bar-wrap">
       <div class="loader-bar-fill" id="loaderBar"></div>
     </div>
@@ -39,22 +33,16 @@
   <header class="navbar" id="navbar">
     <div class="container nav-inner">
       <a href="#hero" class="nav-brand" aria-label="Kovid Anand Homepage">
-        <div class="nav-monogram">KA</div>
-        <div>
-          <span class="nav-brand-text">KOVID ANAND</span>
-        </div>
-        <span class="nav-status">
-          <span class="nav-status-dot"></span>
-          <span>AVAILABLE 2026</span>
-        </span>
+        <div class="nav-logo-mark">KA</div>
+        <span class="nav-brand-title">Kovid Anand</span>
       </a>
 
       <nav aria-label="Main Navigation">
         <ul class="nav-links" id="navLinks">
-          <li><a href="#about" class="nav-link" data-s="about">Overview</a></li>
-          <li><a href="#skills" class="nav-link" data-s="skills">Capability</a></li>
-          <li><a href="#projects" class="nav-link" data-s="projects">Case Studies</a></li>
-          <li><a href="#experience" class="nav-link" data-s="experience">Journey</a></li>
+          <li><a href="#about" class="nav-link" data-s="about">About</a></li>
+          <li><a href="#skills" class="nav-link" data-s="skills">Capabilities</a></li>
+          <li><a href="#projects" class="nav-link" data-s="projects">Projects</a></li>
+          <li><a href="#experience" class="nav-link" data-s="experience">Experience</a></li>
           <li><a href="#achievements" class="nav-link" data-s="achievements">Research</a></li>
           <li><a href="#certifications" class="nav-link" data-s="certifications">Credentials</a></li>
           <li><a href="#contact" class="nav-link" data-s="contact">Contact</a></li>
@@ -62,13 +50,12 @@
       </nav>
 
       <div class="nav-actions">
-        <button type="button" class="btn btn-secondary btn-sm" id="resumeOpen" aria-label="Review Kovid's Resume">
+        <button type="button" class="btn btn-secondary btn-sm" id="resumeOpen" aria-label="Review Resume">
           <i class="fa-solid fa-file-lines"></i>
           <span>Resume</span>
         </button>
         <a href="#contact" class="btn btn-primary btn-sm">
-          <span>Initiate Contact</span>
-          <i class="fa-solid fa-arrow-up-right"></i>
+          <span>Get in Touch</span>
         </a>
         <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
           <span></span>
@@ -80,79 +67,62 @@
 
   <main>
     <!-- ════════════════════════════════════════════════════════
-         HERO SECTION: 3D Spatial Polyhedron & Identity
+         HERO SECTION: 3D TACTILE SCULPTURE & POSITIONING
     ════════════════════════════════════════════════════════ -->
     <section class="hero" id="hero">
       <div class="container">
         <div class="hero-layout">
           
           <div class="hero-content">
-            <div class="hero-chip">
-              <span class="chip-dot"></span>
-              <span>SRM IST · 9.80 CGPA · AI PRODUCT &amp; DATA SCIENCE</span>
+            <div class="hero-pill">
+              <span class="pill-dot"></span>
+              <span>Available for 2026 Opportunities · AI Product &amp; Data</span>
             </div>
 
-            <h1 class="hero-title">
-              KOVID <span class="name-highlight">ANAND</span>
-            </h1>
+            <h1 class="hero-name">Kovid Anand</h1>
 
-            <div class="hero-role-line">
-              <span class="role-static">// TRANSITIONING TO</span>
-              <span class="role-dynamic" id="typedEl">AI Product Manager</span>
-              <span class="role-cursor">_</span>
-            </div>
+            <h2 class="hero-subtitle">
+              AI Product Manager &amp; Quantitative Data Analyst
+            </h2>
 
             <p class="hero-bio">
-              Data Science undergraduate at <strong>SRM University</strong> (9.80 CGPA · Department Rank Holder). Bridging <strong>quantitative analytics</strong>, <strong>machine learning architectures</strong>, and <strong>strategic product roadmaps</strong> to build intelligent, high-impact systems.
+              Data Science undergraduate at <strong>SRM Institute of Science and Technology</strong> (9.80 CGPA · Department Rank Holder). Bridging <strong>quantitative analytics</strong>, <strong>machine learning architectures</strong>, and <strong>strategic product roadmaps</strong> to build intelligent, scalable digital products.
             </p>
 
             <div class="hero-actions">
               <a href="#projects" class="btn btn-primary">
-                <span>Explore Case Studies</span>
+                <span>Explore Projects</span>
                 <i class="fa-solid fa-arrow-right"></i>
               </a>
               <button type="button" class="btn btn-secondary" onclick="document.getElementById('resumeOpen').click()">
                 <i class="fa-solid fa-file-pdf"></i>
-                <span>Review Resume</span>
+                <span>View Resume</span>
               </button>
-              <a href="#contact" class="btn btn-outline">
-                <span>Direct Dispatch</span>
-                <i class="fa-solid fa-paper-plane"></i>
+              <a href="#contact" class="btn btn-secondary">
+                <span>Contact Me</span>
               </a>
             </div>
 
-            <div class="hero-telemetry">
-              <div class="telemetry-item">
-                <div class="telemetry-val">
-                  <span class="cnt" data-target="9.80">0.00</span>
-                  <span class="telemetry-unit">/10</span>
-                </div>
-                <span class="telemetry-label">Cumulative GPA</span>
+            <div class="hero-stats-row">
+              <div class="hero-stat-block">
+                <div class="hero-stat-number"><span class="cnt" data-target="9.80">0.00</span><span>/10</span></div>
+                <span class="hero-stat-label">Cumulative GPA</span>
               </div>
-              <div class="telemetry-item">
-                <div class="telemetry-val">
-                  <span class="cnt" data-target="10">0</span>
-                  <span class="telemetry-unit">+</span>
-                </div>
-                <span class="telemetry-label">Production Repos</span>
+              <div class="hero-stat-block">
+                <div class="hero-stat-number"><span class="cnt" data-target="10">0</span><span>+</span></div>
+                <span class="hero-stat-label">Data Projects</span>
               </div>
-              <div class="telemetry-item">
-                <div class="telemetry-val">
-                  <span class="cnt" data-target="2">0</span>
-                  <span class="telemetry-unit">x</span>
-                </div>
-                <span class="telemetry-label">AI Publications</span>
+              <div class="hero-stat-block">
+                <div class="hero-stat-number"><span class="cnt" data-target="2">0</span><span>x</span></div>
+                <span class="hero-stat-label">AI Publications</span>
               </div>
             </div>
           </div>
 
-          <!-- Right Column: Interactive 3D Spatial Canvas -->
-          <div class="hero-3d-wrap" aria-label="Interactive 3D Data Polyhedron">
-            <div class="hud-tag hud-tl">[SYS.3D // THREE.JS]</div>
-            <div class="hud-tag hud-tr">DATA &amp; NEURAL POLYHEDRON</div>
-            <div class="hud-tag hud-bl">VERTICES: 12 · NODES: 240</div>
-            <div class="hud-tag hud-br">DRAG TO ORBIT ↺</div>
+          <!-- Right Column: Interactive 3D Tactile Sculpture -->
+          <div class="hero-3d-stage" aria-label="Interactive 3D Data Sculpture">
             <div class="hero-3d-canvas-container" id="heroThreeContainer"></div>
+            <div class="sculpture-caption">Interactive 3D · Drag to orbit</div>
           </div>
 
         </div>
@@ -160,84 +130,65 @@
     </section>
 
     <!-- ════════════════════════════════════════════════════════
-         CAPABILITY TICKER: Real Tooling & Frameworks
+         TECHNOLOGY STRIP
     ════════════════════════════════════════════════════════ -->
-    <div class="marquee-bar" aria-label="Technical Tooling and Competencies">
-      <div class="marquee-track" id="marqueeTrack">
-        <div class="marquee-item"><i class="fa-brands fa-python"></i><span>Python</span><span class="marquee-sep">//</span></div>
-        <div class="marquee-item"><i class="fa-solid fa-database"></i><span>PostgreSQL &amp; Advanced SQL</span><span class="marquee-sep">//</span></div>
-        <div class="marquee-item"><i class="fa-solid fa-brain"></i><span>Machine Learning &amp; Survival Analysis</span><span class="marquee-sep">//</span></div>
-        <div class="marquee-item"><i class="fa-solid fa-diagram-project"></i><span>AI Product Strategy &amp; PRDs</span><span class="marquee-sep">//</span></div>
-        <div class="marquee-item"><i class="fa-solid fa-chart-line"></i><span>Power BI &amp; Business Intelligence</span><span class="marquee-sep">//</span></div>
-        <div class="marquee-item"><i class="fa-solid fa-cubes"></i><span>Pandas, NumPy &amp; Scikit-Learn</span><span class="marquee-sep">//</span></div>
-        <div class="marquee-item"><i class="fa-solid fa-microchip"></i><span>ETL Pipelines &amp; Analytics Modeling</span><span class="marquee-sep">//</span></div>
-        <div class="marquee-item"><i class="fa-brands fa-aws"></i><span>AWS &amp; Databricks</span><span class="marquee-sep">//</span></div>
+    <div class="tech-strip" aria-label="Core Technical Tooling">
+      <div class="tech-track" id="marqueeTrack">
+        <div class="tech-item"><i class="fa-brands fa-python"></i><span>Python</span><span class="tech-bullet">•</span></div>
+        <div class="tech-item"><i class="fa-solid fa-database"></i><span>PostgreSQL &amp; Advanced SQL</span><span class="tech-bullet">•</span></div>
+        <div class="tech-item"><i class="fa-solid fa-brain"></i><span>Machine Learning</span><span class="tech-bullet">•</span></div>
+        <div class="tech-item"><i class="fa-solid fa-diagram-project"></i><span>AI Product Strategy &amp; PRDs</span><span class="tech-bullet">•</span></div>
+        <div class="tech-item"><i class="fa-solid fa-chart-line"></i><span>Power BI &amp; Business Intelligence</span><span class="tech-bullet">•</span></div>
+        <div class="tech-item"><i class="fa-solid fa-cubes"></i><span>Pandas, NumPy &amp; Scikit-Learn</span><span class="tech-bullet">•</span></div>
+        <div class="tech-item"><i class="fa-solid fa-microchip"></i><span>ETL Pipelines &amp; Analytics Modeling</span><span class="tech-bullet">•</span></div>
+        <div class="tech-item"><i class="fa-brands fa-aws"></i><span>AWS &amp; Databricks</span><span class="tech-bullet">•</span></div>
       </div>
     </div>
 
     <!-- ════════════════════════════════════════════════════════
-         SECTION 01: ABOUT & ACADEMIC FOUNDATION
+         SECTION: ABOUT & ACADEMIC FOUNDATION
     ════════════════════════════════════════════════════════ -->
-    <section class="section about" id="about">
+    <section class="section" id="about">
       <div class="container">
-        <div class="sec-meta">
-          <span class="sec-index">01</span>
-          <span class="sec-tagline">Profile &amp; Quantitative Acumen</span>
+        <div class="sec-header">
+          <span class="sec-kicker">Background</span>
+          <h2 class="sec-title">Bridging quantitative rigor with user-centered product vision.</h2>
+          <p class="sec-desc">A strong foundation in computer science and data analytics combined with real-world product thinking.</p>
         </div>
 
         <div class="about-grid">
-          <div>
-            <h2 class="about-statement">
-              Transforming complex data into <em>strategic product clarity</em> and scalable computational models.
-            </h2>
-            <div class="about-paragraphs">
-              <p>
-                I am a Data Science undergraduate at <strong>SRM Institute of Science and Technology</strong> with a sustained department-ranking academic record (<strong>9.80 CGPA</strong>). My core technical competencies center on quantitative data modeling, advanced SQL architectures, and predictive machine learning.
-              </p>
-              <p>
-                Having delivered data analytics and engineering outcomes in fintech (<strong>Bluestock Fintech</strong>), industrial manufacturing automation (<strong>NIAMT</strong>), and predictive research (<strong>Acmegrade</strong>), I am directing my technical depth toward <strong>AI Product Management</strong>—orchestrating AI infrastructure, telemetry, and business requirements to solve high-value problems.
-              </p>
-            </div>
-
-            <div class="about-tags">
-              <span class="about-tag">AI Product Strategy</span>
-              <span class="about-tag">Advanced SQL CTEs</span>
-              <span class="about-tag">PostgreSQL</span>
-              <span class="about-tag">Machine Learning</span>
-              <span class="about-tag">Pandas &amp; NumPy</span>
-              <span class="about-tag">Power BI</span>
-              <span class="about-tag">Business Analysis</span>
-              <span class="about-tag">ETL Engineering</span>
-              <span class="about-tag">Scikit-Learn</span>
-              <span class="about-tag">Databricks</span>
-            </div>
+          <div class="about-text-content">
+            <p>
+              I am a Bachelor of Computer Applications student specializing in Data Science at <strong>SRM Institute of Science and Technology</strong>, holding a department rank with a <strong>9.80 CGPA</strong>. My technical focus centers on quantitative modeling, advanced SQL architectures, and applied machine learning.
+            </p>
+            <p>
+              Through practical internships in fintech at <strong>Bluestock Fintech</strong>, industrial automation at <strong>NIAMT</strong>, and predictive data science at <strong>Acmegrade</strong>, I have developed a habit of connecting analytical results directly to strategic business outcomes.
+            </p>
+            <p>
+              My goal is to drive impact in <strong>AI Product Management</strong>—combining quantitative data acumen, system architecture thinking, and user empathy to build scalable, high-impact products.
+            </p>
           </div>
 
-          <!-- Academic & Rigor Overview Card -->
-          <div class="academic-card">
-            <div class="academic-header">
-              <span class="academic-kicker">Academic Foundation</span>
-              <span class="academic-badge">Department Rank Holder</span>
-            </div>
+          <div class="academic-panel">
             <div>
-              <h3 class="academic-inst">SRM Institute of Science &amp; Technology</h3>
+              <h3 class="academic-institution">SRM Institute of Science &amp; Technology</h3>
               <p class="academic-degree">Bachelor of Computer Applications · Data Science (2024 – 2027)</p>
             </div>
 
-            <div class="metrics-row">
-              <div class="metric-box">
-                <div class="metric-val">9.80 <span class="metric-sub">/ 10</span></div>
-                <span class="metric-lbl">Cumulative GPA</span>
+            <div class="academic-metrics">
+              <div>
+                <div class="academic-val">9.80 <span>/10</span></div>
+                <div class="academic-lbl">Cumulative GPA</div>
               </div>
-              <div class="metric-box">
-                <div class="metric-val">#1 <span class="metric-sub">Rank</span></div>
-                <span class="metric-lbl">Department Merit</span>
+              <div>
+                <div class="academic-val">#1 <span>Rank</span></div>
+                <div class="academic-lbl">Department Merit</div>
               </div>
             </div>
 
-            <div class="academic-coursework">
-              <strong>Core Curriculum:</strong>
-              Database Architecture, Advanced SQL, Statistical Modeling, Machine Learning, Data Structures &amp; Algorithms, Linear Algebra, and Predictive Business Analytics.
+            <div class="academic-highlights">
+              <strong>Core Coursework</strong>
+              Advanced Database Systems, SQL, Machine Learning, Applied Statistics, Data Structures, Predictive Analytics, and Product Strategy.
             </div>
           </div>
         </div>
@@ -245,127 +196,70 @@
     </section>
 
     <!-- ════════════════════════════════════════════════════════
-         SECTION 02: CAPABILITY MATRIX
+         SECTION: SKILLS & CAPABILITY MATRIX
     ════════════════════════════════════════════════════════ -->
-    <section class="section skills" id="skills">
+    <section class="section section-alt" id="skills">
       <div class="container">
-        <div class="sec-meta">
-          <span class="sec-index">02</span>
-          <span class="sec-tagline">Competency Index</span>
-        </div>
-        <h2 class="sec-hed">Technical <em>Capability Matrix</em></h2>
-        <p class="sec-sub">
-          Categorized technical skills spanning product strategy, analytical engineering, predictive modeling, and system tooling.
-        </p>
-
-        <!-- Category Filters -->
-        <div class="capabilities-filter">
-          <button type="button" class="filter-btn active" data-filter="all">All Disciplines</button>
-          <button type="button" class="filter-btn" data-filter="product">Product Thinking</button>
-          <button type="button" class="filter-btn" data-filter="data">Data &amp; SQL</button>
-          <button type="button" class="filter-btn" data-filter="ml">Machine Learning</button>
-          <button type="button" class="filter-btn" data-filter="tools">Tooling &amp; BI</button>
+        <div class="sec-header">
+          <span class="sec-kicker">Capabilities</span>
+          <h2 class="sec-title">Core Skills &amp; Technologies</h2>
+          <p class="sec-desc">A structured index of capabilities spanning product management, data engineering, machine learning, and business intelligence.</p>
         </div>
 
-        <div class="capabilities-grid">
-          <!-- Card 1: Product Thinking -->
-          <div class="capability-card" data-category="product">
-            <div class="cap-header">
-              <div class="cap-icon"><i class="fa-solid fa-lightbulb"></i></div>
-              <span class="cap-depth">Strategic</span>
-            </div>
-            <h3>Product Thinking &amp; Discovery</h3>
-            <p>Formulating rigorous PRDs, user empathy frameworks, metric trees, north star KPIs, market sizing, and agile product development.</p>
-            <div class="cap-chips">
-              <span class="cap-chip">PRD Writing</span>
-              <span class="cap-chip">KPI Modeling</span>
-              <span class="cap-chip">User Stories</span>
-              <span class="cap-chip">Market Analysis</span>
-              <span class="cap-chip">Agile / Scrum</span>
+        <div class="skills-grid">
+          <!-- Skill Group 1 -->
+          <div class="skill-group-card">
+            <div class="skill-icon-wrap"><i class="fa-solid fa-lightbulb"></i></div>
+            <h3>Product Thinking</h3>
+            <p>Formulating rigorous PRDs, user empathy frameworks, metric trees, north star KPIs, market sizing, and agile development.</p>
+            <div class="skill-tag-list">
+              <span class="skill-tag">PRD Writing</span>
+              <span class="skill-tag">KPI Tracking</span>
+              <span class="skill-tag">User Stories</span>
+              <span class="skill-tag">Market Analysis</span>
+              <span class="skill-tag">Agile / Scrum</span>
             </div>
           </div>
 
-          <!-- Card 2: Data Architecture & SQL -->
-          <div class="capability-card" data-category="data">
-            <div class="cap-header">
-              <div class="cap-icon ico-cyan"><i class="fa-solid fa-database"></i></div>
-              <span class="cap-depth">Advanced</span>
-            </div>
-            <h3>SQL Architecture &amp; Data Handling</h3>
-            <p>Constructing recursive CTEs, window analytical functions, schema normalization, index optimization, and high-performance business queries.</p>
-            <div class="cap-chips">
-              <span class="cap-chip">PostgreSQL</span>
-              <span class="cap-chip">Complex CTEs</span>
-              <span class="cap-chip">Window Functions</span>
-              <span class="cap-chip">Data Cleansing</span>
-              <span class="cap-chip">Relational Modeling</span>
+          <!-- Skill Group 2 -->
+          <div class="skill-group-card">
+            <div class="skill-icon-wrap"><i class="fa-solid fa-database"></i></div>
+            <h3>Data &amp; SQL Architecture</h3>
+            <p>Constructing recursive CTEs, window analytical functions, schema normalization, query optimization, and business logic.</p>
+            <div class="skill-tag-list">
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">Advanced CTEs</span>
+              <span class="skill-tag">Window Functions</span>
+              <span class="skill-tag">ETL Pipelines</span>
+              <span class="skill-tag">Data Cleaning</span>
             </div>
           </div>
 
-          <!-- Card 3: Machine Learning & AI -->
-          <div class="capability-card" data-category="ml">
-            <div class="cap-header">
-              <div class="cap-icon ico-purple"><i class="fa-solid fa-brain"></i></div>
-              <span class="cap-depth">Applied AI</span>
-            </div>
-            <h3>Machine Learning &amp; AI Modeling</h3>
-            <p>Implementing supervised/unsupervised algorithms, survival analysis, LSTM networks, XGBoost ensembles, and rigorous validation metrics.</p>
-            <div class="cap-chips">
-              <span class="cap-chip">Scikit-Learn</span>
-              <span class="cap-chip">LSTM / RNN</span>
-              <span class="cap-chip">XGBoost</span>
-              <span class="cap-chip">Feature Engineering</span>
-              <span class="cap-chip">Model Validation</span>
+          <!-- Skill Group 3 -->
+          <div class="skill-group-card">
+            <div class="skill-icon-wrap"><i class="fa-solid fa-brain"></i></div>
+            <h3>Machine Learning &amp; AI</h3>
+            <p>Implementing supervised/unsupervised algorithms, survival analysis, LSTM networks, XGBoost ensembles, and validation metrics.</p>
+            <div class="skill-tag-list">
+              <span class="skill-tag">Scikit-Learn</span>
+              <span class="skill-tag">Predictive Modeling</span>
+              <span class="skill-tag">XGBoost</span>
+              <span class="skill-tag">Feature Engineering</span>
+              <span class="skill-tag">Model Validation</span>
             </div>
           </div>
 
-          <!-- Card 4: Quantitative Analytics & BI -->
-          <div class="capability-card" data-category="data">
-            <div class="cap-header">
-              <div class="cap-icon ico-emerald"><i class="fa-solid fa-chart-line"></i></div>
-              <span class="cap-depth">Quantitative</span>
-            </div>
-            <h3>Data Analytics &amp; Visual Intelligence</h3>
-            <p>Exploratory data analysis across high-volume datasets, statistical correlation, cohort analysis, and executive dashboarding.</p>
-            <div class="cap-chips">
-              <span class="cap-chip">Pandas</span>
-              <span class="cap-chip">NumPy</span>
-              <span class="cap-chip">Power BI</span>
-              <span class="cap-chip">EDA Pipelines</span>
-              <span class="cap-chip">Cohort Analytics</span>
-            </div>
-          </div>
-
-          <!-- Card 5: Engineering & Automation -->
-          <div class="capability-card" data-category="tools">
-            <div class="cap-header">
-              <div class="cap-icon ico-amber"><i class="fa-solid fa-code"></i></div>
-              <span class="cap-depth">Infrastructure</span>
-            </div>
-            <h3>Tooling, Cloud &amp; Automation</h3>
-            <p>Orchestrating modern development workflows, version-controlled analytics scripts, Databricks SQL workspaces, and automation pipelines.</p>
-            <div class="cap-chips">
-              <span class="cap-chip">Python</span>
-              <span class="cap-chip">Databricks</span>
-              <span class="cap-chip">JupyterLab</span>
-              <span class="cap-chip">Git / GitHub</span>
-              <span class="cap-chip">Excel Modeling</span>
-            </div>
-          </div>
-
-          <!-- Card 6: Cross-Functional Leadership -->
-          <div class="capability-card" data-category="product">
-            <div class="cap-header">
-              <div class="cap-icon"><i class="fa-solid fa-users"></i></div>
-              <span class="cap-depth">Collaboration</span>
-            </div>
-            <h3>Technical Communication &amp; Alignment</h3>
-            <p>Translating ambiguous business challenges into quantifiable technical requirements, stakeholder synthesis, and crisp documentation.</p>
-            <div class="cap-chips">
-              <span class="cap-chip">Structured Thinking</span>
-              <span class="cap-chip">Stakeholder Synthesis</span>
-              <span class="cap-chip">Technical Writing</span>
-              <span class="cap-chip">Cross-Functional Sync</span>
+          <!-- Skill Group 4 -->
+          <div class="skill-group-card">
+            <div class="skill-icon-wrap"><i class="fa-solid fa-chart-line"></i></div>
+            <h3>Analytics &amp; Tooling</h3>
+            <p>Exploratory data analysis, statistical distributions, executive Power BI dashboarding, and reproducible notebooks.</p>
+            <div class="skill-tag-list">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Pandas &amp; NumPy</span>
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">Databricks</span>
+              <span class="skill-tag">Excel Modeling</span>
             </div>
           </div>
         </div>
@@ -373,260 +267,230 @@
     </section>
 
     <!-- ════════════════════════════════════════════════════════
-         SECTION 03: FEATURED TECHNICAL CASE STUDIES
+         SECTION: CURATED PROJECT GALLERY
     ════════════════════════════════════════════════════════ -->
-    <section class="section projects" id="projects">
+    <section class="section" id="projects">
       <div class="container">
-        <div class="sec-meta">
-          <span class="sec-index">03</span>
-          <span class="sec-tagline">Applied Engineering</span>
+        <div class="sec-header">
+          <span class="sec-kicker">Case Studies</span>
+          <h2 class="sec-title">Featured Projects</h2>
+          <p class="sec-desc">End-to-end data analytics, SQL intelligence pipelines, and statistical modeling applied to real-world datasets.</p>
         </div>
-        <h2 class="sec-hed">Selected <em>Technical Projects</em></h2>
-        <p class="sec-sub">
-          End-to-end data analytics, SQL intelligence pipelines, and statistical modeling applied to real-world datasets.
-        </p>
 
-        <div class="projects-list">
+        <div class="gallery-list">
 
           <!-- Project 01: Monday Coffee Expansion -->
-          <article class="project-case">
-            <div class="project-visual">
-              <div class="project-visual-badge">
-                <i class="fa-solid fa-database"></i>
-                <span>SQL CTE Expansion Pipeline</span>
-              </div>
-              <img src="assets/images/proj_monday_coffee.jpg" alt="Monday Coffee Expansion Analysis Dashboard" class="project-img" loading="lazy"/>
+          <article class="gallery-case">
+            <div class="gallery-preview">
+              <img src="assets/images/proj_monday_coffee.jpg" alt="Monday Coffee Expansion Analysis Dashboard Preview" class="gallery-img" loading="lazy"/>
             </div>
-            <div class="project-content">
+            <div class="gallery-body">
               <div>
-                <div class="project-meta-top">
-                  <span class="project-index">01 // MARKET EXPANSION</span>
-                  <span class="project-domain">SQL &amp; Business Intelligence</span>
-                </div>
-                <h3 class="project-title">Monday Coffee Expansion Analysis</h3>
-                <p class="project-desc">
-                  Conducted city-level demand and revenue feasibility modeling using advanced SQL common table expressions (CTEs), multi-table joins, and window aggregations to rank potential geographic markets based on customer lifetime value and cost efficiency.
+                <span class="gallery-label">Market Expansion · SQL Analytics</span>
+                <h3 class="gallery-title">Monday Coffee Expansion Analysis</h3>
+                <p class="gallery-summary">
+                  Performed city-level sales and demand feasibility analysis using SQL with CTEs, multi-table joins, and aggregations to evaluate geographic expansion opportunities and identify high-potential cities based on revenue, consumer demand, and cost efficiency.
                 </p>
-                <div class="project-insights">
-                  <span class="project-insights-header"><i class="fa-solid fa-terminal"></i> Technical Highlights</span>
+                <div class="gallery-highlights">
+                  <h4>Key Insights</h4>
                   <ul>
                     <li>Structured multi-stage CTEs to isolate revenue per consumer and demand velocity.</li>
                     <li>Evaluated rent-to-sales ratios across top metropolitan hubs for strategic rollout.</li>
-                    <li>Generated actionable priority scoring matrix for store launch allocation.</li>
+                    <li>Generated an actionable priority scoring matrix for store launch allocation.</li>
                   </ul>
                 </div>
-                <div class="project-tags">
-                  <span class="project-tag">PostgreSQL</span>
-                  <span class="project-tag">Advanced CTEs</span>
-                  <span class="project-tag">Market Scoring</span>
-                  <span class="project-tag">Unit Economics</span>
+                <div class="gallery-stack">
+                  <span class="gallery-chip">PostgreSQL</span>
+                  <span class="gallery-chip">Advanced CTEs</span>
+                  <span class="gallery-chip">Market Analysis</span>
+                  <span class="gallery-chip">Business Intelligence</span>
                 </div>
               </div>
-              <div class="project-footer">
+              <div class="gallery-actions">
                 <a href="https://github.com/kovidanand/SQL-Monday_Coffee_Analysis_P3" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
                   <i class="fa-brands fa-github"></i>
-                  <span>Inspect Codebase</span>
+                  <span>View Repository</span>
                 </a>
               </div>
             </div>
           </article>
 
-          <!-- Project 02: Netflix Content Analytics -->
-          <article class="project-case alt">
-            <div class="project-content">
+          <!-- Project 02: Netflix Content Catalog Analytics -->
+          <article class="gallery-case inverted">
+            <div class="gallery-body">
               <div>
-                <div class="project-meta-top">
-                  <span class="project-index">02 // CATALOG INTELLIGENCE</span>
-                  <span class="project-domain">PostgreSQL &amp; Content Strategy</span>
-                </div>
-                <h3 class="project-title">Netflix Content Catalog Analytics</h3>
-                <p class="project-desc">
-                  Executed comprehensive PostgreSQL analysis on global content library distribution. Evaluated genre saturation, international production volume, content rating risk matrices, and multi-year licensing lifecycles using window rank functions and categorical partitioning.
+                <span class="gallery-label">Streaming Intelligence · PostgreSQL</span>
+                <h3 class="gallery-title">Netflix Content Catalog Analytics</h3>
+                <p class="gallery-summary">
+                  Performed structured SQL analysis of Netflix global content catalog to evaluate composition, geographic distribution, production trends, audience targeting, and content risk over a 10-year horizon.
                 </p>
-                <div class="project-insights">
-                  <span class="project-insights-header"><i class="fa-solid fa-terminal"></i> Technical Highlights</span>
+                <div class="gallery-highlights">
+                  <h4>Key Insights</h4>
                   <ul>
-                    <li>Parsed composite genre and country strings with string aggregation and array unnesting.</li>
-                    <li>Modeled content release cadence across global territories over a 10-year horizon.</li>
+                    <li>Parsed composite genre and country strings with aggregation and array functions.</li>
+                    <li>Modeled content release cadence across global territories using window rankings.</li>
                     <li>Identified under-represented genre categories and high-demand demographic profiles.</li>
                   </ul>
                 </div>
-                <div class="project-tags">
-                  <span class="project-tag">PostgreSQL</span>
-                  <span class="project-tag">Window Functions</span>
-                  <span class="project-tag">Content Strategy</span>
-                  <span class="project-tag">Distribution Analysis</span>
+                <div class="gallery-stack">
+                  <span class="gallery-chip">PostgreSQL</span>
+                  <span class="gallery-chip">Window Functions</span>
+                  <span class="gallery-chip">Catalog Strategy</span>
+                  <span class="gallery-chip">Content Analytics</span>
                 </div>
               </div>
-              <div class="project-footer">
+              <div class="gallery-actions">
                 <a href="https://github.com/kovidanand/SQL-Netflix_Analysis_P4" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
                   <i class="fa-brands fa-github"></i>
-                  <span>Inspect Codebase</span>
+                  <span>View Repository</span>
                 </a>
               </div>
             </div>
-            <div class="project-visual">
-              <div class="project-visual-badge">
-                <i class="fa-solid fa-film"></i>
-                <span>PostgreSQL Catalog Telemetry</span>
-              </div>
-              <img src="assets/images/proj_netflix_analytics.jpg" alt="Netflix Content Catalog Analytics Interface" class="project-img" loading="lazy"/>
+            <div class="gallery-preview">
+              <img src="assets/images/proj_netflix_analytics.jpg" alt="Netflix Content Catalog Analytics Dashboard Preview" class="gallery-img" loading="lazy"/>
             </div>
           </article>
 
           <!-- Project 03: Blinkit Grocery Sales Analysis -->
-          <article class="project-case">
-            <div class="project-visual">
-              <div class="project-visual-badge">
-                <i class="fa-solid fa-chart-pie"></i>
-                <span>Python &amp; Pandas EDA Engine</span>
-              </div>
-              <img src="assets/images/proj_blinkit_sales.jpg" alt="Blinkit Grocery Sales Analytics Dashboard" class="project-img" loading="lazy"/>
+          <article class="gallery-case">
+            <div class="gallery-preview">
+              <img src="assets/images/proj_blinkit_sales.jpg" alt="Blinkit Quick-Commerce Grocery Sales Dashboard Preview" class="gallery-img" loading="lazy"/>
             </div>
-            <div class="project-content">
+            <div class="gallery-body">
               <div>
-                <div class="project-meta-top">
-                  <span class="project-index">03 // QUICK COMMERCE</span>
-                  <span class="project-domain">Python, Pandas &amp; EDA</span>
-                </div>
-                <h3 class="project-title">Blinkit Quick-Commerce Sales Analysis</h3>
-                <p class="project-desc">
-                  Conducted exploratory data analysis across 8,500+ transaction records using Pandas, NumPy, and Matplotlib. Analyzed sales driver attribution across item fat content, outlet tier classification, establishment longevity, and average order value (AOV).
+                <span class="gallery-label">Quick Commerce · Python EDA</span>
+                <h3 class="gallery-title">Blinkit Grocery Sales Analysis</h3>
+                <p class="gallery-summary">
+                  Conducted exploratory data analysis across 8,500+ transaction records using Pandas, NumPy, and Matplotlib to identify key sales drivers, outlet tier distribution, establishment longevity, and average order value trends.
                 </p>
-                <div class="project-insights">
-                  <span class="project-insights-header"><i class="fa-solid fa-terminal"></i> Technical Highlights</span>
+                <div class="gallery-highlights">
+                  <h4>Key Insights</h4>
                   <ul>
-                    <li>Standardized messy SKU records and imputed missing outlet size parameters.</li>
-                    <li>Identified Tier 1 vs Tier 3 outlet revenue discrepancies and stock turnover metrics.</li>
+                    <li>Standardized SKU attributes and cleaned missing outlet size parameters.</li>
+                    <li>Analyzed Tier 1 versus Tier 3 outlet revenue distributions and stock turnover rates.</li>
                     <li>Built statistical correlation charts highlighting top revenue-generating item categories.</li>
                   </ul>
                 </div>
-                <div class="project-tags">
-                  <span class="project-tag">Python</span>
-                  <span class="project-tag">Pandas</span>
-                  <span class="project-tag">NumPy</span>
-                  <span class="project-tag">Matplotlib</span>
-                  <span class="project-tag">Sales Optimization</span>
+                <div class="gallery-stack">
+                  <span class="gallery-chip">Python</span>
+                  <span class="gallery-chip">Pandas</span>
+                  <span class="gallery-chip">NumPy</span>
+                  <span class="gallery-chip">Matplotlib</span>
                 </div>
               </div>
-              <div class="project-footer">
+              <div class="gallery-actions">
                 <a href="https://github.com/kovidanand/Blinkit-Data-Analysis" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
                   <i class="fa-brands fa-github"></i>
-                  <span>Inspect Codebase</span>
+                  <span>View Repository</span>
                 </a>
               </div>
             </div>
           </article>
 
           <!-- Project 04: Spotify Streaming Intelligence -->
-          <article class="project-case alt">
-            <div class="project-content">
+          <article class="gallery-case inverted">
+            <div class="gallery-body">
               <div>
-                <div class="project-meta-top">
-                  <span class="project-index">04 // AUDIO &amp; STREAMING</span>
-                  <span class="project-domain">Advanced SQL &amp; Audio Telemetry</span>
-                </div>
-                <h3 class="project-title">Spotify Streaming Intelligence &amp; Audio Radar</h3>
-                <p class="project-desc">
-                  Applied advanced SQL window calculations to evaluate artist engagement, stream trajectory, playlist conversion, and multidimensional audio feature correlations (danceability, acousticness, valence, and tempo).
+                <span class="gallery-label">Audio Telemetry · Advanced SQL</span>
+                <h3 class="gallery-title">Spotify Streaming Intelligence</h3>
+                <p class="gallery-summary">
+                  Applied advanced SQL analytics to evaluate artist and track performance, streaming engagement, platform preferences, licensing value, and multidimensional audio feature correlations such as danceability, acousticness, and valence.
                 </p>
-                <div class="project-insights">
-                  <span class="project-insights-header"><i class="fa-solid fa-terminal"></i> Technical Highlights</span>
+                <div class="gallery-highlights">
+                  <h4>Key Insights</h4>
                   <ul>
                     <li>Formulated rolling moving averages and cumulative stream rankings per artist.</li>
                     <li>Correlated acoustic features with stream retention and skip rate profiles.</li>
                     <li>Analyzed platform licensing returns across high-engagement streaming cohorts.</li>
                   </ul>
                 </div>
-                <div class="project-tags">
-                  <span class="project-tag">SQL</span>
-                  <span class="project-tag">Window Functions</span>
-                  <span class="project-tag">Streaming Analytics</span>
-                  <span class="project-tag">Audio Radar</span>
+                <div class="gallery-stack">
+                  <span class="gallery-chip">SQL</span>
+                  <span class="gallery-chip">Window Functions</span>
+                  <span class="gallery-chip">Audio Radar</span>
+                  <span class="gallery-chip">Streaming Analytics</span>
                 </div>
               </div>
-              <div class="project-footer">
+              <div class="gallery-actions">
                 <a href="https://github.com/kovidanand/SQL-Spotify_Analysis_P5" target="_blank" rel="noopener" class="btn btn-primary btn-sm">
                   <i class="fa-brands fa-github"></i>
-                  <span>Inspect Codebase</span>
+                  <span>View Repository</span>
                 </a>
               </div>
             </div>
-            <div class="project-visual">
-              <div class="project-visual-badge">
-                <i class="fa-brands fa-spotify"></i>
-                <span>Audio Waveform &amp; Telemetry</span>
-              </div>
-              <img src="assets/images/proj_spotify_intelligence.jpg" alt="Spotify Streaming Analytics Interface" class="project-img" loading="lazy"/>
+            <div class="gallery-preview">
+              <img src="assets/images/proj_spotify_intelligence.jpg" alt="Spotify Streaming Analytics Dashboard Preview" class="gallery-img" loading="lazy"/>
             </div>
           </article>
 
         </div>
 
-        <!-- Extended Repositories / Archive Grid -->
-        <div class="archive-wrap">
-          <h3 class="archive-title">Extended Analytics Codebases &amp; Dashboards</h3>
-          <p class="archive-sub">Additional public research and data modeling repositories maintained on GitHub.</p>
-          
-          <div class="archive-grid">
-            <a href="https://github.com/kovidanand/SQL-Zepto_Analysis_P6" target="_blank" rel="noopener" class="archive-card">
-              <div class="archive-card-top">
+        <!-- Extended Repositories / Archive -->
+        <div class="repo-archive-wrap">
+          <div class="repo-archive-header">
+            <h3>Additional Public Repositories</h3>
+            <p>More data modeling and analytics codebases available on GitHub.</p>
+          </div>
+
+          <div class="repo-grid">
+            <a href="https://github.com/kovidanand/SQL-Zepto_Analysis_P6" target="_blank" rel="noopener" class="repo-card">
+              <div class="repo-card-top">
                 <i class="fa-solid fa-bolt"></i>
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
               </div>
               <h4>Zepto Quick-Commerce Analytics</h4>
               <p>Delivery time optimization, dark store performance tracking, and order density SQL analysis.</p>
-              <div class="archive-meta"><span>SQL-Zepto_Analysis_P6</span><span>SQL</span></div>
+              <div class="repo-meta"><span>SQL-Zepto_Analysis_P6</span><span>SQL</span></div>
             </a>
 
-            <a href="https://github.com/kovidanand/SQL-Indian_Election_Analysis_P7" target="_blank" rel="noopener" class="archive-card">
-              <div class="archive-card-top">
+            <a href="https://github.com/kovidanand/SQL-Indian_Election_Analysis_P7" target="_blank" rel="noopener" class="repo-card">
+              <div class="repo-card-top">
                 <i class="fa-solid fa-landmark"></i>
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
               </div>
               <h4>Indian Election Demographic Analysis</h4>
               <p>Constituency voter turnout, vote-share margins, and regional swing trend SQL queries.</p>
-              <div class="archive-meta"><span>SQL-Indian_Election_Analysis_P7</span><span>SQL</span></div>
+              <div class="repo-meta"><span>SQL-Indian_Election_Analysis_P7</span><span>SQL</span></div>
             </a>
 
-            <a href="https://github.com/kovidanand/SQL-Walmart_Sales_Analysis_P8" target="_blank" rel="noopener" class="archive-card">
-              <div class="archive-card-top">
+            <a href="https://github.com/kovidanand/SQL-Walmart_Sales_Analysis_P8" target="_blank" rel="noopener" class="repo-card">
+              <div class="repo-card-top">
                 <i class="fa-solid fa-store"></i>
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
               </div>
               <h4>Walmart Retail Sales Modeling</h4>
               <p>Branch sales forecasting, weekly anomaly detection, and holiday impact modeling in SQL.</p>
-              <div class="archive-meta"><span>SQL-Walmart_Sales_Analysis_P8</span><span>SQL</span></div>
+              <div class="repo-meta"><span>SQL-Walmart_Sales_Analysis_P8</span><span>SQL</span></div>
             </a>
 
-            <a href="https://github.com/kovidanand/SQL-Retail_Sales_Analysis_P1" target="_blank" rel="noopener" class="archive-card">
-              <div class="archive-card-top">
+            <a href="https://github.com/kovidanand/SQL-Retail_Sales_Analysis_P1" target="_blank" rel="noopener" class="repo-card">
+              <div class="repo-card-top">
                 <i class="fa-solid fa-cash-register"></i>
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
               </div>
               <h4>Retail Sales Pipeline Analysis</h4>
               <p>Customer segmentation, transaction frequency, and profitability SQL pipeline.</p>
-              <div class="archive-meta"><span>SQL-Retail_Sales_Analysis_P1</span><span>SQL</span></div>
+              <div class="repo-meta"><span>SQL-Retail_Sales_Analysis_P1</span><span>SQL</span></div>
             </a>
 
-            <a href="https://github.com/kovidanand/SQL-Library_Management_Analysis_P2" target="_blank" rel="noopener" class="archive-card">
-              <div class="archive-card-top">
+            <a href="https://github.com/kovidanand/SQL-Library_Management_Analysis_P2" target="_blank" rel="noopener" class="repo-card">
+              <div class="repo-card-top">
                 <i class="fa-solid fa-book"></i>
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
               </div>
               <h4>Library Management Relational Database</h4>
               <p>Schema design, fine calculations, and active borrower retention PostgreSQL queries.</p>
-              <div class="archive-meta"><span>SQL-Library_Management_Analysis_P2</span><span>SQL</span></div>
+              <div class="repo-meta"><span>SQL-Library_Management_Analysis_P2</span><span>SQL</span></div>
             </a>
 
-            <a href="https://github.com/kovidanand/PBi-EcomExpress_sales_dashboard" target="_blank" rel="noopener" class="archive-card">
-              <div class="archive-card-top">
+            <a href="https://github.com/kovidanand/PBi-EcomExpress_sales_dashboard" target="_blank" rel="noopener" class="repo-card">
+              <div class="repo-card-top">
                 <i class="fa-solid fa-truck-fast"></i>
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
               </div>
               <h4>EcomExpress Logistics BI Dashboard</h4>
               <p>Power BI interactive logistics tracking, delivery SLA adherence, and transit analytics.</p>
-              <div class="archive-meta"><span>PBi-EcomExpress_sales_dashboard</span><span>Power BI</span></div>
+              <div class="repo-meta"><span>PBi-EcomExpress_sales_dashboard</span><span>Power BI</span></div>
             </a>
           </div>
         </div>
@@ -635,85 +499,67 @@
     </section>
 
     <!-- ════════════════════════════════════════════════════════
-         SECTION 04: EXPERIENCE & PROFESSIONAL JOURNEY
+         SECTION: EXPERIENCE & CAREER JOURNEY
     ════════════════════════════════════════════════════════ -->
-    <section class="section experience" id="experience">
+    <section class="section section-alt" id="experience">
       <div class="container">
-        <div class="sec-meta">
-          <span class="sec-index">04</span>
-          <span class="sec-tagline">Professional Trajectory</span>
+        <div class="sec-header">
+          <span class="sec-kicker">Experience</span>
+          <h2 class="sec-title">Professional Journey</h2>
+          <p class="sec-desc">Practical application of data science, process automation, and analytical modeling across financial tech and engineering systems.</p>
         </div>
-        <h2 class="sec-hed">Industry <em>Internships &amp; Roles</em></h2>
-        <p class="sec-sub">
-          Practical application of data science, process automation, and analytical modeling across financial tech and engineering systems.
-        </p>
 
-        <div class="timeline-modern">
+        <div class="experience-timeline">
 
           <!-- Role 01: Bluestock Fintech -->
-          <div class="tm-item">
-            <div class="tm-marker">
-              <div class="tm-node"></div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <h3 class="exp-role">Data Analyst Intern</h3>
+              <span class="exp-dates">May 2026 – July 2026</span>
             </div>
-            <div class="tm-content">
-              <div class="tm-header">
-                <h3>Data Analyst Intern</h3>
-                <span class="tm-date">May 2026 – July 2026</span>
-              </div>
-              <p class="tm-org">
-                <i class="fa-solid fa-building"></i>
-                <span>Bluestock Fintech · Remote (Pune, Maharashtra)</span>
-              </p>
-              <ul class="tm-list">
-                <li>Performed statistical data modeling and business analysis on live financial datasets to extract actionable market insights.</li>
-                <li>Constructed structured analytical queries to optimize internal reporting workflows and accelerate decision latency.</li>
-                <li>Collaborated with product and engineering stakeholders to validate data integrity across financial tracking pipelines.</li>
-              </ul>
-            </div>
+            <p class="exp-org">
+              <i class="fa-solid fa-building"></i>
+              <span>Bluestock Fintech · Remote (Pune, Maharashtra)</span>
+            </p>
+            <ul class="exp-bullets">
+              <li>Performed statistical data analysis and IT business analysis to evaluate financial datasets and extract actionable insights.</li>
+              <li>Applied statistical methodologies to model trends and assist stakeholders with data-driven strategic decisions.</li>
+              <li>Processed structured datasets to optimize reporting workflows and improve analytical accuracy.</li>
+            </ul>
           </div>
 
           <!-- Role 02: NIAMT -->
-          <div class="tm-item">
-            <div class="tm-marker">
-              <div class="tm-node cyan"></div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <h3 class="exp-role">Project Intern</h3>
+              <span class="exp-dates">June 2026 – July 2026</span>
             </div>
-            <div class="tm-content">
-              <div class="tm-header">
-                <h3>Project Intern</h3>
-                <span class="tm-date">June 2026 – July 2026</span>
-              </div>
-              <p class="tm-org">
-                <i class="fa-solid fa-industry"></i>
-                <span>National Institute of Advanced Manufacturing Technology (Formerly NIFFT) · Ranchi, Jharkhand</span>
-              </p>
-              <ul class="tm-list">
-                <li>Designed and verified PLC programming logic gates to automate digital manufacturing and control operations.</li>
-                <li>Engineered square-wave generator circuits utilizing the NE555 Timer IC and measured precision waveform characteristics.</li>
-                <li>Interfaced hardware control systems with programmable logic modules to analyze signal accuracy and noise suppression.</li>
-              </ul>
-            </div>
+            <p class="exp-org">
+              <i class="fa-solid fa-industry"></i>
+              <span>National Institute of Advanced Manufacturing Technology (Formerly NIFFT) · Ranchi, Jharkhand</span>
+            </p>
+            <ul class="exp-bullets">
+              <li>Designed and implemented PLC programming logic for standard logic gates to automate digital operations.</li>
+              <li>Engineered a square wave generator circuit utilizing the NE555 Timer IC and measured precise wave characteristics.</li>
+              <li>Synthesized control systems hardware with programmable logic modules to analyze signal accuracy and performance.</li>
+            </ul>
           </div>
 
           <!-- Role 03: Acmegrade -->
-          <div class="tm-item">
-            <div class="tm-marker">
-              <div class="tm-node purple"></div>
+          <div class="exp-card">
+            <div class="exp-header">
+              <h3 class="exp-role">Data Science Intern</h3>
+              <span class="exp-dates">March 2025 – June 2025</span>
             </div>
-            <div class="tm-content">
-              <div class="tm-header">
-                <h3>Data Science Intern</h3>
-                <span class="tm-date">March 2025 – June 2025</span>
-              </div>
-              <p class="tm-org">
-                <i class="fa-solid fa-chart-pie"></i>
-                <span>Acmegrade · Remote (Bengaluru, Karnataka)</span>
-              </p>
-              <ul class="tm-list">
-                <li>Conducted end-to-end data preprocessing, outlier detection, and exploratory data analysis in Jupyter using Python.</li>
-                <li>Trained foundational predictive algorithms on historical distributions to inform analytical business requirements.</li>
-                <li>Built automated data cleaning scripts that significantly accelerated dataset preparation times for analytical experiments.</li>
-              </ul>
-            </div>
+            <p class="exp-org">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span>Acmegrade · Remote (Bengaluru, Karnataka)</span>
+            </p>
+            <ul class="exp-bullets">
+              <li>Executed data preprocessing, exploratory data analysis (EDA), and data modeling in Jupyter environments using Python.</li>
+              <li>Derived actionable trends from historical data distributions to support analytical business requirements.</li>
+              <li>Automated repetitive data cleaning pipelines to boost dataset preparation speed for predictive analysis.</li>
+            </ul>
           </div>
 
         </div>
@@ -721,60 +567,55 @@
     </section>
 
     <!-- ════════════════════════════════════════════════════════
-         SECTION 05: RESEARCH & PUBLICATIONS
+         SECTION: RESEARCH & PUBLICATIONS
     ════════════════════════════════════════════════════════ -->
-    <section class="section achievements" id="achievements">
+    <section class="section" id="achievements">
       <div class="container">
-        <div class="sec-meta">
-          <span class="sec-index">05</span>
-          <span class="sec-tagline">Academic Research</span>
+        <div class="sec-header">
+          <span class="sec-kicker">Research</span>
+          <h2 class="sec-title">Academic Publications</h2>
+          <p class="sec-desc">Peer-reviewed scientific contributions in predictive artificial intelligence and natural language processing architectures.</p>
         </div>
-        <h2 class="sec-hed">Published <em>Research &amp; Papers</em></h2>
-        <p class="sec-sub">
-          Peer-reviewed scientific contributions in predictive artificial intelligence and natural language processing architectures.
-        </p>
 
         <div class="publications-grid">
           
-          <!-- Publication 01 -->
           <div class="pub-card">
             <div>
-              <div class="pub-meta-row">
-                <span class="pub-year">2026 Published</span>
+              <div class="pub-status-row">
+                <span class="pub-year">Published 2026</span>
                 <span class="pub-issn">ISSN: 3107-5924</span>
               </div>
               <h3>Unified AI-Driven Sports Intelligence Framework (UASIF)</h3>
-              <p class="pub-conf">3rd International Conference on Advanced Sports Science (ICASSIPT-2026)</p>
-              <p class="pub-abstract">
+              <p class="pub-venue">3rd International Conference on Advanced Sports Science (ICASSIPT-2026)</p>
+              <p class="pub-desc">
                 Co-authored an architectural research framework combining structured ETL ingestion pipelines, LSTM neural networks, XGBoost ensemble classifiers, and Random Survival Forests. Achieved 85.5% predictive accuracy in athletic performance forecasting and injury risk modeling.
               </p>
             </div>
-            <div class="pub-tags">
-              <span class="cap-chip">LSTM Networks</span>
-              <span class="cap-chip">XGBoost</span>
-              <span class="cap-chip">Survival Forests</span>
-              <span class="cap-chip">ETL Architecture</span>
+            <div class="skill-tag-list">
+              <span class="skill-tag">LSTM Networks</span>
+              <span class="skill-tag">XGBoost</span>
+              <span class="skill-tag">Survival Forests</span>
+              <span class="skill-tag">ETL Architecture</span>
             </div>
           </div>
 
-          <!-- Publication 02 -->
           <div class="pub-card">
             <div>
-              <div class="pub-meta-row">
-                <span class="pub-year">2025 Published</span>
+              <div class="pub-status-row">
+                <span class="pub-year">Published 2025</span>
                 <span class="pub-issn">ISSN: 2455-3921</span>
               </div>
               <h3>Progress in Natural Language Processing</h3>
-              <p class="pub-conf">International Journal of Business and Economic Research (IJBER)</p>
-              <p class="pub-abstract">
+              <p class="pub-venue">International Journal of Business and Economic Research (IJBER)</p>
+              <p class="pub-desc">
                 Co-authored an exhaustive review paper examining recent breakthroughs in Transformer architectures, self-attention mechanics, multilingual contextual understanding, semantic embedding representations, and ethical constraints in modern generative AI systems.
               </p>
             </div>
-            <div class="pub-tags">
-              <span class="cap-chip">Transformers</span>
-              <span class="cap-chip">Attention Mechanics</span>
-              <span class="cap-chip">Semantic NLP</span>
-              <span class="cap-chip">Ethical AI</span>
+            <div class="skill-tag-list">
+              <span class="skill-tag">Transformers</span>
+              <span class="skill-tag">Attention Mechanics</span>
+              <span class="skill-tag">Semantic NLP</span>
+              <span class="skill-tag">Ethical AI</span>
             </div>
           </div>
 
@@ -783,19 +624,15 @@
     </section>
 
     <!-- ════════════════════════════════════════════════════════
-         SECTION 06: VERIFIED CREDENTIALS
+         SECTION: VERIFIED CREDENTIALS
     ════════════════════════════════════════════════════════ -->
-    <section class="section certifications" id="certifications">
+    <section class="section section-alt" id="certifications">
       <div class="container">
-        <div class="sec-meta">
-          <span class="sec-index">06</span>
-          <span class="sec-tagline">Verified Certifications</span>
+        <div class="sec-header">
+          <span class="sec-kicker">Credentials</span>
+          <h2 class="sec-title">Licenses &amp; Certifications</h2>
+          <p class="sec-desc">Click any certificate to launch the verified document preview.</p>
         </div>
-        <h2 class="sec-hed">Licenses &amp; <em>Certifications</em></h2>
-        <p class="cert-subhint">
-          <i class="fa-solid fa-arrow-pointer"></i>
-          <span>Click any credential card below to launch the live document preview.</span>
-        </p>
 
         <div class="cert-grid">
           
@@ -852,44 +689,36 @@
     </section>
 
     <!-- ════════════════════════════════════════════════════════
-         SECTION 07: CONTACT & DISPATCH
+         SECTION: CONTACT
     ════════════════════════════════════════════════════════ -->
-    <section class="section contact" id="contact">
+    <section class="section" id="contact">
       <div class="container">
-        <div class="sec-meta" style="justify-content: center;">
-          <span class="sec-index">07</span>
-          <span class="sec-tagline">Communication Channel</span>
-        </div>
-
-        <div class="contact-card">
-          <h2 class="contact-hed">Let's engineer something <em>impactful</em> together.</h2>
+        <div class="contact-box">
+          <span class="sec-kicker">Get in Touch</span>
+          <h2 class="contact-title">Let's build something great together.</h2>
           <p class="contact-sub">
-            Available for 2026 AI Product Management, Quantitative Analytics internships, and technical collaborations.
+            Available for 2026 AI Product Management, quantitative analytics internships, and innovative engineering collaborations.
           </p>
 
           <div>
-            <a href="mailto:kovidanand05@gmail.com" class="contact-email-btn" aria-label="Send direct email to Kovid Anand">
+            <a href="mailto:kovidanand05@gmail.com" class="contact-email-action" aria-label="Send direct email to Kovid Anand">
               <i class="fa-solid fa-envelope"></i>
               <span>kovidanand05@gmail.com</span>
-              <i class="fa-solid fa-arrow-up-right"></i>
             </a>
           </div>
 
-          <div class="social-links">
-            <a href="https://www.linkedin.com/in/kovidanand05/" target="_blank" rel="noopener" class="social-link">
+          <div class="social-row">
+            <a href="https://www.linkedin.com/in/kovidanand05/" target="_blank" rel="noopener" class="social-pill">
               <i class="fa-brands fa-linkedin"></i>
               <span>LinkedIn</span>
-              <i class="fa-solid fa-arrow-up-right"></i>
             </a>
-            <a href="https://github.com/kovidanand" target="_blank" rel="noopener" class="social-link">
+            <a href="https://github.com/kovidanand" target="_blank" rel="noopener" class="social-pill">
               <i class="fa-brands fa-github"></i>
               <span>GitHub</span>
-              <i class="fa-solid fa-arrow-up-right"></i>
             </a>
-            <a href="https://x.com/kovidAnand19" target="_blank" rel="noopener" class="social-link">
+            <a href="https://x.com/kovidAnand19" target="_blank" rel="noopener" class="social-pill">
               <i class="fa-brands fa-x-twitter"></i>
-              <span>Twitter / X</span>
-              <i class="fa-solid fa-arrow-up-right"></i>
+              <span>Twitter</span>
             </a>
           </div>
         </div>
@@ -900,13 +729,13 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container footer-row">
-      <span>© 2026 KOVID ANAND · DIGITAL WORKSPACE 2.0</span>
-      <span>SYSTEM ARCHITECTURE: THREE.JS + VANILLA STACK</span>
+      <span>© 2026 Kovid Anand · AI Product &amp; Data Science</span>
+      <span>Designed with clarity, precision &amp; care</span>
     </div>
   </footer>
 
   <!-- ════════════════════════════════════════════════════════
-       CERTIFICATE PREVIEW MODAL (Preserved & Enhanced)
+       CERTIFICATE PREVIEW MODAL
   ════════════════════════════════════════════════════════ -->
   <div class="cert-modal" id="certModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Certificate Preview Window">
     <div class="cert-modal-backdrop" id="certModalBackdrop"></div>
@@ -931,15 +760,15 @@
   </div>
 
   <!-- ════════════════════════════════════════════════════════
-       RESUME VIEWER MODAL (Preserved & Enhanced)
+       RESUME VIEWER MODAL
   ════════════════════════════════════════════════════════ -->
   <div class="resume-modal" id="resumeModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle">
     <div class="resume-modal-backdrop" id="resumeModalBackdrop"></div>
     <div class="resume-viewer">
       <header class="resume-viewer-header">
         <div>
-          <p class="resume-viewer-kicker">Document Inspection Console</p>
-          <h2 id="resumeModalTitle">Kovid Anand · Official Resume</h2>
+          <p class="resume-viewer-kicker">Document Viewer</p>
+          <h2 id="resumeModalTitle">Kovid Anand · Resume</h2>
         </div>
         <div class="resume-viewer-actions">
           <a class="resume-viewer-action" href="https://drive.google.com/uc?export=download&id=17s_HE8uJDhbuurHSi5dzsvgd8fnuTt3L" target="_blank" rel="noopener" aria-label="Direct Download Resume PDF">
@@ -972,26 +801,24 @@
   </div>
 
   <!-- ════════════════════════════════════════════════════════
-       AI CHATBOT 2.0: "INTELLIGENCE TERMINAL"
+       AI CHATBOT (LIGHT-THEMED & INTEGRATED)
   ════════════════════════════════════════════════════════ -->
   <div class="chatbot-widget">
-    <!-- Teaser Bubble -->
     <div class="chatbot-teaser" id="chatbotTeaser" role="status">
-      <span>Query Kovid's AI Assistant</span>
+      <span>Have a question about Kovid?</span>
       <button type="button" id="chatbotTeaserClose" aria-label="Dismiss assistant message">✕</button>
     </div>
 
-    <!-- Intelligence Terminal Panel -->
     <section class="chatbot-panel" id="chatbotPanel" aria-hidden="true" aria-label="Kovid Anand AI Assistant">
       <header class="chatbot-header">
         <div class="chatbot-header-identity">
-          <span class="chatbot-avatar" aria-hidden="true"><i class="fa-solid fa-terminal"></i></span>
+          <span class="chatbot-avatar" aria-hidden="true"><i class="fa-solid fa-robot"></i></span>
           <div>
-            <h2>Intelligence Terminal</h2>
-            <p><span class="chatbot-status-dot"></span> Online // System Ready</p>
+            <h2>Kovid's Assistant</h2>
+            <p><span class="chatbot-status-dot"></span> Online</p>
           </div>
         </div>
-        <button class="chatbot-close" id="chatbotClose" type="button" aria-label="Close assistant terminal">
+        <button class="chatbot-close" id="chatbotClose" type="button" aria-label="Close assistant">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </header>
@@ -1009,7 +836,7 @@
           <button class="chatbot-quick-reply" type="button">Contact</button>
         </div>
         <form class="chatbot-form" id="chatbotForm">
-          <input id="chatbotInput" type="text" autocomplete="off" placeholder="Ask about Kovid's experience, SQL, or projects..." aria-label="Type your message" />
+          <input id="chatbotInput" type="text" autocomplete="off" placeholder="Ask about Kovid's experience, skills, or projects..." aria-label="Type your message" />
           <button class="chatbot-send" id="chatbotSend" type="submit" aria-label="Send message">
             <i class="fa-solid fa-paper-plane"></i>
           </button>
@@ -1017,17 +844,16 @@
       </div>
     </section>
 
-    <!-- Floating Launcher Trigger Button -->
-    <button class="chatbot-toggle" id="chatbotToggle" type="button" aria-label="Open AI Assistant Terminal" aria-expanded="false">
+    <button class="chatbot-toggle" id="chatbotToggle" type="button" aria-label="Open AI Assistant" aria-expanded="false">
       <i class="fa-solid fa-robot chatbot-toggle-robot"></i>
     </button>
   </div>
 
-  <!-- Scripts: Three.js r128, 3D Hero Scene, Core UI, Chatbot, Resume Viewer -->
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="three-hero.js?v=3.0"></script>
-  <script src="script.js?v=3.0"></script>
-  <script src="chatbot.js?v=3.0"></script>
-  <script src="resume-viewer.js?v=3.0"></script>
+  <script src="three-hero.js?v=4.0"></script>
+  <script src="script.js?v=4.0"></script>
+  <script src="chatbot.js?v=4.0"></script>
+  <script src="resume-viewer.js?v=4.0"></script>
 </body>
 </html>

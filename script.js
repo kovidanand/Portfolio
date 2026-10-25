@@ -1,12 +1,12 @@
 /**
- * KOVID ANAND · PORTFOLIO 2.0
- * script.js - Core UI interactions, scroll reveal, typing telemetry, and modal handlers.
+ * KOVID ANAND · PORTFOLIO V2
+ * script.js - Core UI interactions, counters, reading progress, and modal controls.
  */
 
 const initPortfolio = () => {
   'use strict';
 
-  // 1. Snappy Page Loader
+  // 1. Fast, Smooth Page Loader
   const loader = document.getElementById('loader');
   const loaderBar = document.getElementById('loaderBar');
 
@@ -14,13 +14,12 @@ const initPortfolio = () => {
 
   if (loader) {
     window.setTimeout(() => {
-      loader.style.transition = 'opacity 0.35s ease-out, transform 0.35s ease-out';
+      loader.style.transition = 'opacity 0.28s ease-out';
       loader.style.opacity = '0';
-      loader.style.transform = 'translateY(-20px)';
       window.setTimeout(() => {
         loader.style.display = 'none';
-      }, 350);
-    }, 150);
+      }, 280);
+    }, 120);
   }
 
   // 2. Navbar Scroll Behavior & Active Section Spy
@@ -30,11 +29,11 @@ const initPortfolio = () => {
 
   const handleScroll = () => {
     if (navbar) {
-      navbar.classList.toggle('scrolled', window.scrollY > 30);
+      navbar.classList.toggle('scrolled', window.scrollY > 25);
     }
 
     let currentSectionId = '';
-    const scrollPos = window.scrollY + 220;
+    const scrollPos = window.scrollY + 180;
 
     sections.forEach((sec) => {
       if (scrollPos >= sec.offsetTop) {
@@ -50,7 +49,7 @@ const initPortfolio = () => {
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
-  // 3. Mobile Navigation Hamburger Menu
+  // 3. Mobile Navigation
   const hamburger = document.getElementById('hamburger');
   const navLinksMenu = document.getElementById('navLinks');
 
@@ -68,67 +67,7 @@ const initPortfolio = () => {
     });
   }
 
-  // 4. Hero Role Typing Telemetry
-  const typedEl = document.getElementById('typedEl');
-  if (typedEl) {
-    const roles = [
-      'AI Product Manager',
-      'Quantitative Data Analyst',
-      'Machine Learning Engineer',
-      'Data-Driven Builder'
-    ];
-    let roleIdx = 0;
-    let charIdx = 0;
-    let isDeleting = false;
-
-    const typeStep = () => {
-      const currentRole = roles[roleIdx];
-      if (!isDeleting) {
-        typedEl.textContent = currentRole.slice(0, ++charIdx);
-        if (charIdx === currentRole.length) {
-          isDeleting = true;
-          setTimeout(typeStep, 2200);
-          return;
-        }
-      } else {
-        typedEl.textContent = currentRole.slice(0, --charIdx);
-        if (charIdx === 0) {
-          isDeleting = false;
-          roleIdx = (roleIdx + 1) % roles.length;
-          setTimeout(typeStep, 350);
-          return;
-        }
-      }
-      setTimeout(typeStep, isDeleting ? 28 : 55);
-    };
-
-    setTimeout(typeStep, 400);
-  }
-
-  // 5. Capability Matrix Category Filtering
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const capCards = document.querySelectorAll('.capability-card');
-
-  if (filterBtns.length && capCards.length) {
-    filterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.getAttribute('data-filter');
-        capCards.forEach((card) => {
-          const category = card.getAttribute('data-category');
-          if (filter === 'all' || category === filter) {
-            card.style.display = 'flex';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-  }
-
-  // 6. Number Counter Telemetry
+  // 4. Counter Animation for Metrics
   const counters = document.querySelectorAll('.cnt');
   if (counters.length && 'IntersectionObserver' in window) {
     const counterObserver = new IntersectionObserver((entries, obs) => {
@@ -137,13 +76,12 @@ const initPortfolio = () => {
         const el = entry.target;
         const target = parseFloat(el.getAttribute('data-target'));
         const isFloat = String(target).includes('.');
-        const duration = 1600;
+        const duration = 1400;
         const startTime = performance.now();
 
         const updateCount = (currentTime) => {
           const elapsed = currentTime - startTime;
           const progress = Math.min(elapsed / duration, 1);
-          // Ease out cubic
           const easeProgress = 1 - Math.pow(1 - progress, 3);
           const currentVal = target * easeProgress;
 
@@ -164,7 +102,7 @@ const initPortfolio = () => {
     counters.forEach((c) => counterObserver.observe(c));
   }
 
-  // 7. Certificate Preview Modal
+  // 5. Certificate Preview Modal
   const certModal = document.getElementById('certModal');
   const certBackdrop = document.getElementById('certModalBackdrop');
   const certCloseBtn = document.getElementById('certModalClose');
@@ -217,6 +155,12 @@ const initPortfolio = () => {
       const key = card.getAttribute('data-cert-key');
       openCertModal(certPreviewMap[key] || defaultPreviewUrl);
     });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
   });
 
   if (certFrame) {
@@ -234,22 +178,22 @@ const initPortfolio = () => {
     }
   });
 
-  // 8. Seamless Marquee Content Duplication
+  // 6. Seamless Technology Strip Duplication
   const marqueeTrack = document.getElementById('marqueeTrack');
   if (marqueeTrack && marqueeTrack.dataset.cloned !== 'true') {
     marqueeTrack.innerHTML += marqueeTrack.innerHTML;
     marqueeTrack.dataset.cloned = 'true';
   }
 
-  // 9. Precision Reading Progress Bar
+  // 7. Minimal Reading Progress Indicator
   const progressBar = document.createElement('div');
   Object.assign(progressBar.style, {
     position: 'fixed',
     top: '0',
     left: '0',
-    height: '2.5px',
+    height: '2px',
     width: '0%',
-    background: 'linear-gradient(90deg, #3b82f6, #06b6d4)',
+    background: '#2563EB',
     zIndex: '9999',
     transition: 'width 0.1s linear',
     pointerEvents: 'none'
