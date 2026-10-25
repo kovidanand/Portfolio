@@ -50,10 +50,6 @@
       </nav>
 
       <div class="nav-actions">
-        <button type="button" class="btn btn-secondary btn-sm" id="resumeOpen" aria-label="Review Resume">
-          <i class="fa-solid fa-file-lines"></i>
-          <span>Resume</span>
-        </button>
         <a href="#contact" class="btn btn-primary btn-sm">
           <span>Get in Touch</span>
         </a>
@@ -94,7 +90,7 @@
                 <span>Explore Projects</span>
                 <i class="fa-solid fa-arrow-right"></i>
               </a>
-              <button type="button" class="btn btn-secondary" onclick="document.getElementById('resumeOpen').click()">
+              <button type="button" class="btn btn-secondary" id="resumeHeroOpen" data-action="open-resume">
                 <i class="fa-solid fa-file-pdf"></i>
                 <span>View Resume</span>
               </button>
@@ -549,82 +545,83 @@
           <p class="sec-desc">Practical application of data science, process automation, and analytical modeling across financial tech and engineering systems.</p>
         </div>
 
-        <div class="timeline-wrapper">
-          <div class="timeline-track">
+        <div class="timeline-stream">
 
-            <!-- Role 01: Bluestock Fintech -->
-            <div class="timeline-entry">
-              <div class="timeline-axis">
-                <div class="timeline-marker">
-                  <span class="timeline-core"></span>
-                </div>
-              </div>
-              <div class="timeline-card">
-                <div class="exp-header">
-                  <h3 class="exp-role">Data Analyst Intern</h3>
-                  <span class="exp-dates">May 2026 – July 2026</span>
-                </div>
-                <p class="exp-org">
-                  <i class="fa-solid fa-building"></i>
+          <!-- Role 01: Bluestock Fintech -->
+          <article class="timeline-row">
+            <div class="timeline-meta">
+              <time class="timeline-period">May 2026 – July 2026</time>
+              <span class="timeline-badge">Internship</span>
+            </div>
+            <div class="timeline-rail">
+              <span class="timeline-dot"></span>
+            </div>
+            <div class="timeline-main">
+              <header class="timeline-heading">
+                <h3 class="timeline-role">Data Analyst Intern</h3>
+                <p class="timeline-org">
+                  <i class="fa-solid fa-building" aria-hidden="true"></i>
                   <span>Bluestock Fintech · Remote (Pune, Maharashtra)</span>
                 </p>
-                <ul class="exp-bullets">
-                  <li>Performed statistical data analysis and IT business analysis to evaluate financial datasets and extract actionable insights.</li>
-                  <li>Applied statistical methodologies to model trends and assist stakeholders with data-driven strategic decisions.</li>
-                  <li>Processed structured datasets to optimize reporting workflows and improve analytical accuracy.</li>
-                </ul>
-              </div>
+              </header>
+              <ul class="timeline-points">
+                <li>Performed statistical data analysis and IT business analysis to evaluate financial datasets and extract actionable insights.</li>
+                <li>Applied statistical methodologies to model trends and assist stakeholders with data-driven strategic decisions.</li>
+                <li>Processed structured datasets to optimize reporting workflows and improve analytical accuracy.</li>
+              </ul>
             </div>
+          </article>
 
-            <!-- Role 02: NIAMT -->
-            <div class="timeline-entry">
-              <div class="timeline-axis">
-                <div class="timeline-marker">
-                  <span class="timeline-core"></span>
-                </div>
-              </div>
-              <div class="timeline-card">
-                <div class="exp-header">
-                  <h3 class="exp-role">Project Intern</h3>
-                  <span class="exp-dates">June 2026 – July 2026</span>
-                </div>
-                <p class="exp-org">
-                  <i class="fa-solid fa-industry"></i>
+          <!-- Role 02: NIAMT -->
+          <article class="timeline-row">
+            <div class="timeline-meta">
+              <time class="timeline-period">June 2026 – July 2026</time>
+              <span class="timeline-badge">Internship</span>
+            </div>
+            <div class="timeline-rail">
+              <span class="timeline-dot"></span>
+            </div>
+            <div class="timeline-main">
+              <header class="timeline-heading">
+                <h3 class="timeline-role">Project Intern</h3>
+                <p class="timeline-org">
+                  <i class="fa-solid fa-industry" aria-hidden="true"></i>
                   <span>National Institute of Advanced Manufacturing Technology (Formerly NIFFT) · Ranchi, Jharkhand</span>
                 </p>
-                <ul class="exp-bullets">
-                  <li>Designed and implemented PLC programming logic for standard logic gates to automate digital operations.</li>
-                  <li>Engineered a square wave generator circuit utilizing the NE555 Timer IC and measured precise wave characteristics.</li>
-                  <li>Synthesized control systems hardware with programmable logic modules to analyze signal accuracy and performance.</li>
-                </ul>
-              </div>
+              </header>
+              <ul class="timeline-points">
+                <li>Designed and implemented PLC programming logic for standard logic gates to automate digital operations.</li>
+                <li>Engineered a square wave generator circuit utilizing the NE555 Timer IC and measured precise wave characteristics.</li>
+                <li>Synthesized control systems hardware with programmable logic modules to analyze signal accuracy and performance.</li>
+              </ul>
             </div>
+          </article>
 
-            <!-- Role 03: Acmegrade -->
-            <div class="timeline-entry">
-              <div class="timeline-axis">
-                <div class="timeline-marker">
-                  <span class="timeline-core"></span>
-                </div>
-              </div>
-              <div class="timeline-card">
-                <div class="exp-header">
-                  <h3 class="exp-role">Data Science Intern</h3>
-                  <span class="exp-dates">March 2025 – June 2025</span>
-                </div>
-                <p class="exp-org">
-                  <i class="fa-solid fa-chart-pie"></i>
+          <!-- Role 03: Acmegrade -->
+          <article class="timeline-row">
+            <div class="timeline-meta">
+              <time class="timeline-period">March 2025 – June 2025</time>
+              <span class="timeline-badge">Internship</span>
+            </div>
+            <div class="timeline-rail">
+              <span class="timeline-dot"></span>
+            </div>
+            <div class="timeline-main">
+              <header class="timeline-heading">
+                <h3 class="timeline-role">Data Science Intern</h3>
+                <p class="timeline-org">
+                  <i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
                   <span>Acmegrade · Remote (Bengaluru, Karnataka)</span>
                 </p>
-                <ul class="exp-bullets">
-                  <li>Executed data preprocessing, exploratory data analysis (EDA), and data modeling in Jupyter environments using Python.</li>
-                  <li>Derived actionable trends from historical data distributions to support analytical business requirements.</li>
-                  <li>Automated repetitive data cleaning pipelines to boost dataset preparation speed for predictive analysis.</li>
-                </ul>
-              </div>
+              </header>
+              <ul class="timeline-points">
+                <li>Executed data preprocessing, exploratory data analysis (EDA), and data modeling in Jupyter environments using Python.</li>
+                <li>Derived actionable trends from historical data distributions to support analytical business requirements.</li>
+                <li>Automated repetitive data cleaning pipelines to boost dataset preparation speed for predictive analysis.</li>
+              </ul>
             </div>
+          </article>
 
-          </div>
         </div>
       </div>
     </section>
@@ -752,38 +749,98 @@
     </section>
 
     <!-- ════════════════════════════════════════════════════════
-         SECTION: CONTACT
+         SECTION: CONTACT & INITIATIVE
     ════════════════════════════════════════════════════════ -->
     <section class="section" id="contact">
       <div class="container">
-        <div class="contact-box">
-          <span class="sec-kicker">Get in Touch</span>
-          <h2 class="contact-title">Let's build something great together.</h2>
-          <p class="contact-sub">
-            Available for 2026 AI Product Management, quantitative analytics internships, and innovative engineering collaborations.
-          </p>
+        <div class="contact-layout">
 
-          <div>
-            <a href="mailto:kovidanand05@gmail.com" class="contact-email-action" aria-label="Send direct email to Kovid Anand">
-              <i class="fa-solid fa-envelope"></i>
-              <span>kovidanand05@gmail.com</span>
-            </a>
+          <!-- Left Column: Professional Invitation & Primary Action -->
+          <div class="contact-intro">
+            <span class="sec-kicker">Contact &amp; Collaboration</span>
+            <h2 class="contact-heading">Let's discuss data strategy, product initiatives, or career opportunities.</h2>
+            <p class="contact-lead">
+              I am actively seeking 2026 AI Product Management roles, quantitative data analytics opportunities, and engineering collaborations. Whether you have an open role, a challenging analytics problem, or a research inquiry, I welcome thoughtful conversations.
+            </p>
+
+            <div class="contact-cta-wrap">
+              <a href="mailto:kovidanand05@gmail.com" class="btn btn-primary contact-primary-btn" aria-label="Send direct email to Kovid Anand">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>kovidanand05@gmail.com</span>
+              </a>
+              <button type="button" class="btn btn-secondary contact-copy-btn" id="copyEmailBtn" aria-label="Copy email address to clipboard">
+                <i class="fa-regular fa-copy"></i>
+                <span id="copyEmailText">Copy Email</span>
+              </button>
+            </div>
           </div>
 
-          <div class="social-row">
-            <a href="https://www.linkedin.com/in/kovidanand05/" target="_blank" rel="noopener" class="social-pill">
-              <i class="fa-brands fa-linkedin"></i>
-              <span>LinkedIn</span>
-            </a>
-            <a href="https://github.com/kovidanand" target="_blank" rel="noopener" class="social-pill">
-              <i class="fa-brands fa-github"></i>
-              <span>GitHub</span>
-            </a>
-            <a href="https://x.com/kovidAnand19" target="_blank" rel="noopener" class="social-pill">
-              <i class="fa-brands fa-x-twitter"></i>
-              <span>Twitter</span>
-            </a>
+          <!-- Right Column: Direct Channels & Professional Profiles -->
+          <div class="contact-panel">
+            <div class="contact-channels">
+
+              <!-- Channel: Email -->
+              <div class="contact-channel-item">
+                <div class="contact-channel-icon"><i class="fa-solid fa-envelope"></i></div>
+                <div class="contact-channel-info">
+                  <span class="contact-channel-label">Direct Communication</span>
+                  <a href="mailto:kovidanand05@gmail.com" class="contact-channel-val">kovidanand05@gmail.com</a>
+                </div>
+              </div>
+
+              <!-- Channel: Location -->
+              <div class="contact-channel-item">
+                <div class="contact-channel-icon"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="contact-channel-info">
+                  <span class="contact-channel-label">Location &amp; Mobility</span>
+                  <span class="contact-channel-val">Ranchi &amp; Chennai, India · Open to Remote &amp; Relocation</span>
+                </div>
+              </div>
+
+              <!-- Channel: Status -->
+              <div class="contact-channel-item">
+                <div class="contact-channel-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="contact-channel-info">
+                  <span class="contact-channel-label">Current Availability</span>
+                  <span class="contact-channel-val">Available for 2026 Opportunities &amp; Internships</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Professional Profiles Row -->
+            <div class="contact-profiles">
+              <span class="contact-profiles-label">Professional Profiles</span>
+              <div class="contact-profiles-grid">
+                <a href="https://www.linkedin.com/in/kovidanand05/" target="_blank" rel="noopener" class="profile-card" aria-label="Visit LinkedIn Profile">
+                  <i class="fa-brands fa-linkedin profile-icon"></i>
+                  <div class="profile-card-text">
+                    <span class="profile-name">LinkedIn</span>
+                    <span class="profile-desc">Connect &amp; Endorse</span>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square profile-arrow"></i>
+                </a>
+                <a href="https://github.com/kovidanand" target="_blank" rel="noopener" class="profile-card" aria-label="Visit GitHub Profile">
+                  <i class="fa-brands fa-github profile-icon"></i>
+                  <div class="profile-card-text">
+                    <span class="profile-name">GitHub</span>
+                    <span class="profile-desc">Code &amp; Repositories</span>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square profile-arrow"></i>
+                </a>
+                <a href="https://x.com/kovidAnand19" target="_blank" rel="noopener" class="profile-card" aria-label="Visit Twitter / X Profile">
+                  <i class="fa-brands fa-x-twitter profile-icon"></i>
+                  <div class="profile-card-text">
+                    <span class="profile-name">X (Twitter)</span>
+                    <span class="profile-desc">Insights &amp; Updates</span>
+                  </div>
+                  <i class="fa-solid fa-arrow-up-right-from-square profile-arrow"></i>
+                </a>
+              </div>
+            </div>
+
           </div>
+
         </div>
       </div>
     </section>

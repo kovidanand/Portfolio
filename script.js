@@ -206,6 +206,25 @@ const initPortfolio = () => {
       progressBar.style.width = (window.scrollY / scrollTotal * 100) + '%';
     }
   }, { passive: true });
+
+  // 8. Copy Email to Clipboard
+  const copyBtn = document.getElementById('copyEmailBtn');
+  const copyText = document.getElementById('copyEmailText');
+  if (copyBtn && copyText) {
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('kovidanand05@gmail.com').then(() => {
+        const original = copyText.textContent;
+        copyText.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        window.setTimeout(() => {
+          copyText.textContent = original;
+          copyBtn.classList.remove('copied');
+        }, 2200);
+      }).catch(() => {
+        window.location.href = 'mailto:kovidanand05@gmail.com';
+      });
+    });
+  }
 };
 
 if (document.readyState === 'loading') {

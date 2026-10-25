@@ -251,7 +251,7 @@
   messages.addEventListener('click', (event) => {
     const actionBtn = event.target.closest('[data-chatbot-action="open-resume"]');
     if (actionBtn) {
-      document.getElementById('resumeOpen')?.click();
+      (document.getElementById('resumeHeroOpen') || document.querySelector('[data-action="open-resume"]'))?.click();
     }
   });
 

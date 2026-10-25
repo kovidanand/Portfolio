@@ -1,6 +1,6 @@
 (() => {
   const modal = document.getElementById('resumeModal');
-  const openButton = document.getElementById('resumeOpen');
+  const openButtons = document.querySelectorAll('#resumeOpen, #resumeHeroOpen, [data-action="open-resume"], .js-open-resume');
   const closeButton = document.getElementById('resumeClose');
   const backdrop = document.getElementById('resumeModalBackdrop');
   const documentWrap = document.getElementById('resumeDocumentWrap');
@@ -10,7 +10,7 @@
   const zoomReset = document.getElementById('resumeZoomReset');
   const fullscreen = document.getElementById('resumeFullscreen');
 
-  if (!modal || !openButton || !closeButton || !documentWrap) return;
+  if (!modal || !closeButton || !documentWrap) return;
 
   let zoom = 1;
   let previousFocus;
@@ -38,7 +38,7 @@
     if (previousFocus) previousFocus.focus();
   };
 
-  openButton.addEventListener('click', openViewer);
+  openButtons.forEach(btn => btn.addEventListener('click', openViewer));
   closeButton.addEventListener('click', closeViewer);
   backdrop.addEventListener('click', closeViewer);
 
