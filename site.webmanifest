@@ -1,0 +1,19 @@
+{
+  "name": "Kovid Anand · Portfolio",
+  "short_name": "Kovid Anand",
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#1F1F1E",
+  "background_color": "#FAFAF7",
+  "display": "standalone"
+}
