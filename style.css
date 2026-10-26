@@ -1567,12 +1567,12 @@ a.contact-channel-val:hover {
 
 /* Clean Floating Launcher */
 .chatbot-toggle {
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: #FFFFFF;
   border: 1px solid var(--c-border);
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1582,16 +1582,14 @@ a.contact-channel-val:hover {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.2s ease,
-              color 0.2s ease,
               background 0.2s ease;
   outline: none;
 }
 
 .chatbot-toggle:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.13), 0 2px 6px rgba(15, 23, 42, 0.06);
-  border-color: rgba(37, 99, 235, 0.35);
-  color: var(--c-accent);
+  box-shadow: 0 8px 26px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.06);
+  border-color: rgba(37, 99, 235, 0.4);
 }
 
 .chatbot-toggle:active {
@@ -1603,6 +1601,63 @@ a.contact-channel-val:hover {
   outline-offset: 3px;
 }
 
+/* Subtle Heartbeat Pulse Halo */
+.chatbot-pulse-halo {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  pointer-events: none;
+  border: 1.5px solid rgba(37, 99, 235, 0.45);
+  animation: robotHeartbeat 3.2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  opacity: 0;
+}
+
+@keyframes robotHeartbeat {
+  0% {
+    transform: scale(0.96);
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+  }
+  12% {
+    transform: scale(1.02);
+    opacity: 0.65;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.28);
+  }
+  24% {
+    transform: scale(1.0);
+    opacity: 0.45;
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+  }
+  36% {
+    transform: scale(1.1);
+    opacity: 0;
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0);
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 0;
+    box-shadow: 0 0 0 8px rgba(37, 99, 235, 0);
+  }
+}
+
+/* Intelligent subtle glow pulse on eyes & antenna */
+.robot-beacon,
+.robot-eye {
+  animation: robotGlowPulse 3.2s ease-in-out infinite;
+}
+
+@keyframes robotGlowPulse {
+  0%, 45%, 100% {
+    filter: drop-shadow(0 0 1px rgba(37, 99, 235, 0.3));
+    opacity: 0.92;
+  }
+  12%, 24% {
+    filter: drop-shadow(0 0 3.5px rgba(56, 189, 248, 0.95));
+    opacity: 1;
+  }
+}
+
+/* Icon layout and transitions */
 .chatbot-toggle-icon {
   position: absolute;
   display: flex;
@@ -1615,7 +1670,16 @@ a.contact-channel-val:hover {
   display: block;
 }
 
-.chatbot-toggle-icon-chat {
+.robot-face-svg {
+  filter: drop-shadow(0 2px 3px rgba(15, 23, 42, 0.1));
+  transition: transform 0.2s ease;
+}
+
+.chatbot-toggle:hover .robot-face-svg {
+  transform: scale(1.04);
+}
+
+.chatbot-toggle-icon-robot {
   opacity: 1;
   transform: scale(1) rotate(0deg);
 }
@@ -1626,7 +1690,14 @@ a.contact-channel-val:hover {
   pointer-events: none;
 }
 
-.chatbot-toggle[aria-expanded="true"] .chatbot-toggle-icon-chat {
+.chatbot-toggle[aria-expanded="true"] .chatbot-pulse-halo,
+.chatbot-toggle[aria-expanded="true"] .robot-beacon,
+.chatbot-toggle[aria-expanded="true"] .robot-eye {
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+.chatbot-toggle[aria-expanded="true"] .chatbot-toggle-icon-robot {
   opacity: 0;
   transform: scale(0.6) rotate(90deg);
   pointer-events: none;
@@ -1636,6 +1707,20 @@ a.contact-channel-val:hover {
   opacity: 1;
   transform: scale(1) rotate(0deg);
   pointer-events: auto;
+}
+
+.chatbot-toggle:hover .chatbot-pulse-halo {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chatbot-pulse-halo,
+  .robot-beacon,
+  .robot-eye {
+    animation: none !important;
+    opacity: 0 !important;
+  }
 }
 
 /* Teaser Bubble */
