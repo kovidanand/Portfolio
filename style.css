@@ -527,35 +527,33 @@ button {
 .hero-3d-stage {
   position: relative;
   width: 100%;
-  height: 520px;
+  height: 540px;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .hero-3d-canvas-container {
   width: 100%;
   height: 100%;
   cursor: grab;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-3d-canvas-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none;
+  pointer-events: auto;
 }
 
 .hero-3d-canvas-container:active {
   cursor: grabbing;
-}
-
-.sculpture-caption {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  font-family: var(--f-mono);
-  font-size: 11px;
-  color: var(--c-text-muted);
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  padding: 4px 10px;
-  border-radius: var(--r-xs);
-  border: 1px solid var(--c-border);
-  pointer-events: none;
 }
 
 /* ── Technology Strip / Ticker ── */
@@ -1569,37 +1567,75 @@ a.contact-channel-val:hover {
 
 /* Clean Floating Launcher */
 .chatbot-toggle {
-  width: 50px;
-  height: 50px;
-  border-radius: var(--r-pill);
-  background: var(--c-surface);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #FFFFFF;
   border: 1px solid var(--c-border);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 19px;
   color: var(--c-text-primary);
-  transition: all var(--t-fast);
+  cursor: pointer;
   position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s ease,
+              color 0.2s ease,
+              background 0.2s ease;
+  outline: none;
 }
 
 .chatbot-toggle:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.13), 0 2px 6px rgba(15, 23, 42, 0.06);
+  border-color: rgba(37, 99, 235, 0.35);
   color: var(--c-accent);
 }
 
-.chatbot-toggle::after {
-  content: '';
+.chatbot-toggle:active {
+  transform: translateY(0) scale(0.96);
+}
+
+.chatbot-toggle:focus-visible {
+  outline: 2px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
+.chatbot-toggle-icon {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10B981;
-  border: 2px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chatbot-toggle-icon svg {
+  display: block;
+}
+
+.chatbot-toggle-icon-chat {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.chatbot-toggle-icon-close {
+  opacity: 0;
+  transform: scale(0.6) rotate(-90deg);
+  pointer-events: none;
+}
+
+.chatbot-toggle[aria-expanded="true"] .chatbot-toggle-icon-chat {
+  opacity: 0;
+  transform: scale(0.6) rotate(90deg);
+  pointer-events: none;
+}
+
+.chatbot-toggle[aria-expanded="true"] .chatbot-toggle-icon-close {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  pointer-events: auto;
 }
 
 /* Teaser Bubble */
@@ -2195,7 +2231,7 @@ a.contact-channel-val:hover {
   }
 
   .hero-3d-stage {
-    height: 420px;
+    height: 460px;
   }
 
   .about-grid {
@@ -2274,7 +2310,7 @@ a.contact-channel-val:hover {
   }
 
   .hero-3d-stage {
-    height: 320px;
+    height: 380px;
   }
 
   .hero-stats-row {

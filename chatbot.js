@@ -209,7 +209,7 @@
     panel.classList.add('is-open');
     panel.setAttribute('aria-hidden', 'false');
     toggle.setAttribute('aria-expanded', 'true');
-    toggle.setAttribute('aria-label', 'Close chatbot');
+    toggle.setAttribute('aria-label', 'Close AI assistant');
     teaser.classList.remove('is-visible');
     if (!opened) {
       opened = true;
@@ -222,7 +222,7 @@
     panel.classList.remove('is-open');
     panel.setAttribute('aria-hidden', 'true');
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open chatbot');
+    toggle.setAttribute('aria-label', 'Open AI assistant');
   };
 
   toggle.addEventListener('click', () => panel.classList.contains('is-open') ? closeChat() : openChat());

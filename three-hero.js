@@ -1,8 +1,10 @@
 /**
- * KOVID ANAND · PORTFOLIO V2 (LIGHT THEME)
- * three-hero.js - Tactile, Sculptural 3D Art Piece for Light Environment
- * Featuring realistic materials: Frosted Optical Glass, Satin Metallic Rings,
- * Pearlescent Core, Studio Lighting & Contact Shadows.
+ * KOVID ANAND · PORTFOLIO (LIGHT THEME)
+ * three-hero.js - Seamless, Tactile 3D Hero Sculpture
+ * 
+ * High-end art-directed 3D composition with zero clipping, dynamic responsive framing,
+ * refined materials (optical glass, cobalt satin metal, ivory porcelain, titanium),
+ * soft ambient contact shadow, and balanced studio lighting.
  */
 
 (() => {
@@ -27,11 +29,12 @@
     return;
   }
 
-  // Scene setup
+  // ── SCENE SETUP ──
   const scene = new THREE.Scene();
 
-  const camera = new THREE.PerspectiveCamera(42, container.clientWidth / container.clientHeight, 0.1, 100);
-  camera.position.set(0, 0.4, 7.2);
+  // 38° FOV provides a more architectural, natural telephoto perspective with minimal distortion
+  const camera = new THREE.PerspectiveCamera(38, container.clientWidth / container.clientHeight, 0.1, 100);
+  camera.position.set(0, 0, 8.6);
 
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
@@ -41,85 +44,83 @@
   renderer.setSize(container.clientWidth, container.clientHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMappingExposure = 1.12;
   container.appendChild(renderer.domElement);
 
   // Master group for floating sculpture
   const sculptureGroup = new THREE.Group();
   scene.add(sculptureGroup);
 
-  // ── MATERIALS (Designed specifically for clean light environment) ──
-  
-  // 1. Satin Cobalt Core Ring & Accents
+  // ── REFINED MATERIALS (Formulated for pristine light architectural theme) ──
+
+  // 1. Satin Cobalt Blue
   const cobaltMaterial = new THREE.MeshPhysicalMaterial({
     color: 0x2563eb,
-    metalness: 0.65,
+    metalness: 0.58,
     roughness: 0.22,
-    clearcoat: 0.4,
-    clearcoatRoughness: 0.15,
-    reflectivity: 0.9
+    clearcoat: 0.6,
+    clearcoatRoughness: 0.12,
+    reflectivity: 0.95
   });
 
-  // 2. Pearlescent Ceramic / Polished Ivory
+  // 2. Pearlescent Ivory Porcelain
   const ceramicMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xfdfdfd,
-    roughness: 0.18,
-    metalness: 0.1,
-    clearcoat: 0.8,
-    clearcoatRoughness: 0.1
+    color: 0xfcfcfc,
+    roughness: 0.16,
+    metalness: 0.08,
+    clearcoat: 0.85,
+    clearcoatRoughness: 0.08
   });
 
-  // 3. Frosted Optical Glass (Translucent with light refraction)
+  // 3. Frosted Optical Glass Prism
   const glassMaterial = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
-    metalness: 0.05,
-    roughness: 0.12,
-    transmission: 0.78,
-    thickness: 1.2,
+    metalness: 0.04,
+    roughness: 0.14,
+    transmission: 0.74,
+    thickness: 1.1,
     ior: 1.52,
     transparent: true,
-    opacity: 0.88
+    opacity: 0.86
   });
 
-  // 4. Fine Brushed Silver/Titanium
+  // 4. Fine Brushed Titanium / Aerospace Alloy
   const titaniumMaterial = new THREE.MeshStandardMaterial({
     color: 0xd4d4d8,
-    metalness: 0.85,
-    roughness: 0.28
+    metalness: 0.88,
+    roughness: 0.24
   });
 
   // ── 3D SCULPTURAL COMPONENTS ──
+  // Proportioned with precise geometric hierarchy so the maximum radius at any rotation is ~2.48 units
 
   // Component A: Central Multi-Faceted Crystal Core
-  const coreGeo = new THREE.IcosahedronGeometry(1.35, 0);
+  const coreGeo = new THREE.IcosahedronGeometry(1.18, 0);
   const coreMesh = new THREE.Mesh(coreGeo, glassMaterial);
-  coreMesh.castShadow = true;
   sculptureGroup.add(coreMesh);
 
-  // Component B: Inner Geometric Jewel (floating inside the glass)
-  const innerJewelGeo = new THREE.OctahedronGeometry(0.72, 0);
+  // Component B: Inner Geometric Cobalt Jewel
+  const innerJewelGeo = new THREE.OctahedronGeometry(0.64, 0);
   const innerJewelMesh = new THREE.Mesh(innerJewelGeo, cobaltMaterial);
   sculptureGroup.add(innerJewelMesh);
 
   // Component C: Nested Orbital Torus Rings
   // Primary cobalt orbital ring
-  const primaryRingGeo = new THREE.TorusGeometry(2.1, 0.055, 32, 128);
+  const primaryRingGeo = new THREE.TorusGeometry(1.85, 0.05, 32, 128);
   const primaryRingMesh = new THREE.Mesh(primaryRingGeo, cobaltMaterial);
   primaryRingMesh.rotation.x = Math.PI / 3.2;
   primaryRingMesh.rotation.y = Math.PI / 7;
   sculptureGroup.add(primaryRingMesh);
 
-  // Secondary ivory floating ring
-  const secondaryRingGeo = new THREE.TorusGeometry(2.45, 0.045, 32, 128);
+  // Secondary ivory ceramic floating ring
+  const secondaryRingGeo = new THREE.TorusGeometry(2.18, 0.04, 32, 128);
   const secondaryRingMesh = new THREE.Mesh(secondaryRingGeo, ceramicMaterial);
   secondaryRingMesh.rotation.x = -Math.PI / 4;
   secondaryRingMesh.rotation.y = -Math.PI / 5;
   sculptureGroup.add(secondaryRingMesh);
 
   // Tertiary delicate titanium ring
-  const tertiaryRingGeo = new THREE.TorusGeometry(2.78, 0.03, 32, 128);
+  const tertiaryRingGeo = new THREE.TorusGeometry(2.46, 0.026, 32, 128);
   const tertiaryRingMesh = new THREE.Mesh(tertiaryRingGeo, titaniumMaterial);
   tertiaryRingMesh.rotation.x = Math.PI / 2.2;
   tertiaryRingMesh.rotation.z = Math.PI / 4;
@@ -130,65 +131,102 @@
   const nodesGroup = new THREE.Group();
   sculptureGroup.add(nodesGroup);
 
-  const nodeGeo = new THREE.SphereGeometry(0.11, 24, 24);
+  const nodeGeo = new THREE.SphereGeometry(0.095, 24, 24);
   const satelliteMeshes = [];
 
   for (let i = 0; i < nodeCount; i++) {
     const angle = (i / nodeCount) * Math.PI * 2;
-    const rad = 2.1;
+    const rad = 1.85;
     const mesh = new THREE.Mesh(nodeGeo, i % 2 === 0 ? cobaltMaterial : ceramicMaterial);
     mesh.position.set(
       Math.cos(angle) * rad,
-      Math.sin(angle) * 0.35,
+      Math.sin(angle) * 0.32,
       Math.sin(angle) * rad
     );
     nodesGroup.add(mesh);
     satelliteMeshes.push(mesh);
   }
 
-  // Component E: Soft Ground Contact Shadow (simulates depth in light studio)
+  // Component E: Soft Ground Contact Shadow (Natural, seamless ambient occlusion disc)
   const shadowCanvas = document.createElement('canvas');
   shadowCanvas.width = 256;
   shadowCanvas.height = 256;
   const ctx = shadowCanvas.getContext('2d');
-  const gradient = ctx.createRadialGradient(128, 128, 10, 128, 128, 120);
-  gradient.addColorStop(0, 'rgba(30, 41, 59, 0.16)');
-  gradient.addColorStop(0.4, 'rgba(30, 41, 59, 0.06)');
-  gradient.addColorStop(1, 'rgba(30, 41, 59, 0)');
+  const gradient = ctx.createRadialGradient(128, 128, 10, 128, 128, 110);
+  gradient.addColorStop(0, 'rgba(26, 32, 44, 0.12)');
+  gradient.addColorStop(0.35, 'rgba(26, 32, 44, 0.055)');
+  gradient.addColorStop(0.7, 'rgba(26, 32, 44, 0.012)');
+  gradient.addColorStop(1, 'rgba(26, 32, 44, 0)');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, 256, 256);
 
   const shadowTexture = new THREE.CanvasTexture(shadowCanvas);
-  const shadowGeo = new THREE.PlaneGeometry(6.5, 6.5);
+  const shadowGeo = new THREE.PlaneGeometry(4.2, 4.2);
   const shadowMat = new THREE.MeshBasicMaterial({
     map: shadowTexture,
     transparent: true,
-    depthWrite: false
+    depthWrite: false,
+    opacity: 0.9
   });
   const shadowPlane = new THREE.Mesh(shadowGeo, shadowMat);
   shadowPlane.rotation.x = -Math.PI / 2;
-  shadowPlane.position.y = -2.45;
+  shadowPlane.position.y = -2.15;
   scene.add(shadowPlane);
 
-  // ── STUDIO LIGHTING FOR LIGHT THEME ──
+  // ── STUDIO LIGHTING FOR LIGHT ARCHITECTURAL THEME ──
   // Ambient diffuse light
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.25);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.35);
   scene.add(ambientLight);
 
   // Warm key light from top-left
-  const keyLight = new THREE.DirectionalLight(0xfffbf0, 2.2);
-  keyLight.position.set(6, 8, 7);
+  const keyLight = new THREE.DirectionalLight(0xfffbf0, 2.1);
+  keyLight.position.set(5.5, 7.5, 6.5);
   scene.add(keyLight);
 
   // Soft cool fill light from right
-  const fillLight = new THREE.DirectionalLight(0xe0f2fe, 1.4);
-  fillLight.position.set(-6, -2, 5);
+  const fillLight = new THREE.DirectionalLight(0xe0f2fe, 1.3);
+  fillLight.position.set(-5.5, -1.8, 4.5);
   scene.add(fillLight);
 
-  // Backlight for glass refraction rim
-  const rimLight = new THREE.PointLight(0x38bdf8, 2.0, 15);
-  rimLight.position.set(0, 4, -4);
+  // Delicate rim light for crystal refraction rim
+  const rimLight = new THREE.PointLight(0x60a5fa, 1.6, 16);
+  rimLight.position.set(0, 3.5, -3.5);
   scene.add(rimLight);
+
+  // Ground bounce light for subtle studio depth
+  const bounceLight = new THREE.DirectionalLight(0xf8fafc, 0.4);
+  bounceLight.position.set(0, -5, 2);
+  scene.add(bounceLight);
+
+  // ── DYNAMIC RESPONSIVE FRAMING ──
+  // Dynamically frames the camera so the sculpture ALWAYS fits with ample breathing room,
+  // completely eliminating any clipping across all viewport sizes and aspect ratios.
+  const updateCameraFraming = () => {
+    if (!container) return;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+    if (!width || !height) return;
+
+    const aspect = width / height;
+    camera.aspect = aspect;
+
+    // Sculptural bounding radius + ~22% margin ensures seamless floating with zero edge collisions
+    const boundingRadius = 2.95;
+    const vFovRad = (camera.fov * Math.PI) / 180;
+    const distY = boundingRadius / Math.tan(vFovRad / 2);
+    const distX = boundingRadius / (Math.tan(vFovRad / 2) * aspect);
+
+    // Keep camera centered at y=0 so top and bottom margins are perfectly balanced
+    const optimalDistance = Math.max(distY, distX, 8.2);
+    camera.position.set(0, 0, optimalDistance);
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
+  };
+
+  updateCameraFraming();
+  window.addEventListener('resize', updateCameraFraming, { passive: true });
 
   // ── INTERACTIVITY & POINTER CONTROLS ──
   let mouseX = 0;
@@ -233,7 +271,7 @@
   container.addEventListener('pointerdown', onPointerDown);
   window.addEventListener('pointerup', onPointerUp);
 
-  // Touch support for mobile
+  // Touch support with non-intrusive gesture handling
   container.addEventListener('touchstart', (e) => {
     if (e.touches.length === 1) {
       isDragging = true;
@@ -255,18 +293,7 @@
 
   container.addEventListener('touchend', () => { isDragging = false; }, { passive: true });
 
-  // Responsive resize
-  const onResize = () => {
-    if (!container) return;
-    const width = container.clientWidth;
-    const height = container.clientHeight;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-    renderer.setSize(width, height);
-  };
-  window.addEventListener('resize', onResize, { passive: true });
-
-  // Visibility optimization (pause when scrolled offscreen)
+  // Visibility optimization (pause loop when scrolled offscreen)
   let isVisible = true;
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
@@ -277,8 +304,8 @@
     observer.observe(container);
   }
 
-  // Animation Loop
-  let clock = new THREE.Clock();
+  // ── ANIMATION LOOP ──
+  const clock = new THREE.Clock();
 
   const animate = () => {
     requestAnimationFrame(animate);
@@ -290,32 +317,32 @@
 
     // Ambient floating oscillation
     const time = clock.getElapsedTime() * speed;
-    sculptureGroup.position.y = Math.sin(time * 0.8) * 0.08;
-    shadowPlane.scale.setScalar(1 + Math.sin(time * 0.8) * 0.04);
+    sculptureGroup.position.y = Math.sin(time * 0.75) * 0.07;
+    shadowPlane.scale.setScalar(1 + Math.sin(time * 0.75) * 0.035);
 
     if (!isDragging) {
       // Gentle continuous rotation
-      sculptureGroup.rotation.y += 0.004 * speed;
-      sculptureGroup.rotation.x += 0.0015 * speed;
+      sculptureGroup.rotation.y += 0.0035 * speed;
+      sculptureGroup.rotation.x += 0.0012 * speed;
 
       // Pointer parallax lerp
-      targetRotationY += (mouseX * 0.38 - targetRotationY) * 0.035;
-      targetRotationX += (-mouseY * 0.35 - targetRotationX) * 0.035;
+      targetRotationY += (mouseX * 0.32 - targetRotationY) * 0.035;
+      targetRotationX += (-mouseY * 0.30 - targetRotationX) * 0.035;
     }
 
     sculptureGroup.rotation.y += (targetRotationY - sculptureGroup.rotation.y) * 0.07;
     sculptureGroup.rotation.x += (targetRotationX - sculptureGroup.rotation.x) * 0.07;
 
-    // Nested relative rotations
-    primaryRingMesh.rotation.z += 0.006 * speed;
-    secondaryRingMesh.rotation.x -= 0.005 * speed;
-    tertiaryRingMesh.rotation.y += 0.004 * speed;
+    // Relative nested rotations
+    primaryRingMesh.rotation.z += 0.0055 * speed;
+    secondaryRingMesh.rotation.x -= 0.0045 * speed;
+    tertiaryRingMesh.rotation.y += 0.0035 * speed;
 
     coreMesh.rotation.y += 0.002 * speed;
-    innerJewelMesh.rotation.y -= 0.008 * speed;
-    innerJewelMesh.rotation.x += 0.004 * speed;
+    innerJewelMesh.rotation.y -= 0.007 * speed;
+    innerJewelMesh.rotation.x += 0.0035 * speed;
 
-    nodesGroup.rotation.y += 0.003 * speed;
+    nodesGroup.rotation.y += 0.0028 * speed;
 
     renderer.render(scene, camera);
   };
