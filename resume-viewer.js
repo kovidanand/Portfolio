@@ -1,6 +1,6 @@
 (() => {
   const modal = document.getElementById('resumeModal');
-  const openButtons = document.querySelectorAll('#resumeOpen, [data-action="open-modal-resume"], .js-open-resume');
+  const openButtons = document.querySelectorAll('#resumeOpen, #resumeHeroOpen, [data-action="open-resume"], .js-open-resume');
   const closeButton = document.getElementById('resumeClose');
   const backdrop = document.getElementById('resumeModalBackdrop');
   const documentWrap = document.getElementById('resumeDocumentWrap');
@@ -20,7 +20,8 @@
     documentWrap.setAttribute('aria-label', `Resume zoom ${Math.round(zoom * 100)} percent`);
   };
 
-  const openViewer = () => {
+  const openViewer = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
     previousFocus = document.activeElement;
     if (frame && (!frame.src || frame.src === 'about:blank' || frame.getAttribute('src') === '') && frame.dataset.src) {
       frame.src = frame.dataset.src;
