@@ -112,14 +112,14 @@
     resume: `
       <p><strong>Kovid Anand's Updated Resume:</strong></p>
       <div class="chatbot-actions-row">
-        <a href="https://drive.google.com/file/d/17s_HE8uJDhbuurHSi5dzsvgd8fnuTt3L/view?usp=sharing" target="_blank" rel="noopener" class="chatbot-btn-link">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Google Drive
+        <a href="assets/Kovid_Anand_Resume.pdf" target="_blank" rel="noopener noreferrer" class="chatbot-btn-link">
+          <i class="fa-solid fa-file-pdf"></i> View Resume (PDF)
         </a>
-        <button type="button" class="chatbot-btn-action" data-chatbot-action="open-resume">
-          <i class="fa-solid fa-eye"></i> View on Screen
-        </button>
-        <a href="https://drive.google.com/uc?export=download&id=17s_HE8uJDhbuurHSi5dzsvgd8fnuTt3L" target="_blank" rel="noopener" class="chatbot-btn-link">
+        <a href="assets/Kovid_Anand_Resume.pdf" download="Kovid_Anand_Resume.pdf" class="chatbot-btn-link">
           <i class="fa-solid fa-download"></i> Direct Download
+        </a>
+        <a href="https://drive.google.com/file/d/1-gzqCzSOLw8QoBbTkGlmHlMZ4PCl6UvV/view?usp=sharing" target="_blank" rel="noopener" class="chatbot-btn-link">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Google Drive
         </a>
       </div>
       <p class="chatbot-meta-note">Highlights: BCA in Data Science (9.80 CGPA), Bluestock & NIAMT internships, analytics projects, and published AI research.</p>
@@ -251,7 +251,7 @@
   messages.addEventListener('click', (event) => {
     const actionBtn = event.target.closest('[data-chatbot-action="open-resume"]');
     if (actionBtn) {
-      (document.getElementById('resumeHeroOpen') || document.querySelector('[data-action="open-resume"]'))?.click();
+      window.open('assets/Kovid_Anand_Resume.pdf', '_blank', 'noopener,noreferrer');
     }
   });
 

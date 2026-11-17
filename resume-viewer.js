@@ -1,6 +1,6 @@
 (() => {
   const modal = document.getElementById('resumeModal');
-  const openButtons = document.querySelectorAll('#resumeOpen, #resumeHeroOpen, [data-action="open-resume"], .js-open-resume');
+  const openButtons = document.querySelectorAll('#resumeOpen, [data-action="open-modal-resume"], .js-open-resume');
   const closeButton = document.getElementById('resumeClose');
   const backdrop = document.getElementById('resumeModalBackdrop');
   const documentWrap = document.getElementById('resumeDocumentWrap');
