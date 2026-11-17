@@ -110,13 +110,16 @@
     `,
 
     resume: `
-      <p><strong>Kovid Anand's Updated Resume:</strong></p>
+      <p><strong>Kovid Anand's Resume:</strong></p>
       <div class="chatbot-actions-row">
         <button type="button" class="chatbot-btn-action" data-chatbot-action="open-resume">
-          <i class="fa-solid fa-eye"></i> View on Screen
+          <i class="fa-solid fa-file-pdf"></i> View Resume
         </button>
+        <a href="https://drive.google.com/file/d/1-gzqCzSOLw8QoBbTkGlmHlMZ4PCl6UvV/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="chatbot-btn-link">
+          <i class="fa-brands fa-google-drive"></i> View on Drive
+        </a>
         <a href="assets/Kovid_Anand_Resume.pdf" download="Kovid_Anand_Resume.pdf" class="chatbot-btn-link">
-          <i class="fa-solid fa-download"></i> Direct Download
+          <i class="fa-solid fa-download"></i> Download
         </a>
       </div>
       <p class="chatbot-meta-note">Highlights: BCA in Data Science (9.80 CGPA), Bluestock & NIAMT internships, analytics projects, and published AI research.</p>
@@ -150,7 +153,7 @@
 
   const ROUTES = [
     { keywords: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'greetings'], key: 'greeting' },
-    { keywords: ['resume', 'cv', 'curriculum vitae', 'drive link', 'google drive', 'pdf', 'download resume'], key: 'resume' },
+    { keywords: ['resume', 'cv', 'curriculum vitae', 'drive link', 'google drive', 'drive', 'pdf', 'download resume', 'see your resume', 'show me your cv', 'download your resume', 'where can i find your resume', 'view resume', 'find your resume'], key: 'resume' },
     { keywords: ['who is', 'about', 'background', 'bio', 'introduce', 'profile', 'summary'], key: 'about' },
     { keywords: ['education', 'degree', 'university', 'college', 'coursework', 'cgpa', 'srm', 'academics'], key: 'education' },
     { keywords: ['experience', 'internship', 'intern', 'work history', 'bluestock', 'acmegrade', 'niamt', 'nifft', 'job'], key: 'experience' },

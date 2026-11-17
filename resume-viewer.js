@@ -67,6 +67,110 @@
     }
   };
 
+  // Link service for PDF.js annotation layer
+  const createLinkService = () => ({
+    getDestinationHash: (dest) => '#',
+    getAnchorUrl: (hash) => hash || '#',
+    goToDestination: (dest) => {},
+    addLinkAttributes: (link, url, newWindow) => {
+      link.href = url;
+      if (url.startsWith('mailto:')) {
+        link.target = '_self';
+      } else {
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      }
+      link.title = url;
+    }
+  });
+
+  // Render annotations using PDF.js AnnotationLayer with robust fallback
+  const renderAnnotations = async (page, viewport, layerDiv, annotations) => {
+    if (!annotations || !annotations.length) return;
+
+    let renderedViaPdfjs = false;
+
+    if (window.pdfjsLib && window.pdfjsLib.AnnotationLayer) {
+      try {
+        const annotationLayer = new window.pdfjsLib.AnnotationLayer({
+          div: layerDiv,
+          accessibilityManager: null,
+          annotationCanvasMap: null,
+          page: page,
+          viewport: viewport.clone({ dontFlip: true })
+        });
+
+        await annotationLayer.render({
+          annotations: annotations,
+          linkService: createLinkService(),
+          downloadManager: null,
+          imageResourcesPath: '',
+          renderForms: false
+        });
+
+        renderedViaPdfjs = true;
+      } catch (err) {
+        console.warn('PDF.js AnnotationLayer.render threw, falling back:', err);
+      }
+    }
+
+    if (!renderedViaPdfjs || !layerDiv.hasChildNodes()) {
+      layerDiv.innerHTML = '';
+      annotations.forEach((annot) => {
+        if (!annot.rect || !annot.url) return;
+        const rawRect = viewport.convertToViewportRectangle(annot.rect);
+        const rect = window.pdfjsLib?.Util?.normalizeRect
+          ? window.pdfjsLib.Util.normalizeRect(rawRect)
+          : [
+              Math.min(rawRect[0], rawRect[2]),
+              Math.min(rawRect[1], rawRect[3]),
+              Math.max(rawRect[0], rawRect[2]),
+              Math.max(rawRect[1], rawRect[3])
+            ];
+
+        const left = rect[0];
+        const top = rect[1];
+        const width = rect[2] - rect[0];
+        const height = rect[3] - rect[1];
+
+        if (width <= 0 || height <= 0) return;
+
+        const section = document.createElement('section');
+        section.className = 'linkAnnotation';
+        section.style.position = 'absolute';
+        section.style.left = `${left.toFixed(2)}px`;
+        section.style.top = `${top.toFixed(2)}px`;
+        section.style.width = `${width.toFixed(2)}px`;
+        section.style.height = `${height.toFixed(2)}px`;
+
+        const a = document.createElement('a');
+        a.href = annot.url;
+        if (annot.url.startsWith('mailto:')) {
+          a.target = '_self';
+        } else {
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+        }
+        a.title = annot.url;
+        a.setAttribute('aria-label', annot.url);
+
+        section.appendChild(a);
+        layerDiv.appendChild(section);
+      });
+    }
+
+    // Ensure all links have correct security attributes & open in new tab (or mailto)
+    layerDiv.querySelectorAll('a').forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      if (href.startsWith('mailto:')) {
+        a.target = '_self';
+      } else if (href.startsWith('http://') || href.startsWith('https://')) {
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      }
+    });
+  };
+
   // Render all pages in the PDF document at current scale
   const renderDocument = async () => {
     if (!pdfDoc) return;
@@ -102,33 +206,57 @@
       for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
         const page = await pdfDoc.getPage(pageNum);
 
-        // Viewport at target scale * devicePixelRatio for crisp text rendering
-        const viewport = page.getViewport({ scale: currentScale * pixelRatio });
+        // Viewport at standard scale for layout and annotations (CSS pixels)
+        const displayViewport = page.getViewport({ scale: currentScale });
+        // Viewport at target scale * devicePixelRatio for crisp canvas bitmap rendering
+        const canvasViewport = page.getViewport({ scale: currentScale * pixelRatio });
 
         const pageDiv = document.createElement('div');
         pageDiv.className = 'resume-page';
         pageDiv.setAttribute('data-page-number', String(pageNum));
+        pageDiv.style.position = 'relative';
+        pageDiv.style.width = `${Math.floor(displayViewport.width)}px`;
+        pageDiv.style.height = `${Math.floor(displayViewport.height)}px`;
 
         const canvas = document.createElement('canvas');
         canvas.className = 'resume-page-canvas';
-        canvas.width = Math.floor(viewport.width);
-        canvas.height = Math.floor(viewport.height);
-        canvas.style.width = `${Math.floor(viewport.width / pixelRatio)}px`;
-        canvas.style.height = `${Math.floor(viewport.height / pixelRatio)}px`;
+        canvas.width = Math.floor(canvasViewport.width);
+        canvas.height = Math.floor(canvasViewport.height);
+        canvas.style.width = `${Math.floor(displayViewport.width)}px`;
+        canvas.style.height = `${Math.floor(displayViewport.height)}px`;
 
         pageDiv.appendChild(canvas);
+
+        const annotationLayerDiv = document.createElement('div');
+        annotationLayerDiv.className = 'annotationLayer';
+        annotationLayerDiv.style.position = 'absolute';
+        annotationLayerDiv.style.top = '0';
+        annotationLayerDiv.style.left = '0';
+        annotationLayerDiv.style.width = `${Math.floor(displayViewport.width)}px`;
+        annotationLayerDiv.style.height = `${Math.floor(displayViewport.height)}px`;
+        annotationLayerDiv.style.setProperty('--scale-factor', String(currentScale));
+        pageDiv.appendChild(annotationLayerDiv);
+
         canvasContainer.appendChild(pageDiv);
 
         const ctx = canvas.getContext('2d', { alpha: false });
         const renderContext = {
           canvasContext: ctx,
-          viewport: viewport
+          viewport: canvasViewport
         };
 
         const renderTask = page.render(renderContext);
         activeRenderTasks.push(renderTask);
 
         await renderTask.promise;
+
+        // Render PDF interactive link annotations
+        try {
+          const annotations = await page.getAnnotations({ intent: 'display' });
+          await renderAnnotations(page, displayViewport, annotationLayerDiv, annotations);
+        } catch (annotErr) {
+          console.warn('Error fetching or rendering annotations:', annotErr);
+        }
       }
 
       if (loadingIndicator) {
