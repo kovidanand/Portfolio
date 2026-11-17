@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.2"/>
+  <link rel="stylesheet" href="style.css?v=4.3"/>
 </head>
 <body>
 
@@ -897,28 +897,38 @@
           <h2 id="resumeModalTitle">Kovid Anand · Resume</h2>
         </div>
         <div class="resume-viewer-actions">
-          <a class="resume-viewer-action" href="assets/Kovid_Anand_Resume.pdf" download="Kovid_Anand_Resume.pdf" aria-label="Direct Download Resume PDF">
+          <a class="resume-viewer-action" href="assets/Kovid_Anand_Resume.pdf" download="Kovid_Anand_Resume.pdf" aria-label="Direct Download Resume PDF" title="Download Resume">
             <i class="fa-solid fa-download"></i><span>Download</span>
           </a>
-          <button class="resume-viewer-action" id="resumeZoomOut" type="button" aria-label="Zoom out document">
-            <i class="fa-solid fa-magnifying-glass-minus"></i>
+          <div class="resume-zoom-controls" role="group" aria-label="Document zoom controls">
+            <button class="resume-viewer-action" id="resumeZoomOut" type="button" aria-label="Zoom out document" title="Zoom Out">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="resume-zoom-badge" id="resumeZoomVal" aria-live="polite">100%</span>
+            <button class="resume-viewer-action" id="resumeZoomIn" type="button" aria-label="Zoom in document" title="Zoom In">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+          <button class="resume-viewer-action resume-btn-desktop" id="resumeFitWidth" type="button" aria-label="Fit to width" title="Fit to width">
+            <i class="fa-solid fa-arrows-left-right-to-line"></i><span>Fit</span>
           </button>
-          <button class="resume-viewer-action" id="resumeZoomReset" type="button" aria-label="Reset zoom level">
-            <i class="fa-solid fa-arrows-to-dot"></i>
+          <button class="resume-viewer-action resume-btn-desktop" id="resumeActualSize" type="button" aria-label="Actual size 100%" title="Actual size">
+            <i class="fa-solid fa-expand"></i><span>100%</span>
           </button>
-          <button class="resume-viewer-action" id="resumeZoomIn" type="button" aria-label="Zoom in document">
-            <i class="fa-solid fa-magnifying-glass-plus"></i>
+          <button class="resume-viewer-action resume-btn-desktop" id="resumeFullscreen" type="button" aria-label="Toggle Fullscreen" title="Toggle Fullscreen">
+            <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
           </button>
-          <button class="resume-viewer-action" id="resumeFullscreen" type="button" aria-label="Toggle Fullscreen">
-            <i class="fa-solid fa-expand"></i>
-          </button>
-          <button class="resume-viewer-action" id="resumeClose" type="button" aria-label="Close document viewer">
+          <button class="resume-viewer-action" id="resumeClose" type="button" aria-label="Close document viewer" title="Close Viewer">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
       </header>
-      <div class="resume-document-wrap" id="resumeDocumentWrap">
-        <iframe id="resumeFrame" title="Kovid Anand resume preview" loading="lazy" data-src="assets/Kovid_Anand_Resume.pdf#toolbar=0&navpanes=0&scrollbar=1&view=FitH"></iframe>
+      <div class="resume-document-wrap" id="resumeDocumentWrap" tabindex="0" role="region" aria-label="Resume Document Preview">
+        <div class="resume-loading" id="resumeLoading">
+          <div class="resume-spinner" aria-hidden="true"></div>
+          <p>Loading document...</p>
+        </div>
+        <div class="resume-canvas-container" id="resumeCanvasContainer"></div>
       </div>
     </div>
   </div>
@@ -1016,6 +1026,7 @@
   <script src="three-hero.js?v=4.2"></script>
   <script src="script.js?v=4.2"></script>
   <script src="chatbot.js?v=4.2"></script>
-  <script src="resume-viewer.js?v=4.2"></script>
+  <script src="assets/js/pdf.min.js"></script>
+  <script src="resume-viewer.js?v=4.3"></script>
 </body>
 </html>
