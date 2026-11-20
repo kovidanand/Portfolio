@@ -59,7 +59,7 @@
     projects: `
       <p><strong>Featured Projects:</strong></p>
       <ul class="chatbot-list">
-        <li><a href="https://github.com/kovidanand/SQL-Monday_Coffee_Analysis_P3" target="_blank" rel="noopener"><strong>Monday Coffee Analysis:</strong></a> City-level market expansion using advanced SQL CTEs.</li>
+        <li><a href="https://gymtrack-fitness-kovid.vercel.app/" target="_blank" rel="noopener"><strong>GYMTrack AI Fitness:</strong></a> AI-powered workout tracking, nutrition monitoring, and real volume analytics.</li>
         <li><a href="https://github.com/kovidanand/SQL-Netflix_Analysis_P4" target="_blank" rel="noopener"><strong>Netflix Content Analytics:</strong></a> Catalog distribution and content strategy in PostgreSQL.</li>
         <li><a href="https://github.com/kovidanand/Blinkit-Data-Analysis" target="_blank" rel="noopener"><strong>Blinkit Grocery Analytics:</strong></a> Exploratory sales driver analysis on 8.5K+ records.</li>
         <li><a href="https://github.com/kovidanand/SQL-Spotify_Analysis_P5" target="_blank" rel="noopener"><strong>Spotify Streaming Analytics:</strong></a> SQL window functions evaluating engagement and licensing trends.</li>
@@ -158,7 +158,7 @@
     { keywords: ['education', 'degree', 'university', 'college', 'coursework', 'cgpa', 'srm', 'academics'], key: 'education' },
     { keywords: ['experience', 'internship', 'intern', 'work history', 'bluestock', 'acmegrade', 'niamt', 'nifft', 'job'], key: 'experience' },
     { keywords: ['skill', 'skills', 'tech stack', 'technology', 'tools', 'python', 'sql', 'tech'], key: 'skills' },
-    { keywords: ['project', 'projects', 'built', 'portfolio work', 'netflix', 'spotify', 'blinkit', 'coffee'], key: 'projects' },
+    { keywords: ['project', 'projects', 'built', 'portfolio work', 'gymtrack', 'fitness', 'netflix', 'spotify', 'blinkit', 'coffee'], key: 'projects' },
     { keywords: ['publication', 'publications', 'paper', 'research', 'uasif', 'nlp', 'journal'], key: 'publications' },
     { keywords: ['linkedin profile', 'linkedin account', 'linkedin page', 'linkedin'], key: 'linkedin' },
     { keywords: ['github profile', 'github account', 'github repo', 'github'], key: 'github' },

@@ -897,15 +897,43 @@ button {
 .gallery-title {
   font-size: clamp(20px, 2.2vw, 24px);
   line-height: 1.25;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   color: var(--c-text-primary);
 }
 
+.gallery-subtitle {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--c-accent);
+  margin-bottom: 12px;
+  letter-spacing: 0.01em;
+}
+
 .gallery-summary {
-  font-size: 14.5px;
+  font-size: 14px;
   color: var(--c-text-secondary);
   line-height: 1.6;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
+}
+
+.gallery-about {
+  font-size: 13px;
+  color: var(--c-text-secondary);
+  line-height: 1.55;
+  margin-bottom: 14px;
+  padding: 11px 14px;
+  background: var(--c-bg-subtle);
+  border-left: 3px solid var(--c-accent);
+  border-radius: 0 var(--r-xs) var(--r-xs) 0;
+}
+
+.gallery-about h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--c-text-primary);
+  margin-bottom: 4px;
+  font-weight: 700;
 }
 
 .gallery-highlights {
@@ -921,7 +949,7 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--c-text-muted);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-weight: 600;
 }
 
@@ -931,12 +959,22 @@ button {
   gap: 5px;
 }
 
+.gallery-highlights ul.gymtrack-features-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+}
+
 .gallery-highlights li {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--c-text-secondary);
   position: relative;
   padding-left: 14px;
-  line-height: 1.5;
+  line-height: 1.45;
+}
+
+.gallery-highlights li strong {
+  color: var(--c-text-primary);
 }
 
 .gallery-highlights li::before {
@@ -944,6 +982,225 @@ button {
   position: absolute;
   left: 0;
   color: var(--c-accent);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   INTERACTIVE PROJECT CAROUSEL (GYMTrack Showcase)
+   ══════════════════════════════════════════════════════════════════ */
+.project-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  aspect-ratio: 16 / 9.8;
+  background: #090D16;
+  overflow: hidden;
+  user-select: none;
+  outline: none;
+}
+
+.project-carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.project-carousel-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.985);
+  pointer-events: none;
+  background: #090D16;
+}
+
+.project-carousel-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.project-carousel-slide img.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: #090D16;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 42px;
+  left: 14px;
+  font-family: var(--f-mono, monospace);
+  font-size: 11px;
+  font-weight: 500;
+  color: #F8FAFC;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  z-index: 4;
+  max-width: calc(100% - 28px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 6;
+  transition: all var(--t-fast);
+  padding: 0;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-arrow:hover {
+  background: #2563EB;
+  border-color: #3B82F6;
+  color: #FFFFFF;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.carousel-arrow-prev {
+  left: 10px;
+}
+
+.carousel-arrow-next {
+  right: 10px;
+}
+
+.carousel-controls-bottom {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.carousel-counter {
+  font-family: var(--f-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  color: #E2E8F0;
+  background: rgba(15, 23, 42, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 3px 8px;
+  border-radius: 4px;
+  user-select: none;
+  pointer-events: auto;
+}
+
+.carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 4px 8px;
+  border-radius: 12px;
+  pointer-events: auto;
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.carousel-dot.active {
+  width: 18px;
+  border-radius: 4px;
+  background: #3B82F6;
+}
+
+@media (max-width: 640px) {
+  .project-carousel {
+    min-height: 240px;
+  }
+  .carousel-arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 11px;
+  }
+  .carousel-caption {
+    font-size: 9.5px;
+    bottom: 34px;
+    left: 8px;
+    padding: 3px 6px;
+  }
+  .carousel-controls-bottom {
+    padding: 0 8px;
+    bottom: 6px;
+  }
+  .carousel-counter {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+  .carousel-dots {
+    gap: 4px;
+    padding: 3px 6px;
+  }
+  .carousel-dot {
+    width: 5px;
+    height: 5px;
+  }
+  .carousel-dot.active {
+    width: 14px;
+  }
+  .gallery-highlights ul.gymtrack-features-list {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
 }
 
 .gallery-stack {

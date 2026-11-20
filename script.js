@@ -225,6 +225,136 @@ const initPortfolio = () => {
       });
     });
   }
+
+  // 9. GYMTrack Interactive Featured Project Carousel
+  const initGymtrackCarousel = () => {
+    const carousel = document.getElementById('gymtrackCarousel');
+    if (!carousel) return;
+
+    const slides = carousel.querySelectorAll('.project-carousel-slide');
+    const prevBtn = document.getElementById('gymtrackPrevBtn');
+    const nextBtn = document.getElementById('gymtrackNextBtn');
+    const counter = document.getElementById('gymtrackCounter');
+    const dotsContainer = document.getElementById('gymtrackDots');
+
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let autoplayTimer = null;
+    let isInteracted = false;
+
+    // Dynamically generate pagination dots
+    if (dotsContainer) {
+      dotsContainer.innerHTML = '';
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.className = `carousel-dot${idx === 0 ? ' active' : ''}`;
+        dot.type = 'button';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `Go to slide ${idx + 1} of ${totalSlides}`);
+        dot.addEventListener('click', () => {
+          stopAutoplay();
+          goToSlide(idx);
+        });
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('.carousel-dot') : [];
+
+    const goToSlide = (targetIndex) => {
+      slides[currentIndex].classList.remove('active');
+      if (dots[currentIndex]) dots[currentIndex].classList.remove('active');
+
+      currentIndex = (targetIndex + totalSlides) % totalSlides;
+
+      slides[currentIndex].classList.add('active');
+      if (dots[currentIndex]) dots[currentIndex].classList.add('active');
+
+      if (counter) {
+        counter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+      }
+    };
+
+    const nextSlide = () => goToSlide(currentIndex + 1);
+    const prevSlide = () => goToSlide(currentIndex - 1);
+
+    const stopAutoplay = () => {
+      isInteracted = true;
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    };
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        stopAutoplay();
+        prevSlide();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        stopAutoplay();
+        nextSlide();
+      });
+    }
+
+    // Keyboard navigation when carousel is focused
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        stopAutoplay();
+        prevSlide();
+      } else if (e.key === 'ArrowRight') {
+        stopAutoplay();
+        nextSlide();
+      }
+    });
+
+    // Mobile touch swipe gestures
+    let touchStartX = 0;
+    let touchStartY = 0;
+    carousel.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches.length === 1) {
+        const deltaX = e.changedTouches[0].clientX - touchStartX;
+        const deltaY = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          stopAutoplay();
+          if (deltaX < 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+        }
+      }
+    }, { passive: true });
+
+    // Slow autoplay (5.5s), permanently stopping on any user interaction
+    const startAutoplay = () => {
+      if (isInteracted) return;
+      autoplayTimer = setInterval(() => {
+        if (!isInteracted) {
+          nextSlide();
+        }
+      }, 5500);
+    };
+
+    carousel.addEventListener('mouseenter', stopAutoplay, { passive: true });
+    carousel.addEventListener('pointerdown', stopAutoplay, { passive: true });
+
+    startAutoplay();
+  };
+
+  initGymtrackCarousel();
 };
 
 if (document.readyState === 'loading') {
