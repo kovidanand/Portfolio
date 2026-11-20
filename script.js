@@ -234,8 +234,6 @@ const initPortfolio = () => {
     const slides = carousel.querySelectorAll('.project-carousel-slide');
     const prevBtn = document.getElementById('gymtrackPrevBtn');
     const nextBtn = document.getElementById('gymtrackNextBtn');
-    const counter = document.getElementById('gymtrackCounter');
-    const dotsContainer = document.getElementById('gymtrackDots');
 
     if (!slides.length) return;
 
@@ -244,37 +242,10 @@ const initPortfolio = () => {
     let autoplayTimer = null;
     let isInteracted = false;
 
-    // Dynamically generate pagination dots
-    if (dotsContainer) {
-      dotsContainer.innerHTML = '';
-      slides.forEach((_, idx) => {
-        const dot = document.createElement('button');
-        dot.className = `carousel-dot${idx === 0 ? ' active' : ''}`;
-        dot.type = 'button';
-        dot.setAttribute('role', 'tab');
-        dot.setAttribute('aria-label', `Go to slide ${idx + 1} of ${totalSlides}`);
-        dot.addEventListener('click', () => {
-          stopAutoplay();
-          goToSlide(idx);
-        });
-        dotsContainer.appendChild(dot);
-      });
-    }
-
-    const dots = dotsContainer ? dotsContainer.querySelectorAll('.carousel-dot') : [];
-
     const goToSlide = (targetIndex) => {
       slides[currentIndex].classList.remove('active');
-      if (dots[currentIndex]) dots[currentIndex].classList.remove('active');
-
       currentIndex = (targetIndex + totalSlides) % totalSlides;
-
       slides[currentIndex].classList.add('active');
-      if (dots[currentIndex]) dots[currentIndex].classList.add('active');
-
-      if (counter) {
-        counter.textContent = `${currentIndex + 1} / ${totalSlides}`;
-      }
     };
 
     const nextSlide = () => goToSlide(currentIndex + 1);
