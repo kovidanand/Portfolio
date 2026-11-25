@@ -326,6 +326,213 @@ const initPortfolio = () => {
   };
 
   initGymtrackCarousel();
+
+  // 10. Direct Contact Email Form
+  const initContactForm = () => {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    const nameInput = document.getElementById('contactName');
+    const emailInput = document.getElementById('contactEmail');
+    const subjectInput = document.getElementById('contactSubject');
+    const messageInput = document.getElementById('contactMessage');
+    const websiteInput = document.getElementById('contactWebsite');
+    const submitBtn = document.getElementById('contactSubmitBtn');
+    const submitIcon = document.getElementById('contactSubmitIcon');
+    const submitText = document.getElementById('contactSubmitText');
+    const statusBox = document.getElementById('contactFormStatus');
+
+    const errorEls = {
+      name: document.getElementById('contactNameError'),
+      email: document.getElementById('contactEmailError'),
+      subject: document.getElementById('contactSubjectError'),
+      message: document.getElementById('contactMessageError')
+    };
+
+    const EMAIL_REGEX = /^[^\s@<>()[\]\\.,;:\s@"]+(\.[^\s@<>()[\]\\.,;:\s@"]+)*@[^\s@<>()[\]\\.,;:\s@"]+\.[^\s@]{2,}$/;
+    const FAILURE_MESSAGE = 'Unable to send your message right now. Please try again in a moment.';
+    const SUCCESS_MESSAGE = 'Your message has been sent successfully. Thank you for reaching out!';
+    let isSubmitting = false;
+
+    const setStatus = (type, text) => {
+      if (!statusBox) return;
+      if (!text) {
+        statusBox.hidden = true;
+        statusBox.textContent = '';
+        statusBox.className = 'contact-form-status';
+        return;
+      }
+      statusBox.hidden = false;
+      statusBox.textContent = text;
+      statusBox.className = `contact-form-status ${type === 'success' ? 'is-success' : 'is-error'}`;
+    };
+
+    const setFieldError = (fieldKey, inputEl, message) => {
+      const errorEl = errorEls[fieldKey];
+      if (errorEl) errorEl.textContent = message || '';
+      if (inputEl) inputEl.classList.toggle('is-invalid', Boolean(message));
+    };
+
+    const clearAllFieldErrors = () => {
+      setFieldError('name', nameInput, '');
+      setFieldError('email', emailInput, '');
+      setFieldError('subject', subjectInput, '');
+      setFieldError('message', messageInput, '');
+    };
+
+    const validateForm = () => {
+      clearAllFieldErrors();
+      let isValid = true;
+      let firstInvalid = null;
+
+      const nameVal = (nameInput?.value || '').trim();
+      const emailVal = (emailInput?.value || '').trim();
+      const subjectVal = (subjectInput?.value || '').trim();
+      const messageVal = (messageInput?.value || '').trim();
+
+      if (!nameVal) {
+        setFieldError('name', nameInput, 'Please enter your full name.');
+        isValid = false;
+        firstInvalid = firstInvalid || nameInput;
+      } else if (nameVal.length < 2 || nameVal.length > 100) {
+        setFieldError('name', nameInput, 'Name must be between 2 and 100 characters.');
+        isValid = false;
+        firstInvalid = firstInvalid || nameInput;
+      }
+
+      if (!emailVal) {
+        setFieldError('email', emailInput, 'Please enter your email address.');
+        isValid = false;
+        firstInvalid = firstInvalid || emailInput;
+      } else if (emailVal.length > 160 || !EMAIL_REGEX.test(emailVal)) {
+        setFieldError('email', emailInput, 'Please enter a valid email address.');
+        isValid = false;
+        firstInvalid = firstInvalid || emailInput;
+      }
+
+      if (!subjectVal) {
+        setFieldError('subject', subjectInput, 'Please enter a subject.');
+        isValid = false;
+        firstInvalid = firstInvalid || subjectInput;
+      } else if (subjectVal.length < 2 || subjectVal.length > 160) {
+        setFieldError('subject', subjectInput, 'Subject must be between 2 and 160 characters.');
+        isValid = false;
+        firstInvalid = firstInvalid || subjectInput;
+      }
+
+      if (!messageVal) {
+        setFieldError('message', messageInput, 'Please write your message.');
+        isValid = false;
+        firstInvalid = firstInvalid || messageInput;
+      } else if (messageVal.length < 10) {
+        setFieldError('message', messageInput, 'Message must be at least 10 characters.');
+        isValid = false;
+        firstInvalid = firstInvalid || messageInput;
+      } else if (messageVal.length > 3000) {
+        setFieldError('message', messageInput, 'Message cannot exceed 3000 characters.');
+        isValid = false;
+        firstInvalid = firstInvalid || messageInput;
+      }
+
+      if (firstInvalid) firstInvalid.focus();
+      return {
+        isValid,
+        payload: {
+          name: nameVal,
+          email: emailVal,
+          subject: subjectVal,
+          message: messageVal,
+          website: websiteInput ? websiteInput.value : ''
+        }
+      };
+    };
+
+    const setLoadingState = (loading) => {
+      isSubmitting = loading;
+      if (submitBtn) submitBtn.disabled = loading;
+      if (submitText) submitText.textContent = loading ? 'Sending...' : 'Send Message';
+      if (submitIcon) {
+        submitIcon.className = loading ? 'fa-solid fa-spinner fa-spin' : 'fa-solid fa-paper-plane';
+      }
+    };
+
+    [
+      ['name', nameInput],
+      ['email', emailInput],
+      ['subject', subjectInput],
+      ['message', messageInput]
+    ].forEach(([key, el]) => {
+      if (!el) return;
+      el.addEventListener('input', () => {
+        if (el.classList.contains('is-invalid')) {
+          setFieldError(key, el, '');
+        }
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (isSubmitting) return;
+
+      setStatus(null, '');
+      const { isValid, payload } = validateForm();
+      if (!isValid) return;
+
+      const endpoint = (window.PORTFOLIO_CONTACT_ENDPOINT || form.getAttribute('data-endpoint') || '').trim();
+      if (!endpoint) {
+        console.error('Contact form endpoint is not configured. Deploy worker/ and set data-endpoint on #contactForm.');
+        setStatus('error', FAILURE_MESSAGE);
+        return;
+      }
+
+      setLoadingState(true);
+
+      const controller = new AbortController();
+      const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        });
+
+        let data = {};
+        try {
+          data = await response.json();
+        } catch {
+          data = {};
+        }
+
+        if (!response.ok || data.success !== true) {
+          if (response.status === 400 && data.fieldErrors && typeof data.fieldErrors === 'object') {
+            if (data.fieldErrors.name) setFieldError('name', nameInput, data.fieldErrors.name);
+            if (data.fieldErrors.email) setFieldError('email', emailInput, data.fieldErrors.email);
+            if (data.fieldErrors.subject) setFieldError('subject', subjectInput, data.fieldErrors.subject);
+            if (data.fieldErrors.message) setFieldError('message', messageInput, data.fieldErrors.message);
+          }
+          setStatus('error', data.error || FAILURE_MESSAGE);
+          return;
+        }
+
+        form.reset();
+        clearAllFieldErrors();
+        setStatus('success', SUCCESS_MESSAGE);
+      } catch (err) {
+        console.error('Contact form submission failed:', err);
+        setStatus('error', FAILURE_MESSAGE);
+      } finally {
+        window.clearTimeout(timeoutId);
+        setLoadingState(false);
+      }
+    });
+  };
+
+  initContactForm();
 };
 
 if (document.readyState === 'loading') {

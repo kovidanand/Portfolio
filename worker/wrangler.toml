@@ -1,0 +1,10 @@
+name = "portfolio-contact-worker"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+RECIPIENT_EMAIL = "kovidanand05@gmail.com"
+ALLOWED_ORIGINS = "https://kovidanand.github.io"
+# Set SENDER_EMAIL via `wrangler.toml` or `wrangler secret put SENDER_EMAIL`
+# after verifying your custom domain in Resend:
+# SENDER_EMAIL = "Kovid Anand Portfolio <contact@yourdomain.com>"

@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=4.6"/>
+  <link rel="stylesheet" href="style.css?v=4.7"/>
 </head>
 <body>
 
@@ -827,6 +827,92 @@
                 <span id="copyEmailText">Copy Email</span>
               </button>
             </div>
+
+            <!-- Compact Direct Email Form -->
+            <div class="contact-form-card">
+              <div class="contact-form-header">
+                <h3 class="contact-form-title">Send Me an Email</h3>
+                <p class="contact-form-subtitle">Have an opportunity, collaboration idea, or question? Send me a message directly from here.</p>
+              </div>
+
+              <form class="contact-form" id="contactForm" data-endpoint="" novalidate>
+                <!-- Honeypot field for bot detection (hidden from visitors) -->
+                <div class="contact-honeypot" aria-hidden="true">
+                  <label for="contactWebsite">Website</label>
+                  <input type="text" id="contactWebsite" name="website" tabindex="-1" autocomplete="off" />
+                </div>
+
+                <div class="contact-form-row">
+                  <div class="contact-field">
+                    <label for="contactName" class="contact-label">Your Name <span aria-hidden="true">*</span></label>
+                    <input
+                      type="text"
+                      id="contactName"
+                      name="name"
+                      class="contact-input"
+                      required
+                      maxlength="100"
+                      autocomplete="name"
+                      placeholder="Enter your full name"
+                    />
+                    <span class="contact-field-error" id="contactNameError" aria-live="polite"></span>
+                  </div>
+
+                  <div class="contact-field">
+                    <label for="contactEmail" class="contact-label">Your Email <span aria-hidden="true">*</span></label>
+                    <input
+                      type="email"
+                      id="contactEmail"
+                      name="email"
+                      class="contact-input"
+                      required
+                      maxlength="160"
+                      autocomplete="email"
+                      placeholder="Enter your email address"
+                    />
+                    <span class="contact-field-error" id="contactEmailError" aria-live="polite"></span>
+                  </div>
+                </div>
+
+                <div class="contact-field">
+                  <label for="contactSubject" class="contact-label">Subject <span aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="contactSubject"
+                    name="subject"
+                    class="contact-input"
+                    required
+                    maxlength="160"
+                    placeholder="What is this regarding?"
+                  />
+                  <span class="contact-field-error" id="contactSubjectError" aria-live="polite"></span>
+                </div>
+
+                <div class="contact-field">
+                  <label for="contactMessage" class="contact-label">Message <span aria-hidden="true">*</span></label>
+                  <textarea
+                    id="contactMessage"
+                    name="message"
+                    class="contact-input contact-textarea"
+                    rows="4"
+                    required
+                    minlength="10"
+                    maxlength="3000"
+                    placeholder="Write your message here..."
+                  ></textarea>
+                  <span class="contact-field-error" id="contactMessageError" aria-live="polite"></span>
+                </div>
+
+                <div class="contact-form-status" id="contactFormStatus" role="status" aria-live="polite" hidden></div>
+
+                <div class="contact-form-actions">
+                  <button type="submit" class="btn btn-primary contact-submit-btn" id="contactSubmitBtn">
+                    <i class="fa-solid fa-paper-plane" id="contactSubmitIcon" aria-hidden="true"></i>
+                    <span id="contactSubmitText">Send Message</span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
 
           <!-- Right Column: Direct Channels & Professional Profiles -->
@@ -1075,7 +1161,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="three-hero.js?v=4.2"></script>
-  <script src="script.js?v=4.6"></script>
+  <script src="script.js?v=4.7"></script>
   <script src="chatbot.js?v=4.5"></script>
   <script src="assets/js/pdf.min.js"></script>
   <script src="resume-viewer.js?v=4.4"></script>
