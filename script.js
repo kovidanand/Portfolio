@@ -351,6 +351,8 @@ const initPortfolio = () => {
 
     const EMAIL_REGEX = /^[^\s@<>()[\]\\.,;:\s@"]+(\.[^\s@<>()[\]\\.,;:\s@"]+)*@[^\s@<>()[\]\\.,;:\s@"]+\.[^\s@]{2,}$/;
     const FAILURE_MESSAGE = 'Unable to send your message right now. Please try again in a moment.';
+    const UNAVAILABLE_MESSAGE = 'Our email service is temporarily unavailable.';
+    const RATE_LIMIT_MESSAGE = 'Too many attempts. Please try again later.';
     const SUCCESS_MESSAGE = 'Your message has been sent successfully. Thank you for reaching out!';
     let isSubmitting = false;
 
@@ -384,6 +386,8 @@ const initPortfolio = () => {
       clearAllFieldErrors();
       let isValid = true;
       let firstInvalid = null;
+      let hasMissingRequired = false;
+      let hasInvalidEmail = false;
 
       const nameVal = (nameInput?.value || '').trim();
       const emailVal = (emailInput?.value || '').trim();
@@ -393,6 +397,7 @@ const initPortfolio = () => {
       if (!nameVal) {
         setFieldError('name', nameInput, 'Please enter your full name.');
         isValid = false;
+        hasMissingRequired = true;
         firstInvalid = firstInvalid || nameInput;
       } else if (nameVal.length < 2 || nameVal.length > 100) {
         setFieldError('name', nameInput, 'Name must be between 2 and 100 characters.');
@@ -403,16 +408,19 @@ const initPortfolio = () => {
       if (!emailVal) {
         setFieldError('email', emailInput, 'Please enter your email address.');
         isValid = false;
+        hasMissingRequired = true;
         firstInvalid = firstInvalid || emailInput;
       } else if (emailVal.length > 160 || !EMAIL_REGEX.test(emailVal)) {
         setFieldError('email', emailInput, 'Please enter a valid email address.');
         isValid = false;
+        hasInvalidEmail = true;
         firstInvalid = firstInvalid || emailInput;
       }
 
       if (!subjectVal) {
         setFieldError('subject', subjectInput, 'Please enter a subject.');
         isValid = false;
+        hasMissingRequired = true;
         firstInvalid = firstInvalid || subjectInput;
       } else if (subjectVal.length < 2 || subjectVal.length > 160) {
         setFieldError('subject', subjectInput, 'Subject must be between 2 and 160 characters.');
@@ -423,6 +431,7 @@ const initPortfolio = () => {
       if (!messageVal) {
         setFieldError('message', messageInput, 'Please write your message.');
         isValid = false;
+        hasMissingRequired = true;
         firstInvalid = firstInvalid || messageInput;
       } else if (messageVal.length < 10) {
         setFieldError('message', messageInput, 'Message must be at least 10 characters.');
@@ -434,9 +443,21 @@ const initPortfolio = () => {
         firstInvalid = firstInvalid || messageInput;
       }
 
+      let summaryError = '';
+      if (!isValid) {
+        if (hasMissingRequired) {
+          summaryError = 'Please complete all required fields.';
+        } else if (hasInvalidEmail) {
+          summaryError = 'Please enter a valid email address.';
+        } else {
+          summaryError = 'Please check the highlighted fields and try again.';
+        }
+      }
+
       if (firstInvalid) firstInvalid.focus();
       return {
         isValid,
+        summaryError,
         payload: {
           name: nameVal,
           email: emailVal,
@@ -475,13 +496,16 @@ const initPortfolio = () => {
       if (isSubmitting) return;
 
       setStatus(null, '');
-      const { isValid, payload } = validateForm();
-      if (!isValid) return;
+      const { isValid, summaryError, payload } = validateForm();
+      if (!isValid) {
+        setStatus('error', summaryError);
+        return;
+      }
 
       const endpoint = (window.PORTFOLIO_CONTACT_ENDPOINT || form.getAttribute('data-endpoint') || '').trim();
       if (!endpoint) {
-        console.error('Contact form endpoint is not configured. Deploy worker/ and set data-endpoint on #contactForm.');
-        setStatus('error', FAILURE_MESSAGE);
+        console.error('Contact form delivery skipped: backend endpoint is not configured.');
+        setStatus('error', UNAVAILABLE_MESSAGE);
         return;
       }
 
@@ -514,8 +538,14 @@ const initPortfolio = () => {
             if (data.fieldErrors.email) setFieldError('email', emailInput, data.fieldErrors.email);
             if (data.fieldErrors.subject) setFieldError('subject', subjectInput, data.fieldErrors.subject);
             if (data.fieldErrors.message) setFieldError('message', messageInput, data.fieldErrors.message);
+            setStatus('error', data.error || 'Please check the highlighted fields and try again.');
+          } else if (response.status === 429) {
+            setStatus('error', data.error || RATE_LIMIT_MESSAGE);
+          } else if (response.status === 503) {
+            setStatus('error', data.error || UNAVAILABLE_MESSAGE);
+          } else {
+            setStatus('error', data.error || FAILURE_MESSAGE);
           }
-          setStatus('error', data.error || FAILURE_MESSAGE);
           return;
         }
 
@@ -523,8 +553,8 @@ const initPortfolio = () => {
         clearAllFieldErrors();
         setStatus('success', SUCCESS_MESSAGE);
       } catch (err) {
-        console.error('Contact form submission failed:', err);
-        setStatus('error', FAILURE_MESSAGE);
+        console.error('Contact form network error:', err && err.name ? err.name : 'Request failed');
+        setStatus('error', UNAVAILABLE_MESSAGE);
       } finally {
         window.clearTimeout(timeoutId);
         setLoadingState(false);

@@ -264,7 +264,7 @@ export async function handleContactRequest(request, env = {}, deps = {}) {
   const rateResult = checkRateLimit(clientIp, nowFn(), rateLimitStore);
   if (!rateResult.allowed) {
     return jsonResponse(
-      { success: false, error: 'Too many requests. Please wait a few minutes before trying again.' },
+      { success: false, error: 'Too many attempts. Please try again later.' },
       429,
       corsHeaders,
       { 'Retry-After': String(rateResult.retryAfterSec) }
@@ -275,7 +275,7 @@ export async function handleContactRequest(request, env = {}, deps = {}) {
     const { success } = await env.CONTACT_RATE_LIMITER.limit({ key: clientIp });
     if (!success) {
       return jsonResponse(
-        { success: false, error: 'Too many requests. Please wait a few minutes before trying again.' },
+        { success: false, error: 'Too many attempts. Please try again later.' },
         429,
         corsHeaders
       );
@@ -334,7 +334,7 @@ export async function handleContactRequest(request, env = {}, deps = {}) {
   if (!apiKey || !senderEmail) {
     console.error('Email service misconfigured: RESEND_API_KEY or SENDER_EMAIL missing.');
     return jsonResponse(
-      { success: false, error: 'Unable to send your message right now. Please try again in a moment.' },
+      { success: false, error: 'Our email service is temporarily unavailable.' },
       503,
       corsHeaders
     );
