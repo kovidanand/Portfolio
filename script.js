@@ -327,7 +327,7 @@ const initPortfolio = () => {
 
   initGymtrackCarousel();
 
-  // 10. Direct Contact Email Form
+  // 10. Direct Contact Email Form (Formspree Integration)
   const initContactForm = () => {
     const form = document.getElementById('contactForm');
     if (!form) return;
@@ -336,7 +336,7 @@ const initPortfolio = () => {
     const emailInput = document.getElementById('contactEmail');
     const subjectInput = document.getElementById('contactSubject');
     const messageInput = document.getElementById('contactMessage');
-    const websiteInput = document.getElementById('contactWebsite');
+    const gotchaInput = document.getElementById('contactGotcha');
     const submitBtn = document.getElementById('contactSubmitBtn');
     const submitIcon = document.getElementById('contactSubmitIcon');
     const submitText = document.getElementById('contactSubmitText');
@@ -354,6 +354,9 @@ const initPortfolio = () => {
     const UNAVAILABLE_MESSAGE = 'Our email service is temporarily unavailable.';
     const RATE_LIMIT_MESSAGE = 'Too many attempts. Please try again later.';
     const SUCCESS_MESSAGE = 'Your message has been sent successfully. Thank you for reaching out!';
+    const RATE_LIMIT_STORAGE_KEY = 'portfolio_contact_submissions';
+    const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+    const RATE_LIMIT_MAX_ATTEMPTS = 5;
     let isSubmitting = false;
 
     const setStatus = (type, text) => {
@@ -380,6 +383,34 @@ const initPortfolio = () => {
       setFieldError('email', emailInput, '');
       setFieldError('subject', subjectInput, '');
       setFieldError('message', messageInput, '');
+    };
+
+    const checkClientRateLimit = () => {
+      try {
+        const now = Date.now();
+        const raw = window.sessionStorage.getItem(RATE_LIMIT_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        const recent = Array.isArray(parsed) ? parsed.filter((t) => typeof t === 'number' && now - t < RATE_LIMIT_WINDOW_MS) : [];
+        if (recent.length >= RATE_LIMIT_MAX_ATTEMPTS) {
+          return false;
+        }
+        return true;
+      } catch {
+        return true;
+      }
+    };
+
+    const recordSubmissionTimestamp = () => {
+      try {
+        const now = Date.now();
+        const raw = window.sessionStorage.getItem(RATE_LIMIT_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        const recent = Array.isArray(parsed) ? parsed.filter((t) => typeof t === 'number' && now - t < RATE_LIMIT_WINDOW_MS) : [];
+        recent.push(now);
+        window.sessionStorage.setItem(RATE_LIMIT_STORAGE_KEY, JSON.stringify(recent));
+      } catch {
+        // Ignore storage restrictions
+      }
     };
 
     const validateForm = () => {
@@ -458,12 +489,12 @@ const initPortfolio = () => {
       return {
         isValid,
         summaryError,
-        payload: {
+        values: {
           name: nameVal,
           email: emailVal,
           subject: subjectVal,
           message: messageVal,
-          website: websiteInput ? websiteInput.value : ''
+          gotcha: gotchaInput ? gotchaInput.value : ''
         }
       };
     };
@@ -496,15 +527,28 @@ const initPortfolio = () => {
       if (isSubmitting) return;
 
       setStatus(null, '');
-      const { isValid, summaryError, payload } = validateForm();
+      const { isValid, summaryError, values } = validateForm();
       if (!isValid) {
         setStatus('error', summaryError);
         return;
       }
 
-      const endpoint = (window.PORTFOLIO_CONTACT_ENDPOINT || form.getAttribute('data-endpoint') || '').trim();
-      if (!endpoint) {
-        console.error('Contact form delivery skipped: backend endpoint is not configured.');
+      // Honeypot check: silently ignore automated bot submissions
+      if (values.gotcha && values.gotcha.trim().length > 0) {
+        form.reset();
+        setStatus('success', SUCCESS_MESSAGE);
+        return;
+      }
+
+      if (!checkClientRateLimit()) {
+        setStatus('error', RATE_LIMIT_MESSAGE);
+        return;
+      }
+
+      const rawAction = (form.getAttribute('action') || '').trim();
+      const endpoint = (window.PORTFOLIO_CONTACT_ENDPOINT || rawAction || form.getAttribute('data-endpoint') || '').trim();
+      if (!endpoint || endpoint.includes('YOUR_FORMSPREE_ID')) {
+        console.error('Contact form endpoint is not configured yet.');
         setStatus('error', UNAVAILABLE_MESSAGE);
         return;
       }
@@ -515,13 +559,21 @@ const initPortfolio = () => {
       const timeoutId = window.setTimeout(() => controller.abort(), 15000);
 
       try {
+        const formData = new FormData();
+        formData.append('name', values.name);
+        formData.append('email', values.email);
+        formData.append('_replyto', values.email);
+        formData.append('subject', values.subject);
+        formData.append('_subject', `[Portfolio Contact] ${values.subject}`);
+        formData.append('message', values.message);
+        formData.append('_gotcha', values.gotcha || '');
+
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
-          body: JSON.stringify(payload),
+          body: formData,
           signal: controller.signal
         });
 
@@ -532,23 +584,31 @@ const initPortfolio = () => {
           data = {};
         }
 
-        if (!response.ok || data.success !== true) {
-          if (response.status === 400 && data.fieldErrors && typeof data.fieldErrors === 'object') {
-            if (data.fieldErrors.name) setFieldError('name', nameInput, data.fieldErrors.name);
-            if (data.fieldErrors.email) setFieldError('email', emailInput, data.fieldErrors.email);
-            if (data.fieldErrors.subject) setFieldError('subject', subjectInput, data.fieldErrors.subject);
-            if (data.fieldErrors.message) setFieldError('message', messageInput, data.fieldErrors.message);
-            setStatus('error', data.error || 'Please check the highlighted fields and try again.');
-          } else if (response.status === 429) {
-            setStatus('error', data.error || RATE_LIMIT_MESSAGE);
+        if (!response.ok) {
+          if (response.status === 429) {
+            setStatus('error', RATE_LIMIT_MESSAGE);
           } else if (response.status === 503) {
-            setStatus('error', data.error || UNAVAILABLE_MESSAGE);
+            setStatus('error', UNAVAILABLE_MESSAGE);
+          } else if (response.status === 400 || response.status === 422) {
+            if (Array.isArray(data.errors) && data.errors.length > 0) {
+              data.errors.forEach((errItem) => {
+                if (errItem.field === 'email') setFieldError('email', emailInput, 'Please enter a valid email address.');
+                if (errItem.field === 'name') setFieldError('name', nameInput, 'Please enter your full name.');
+                if (errItem.field === 'subject') setFieldError('subject', subjectInput, 'Please enter a subject.');
+                if (errItem.field === 'message') setFieldError('message', messageInput, 'Please write your message.');
+              });
+              setStatus('error', 'Please check the highlighted fields and try again.');
+            } else {
+              setStatus('error', FAILURE_MESSAGE);
+            }
           } else {
-            setStatus('error', data.error || FAILURE_MESSAGE);
+            console.error('Contact form submission rejected with status:', response.status);
+            setStatus('error', FAILURE_MESSAGE);
           }
           return;
         }
 
+        recordSubmissionTimestamp();
         form.reset();
         clearAllFieldErrors();
         setStatus('success', SUCCESS_MESSAGE);

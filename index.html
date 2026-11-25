@@ -835,11 +835,11 @@
                 <p class="contact-form-subtitle">Have an opportunity, collaboration idea, or question? Send me a message directly from here.</p>
               </div>
 
-              <form class="contact-form" id="contactForm" data-endpoint="" novalidate>
-                <!-- Honeypot field for bot detection (hidden from visitors) -->
+              <form class="contact-form" id="contactForm" action="" method="POST" novalidate>
+                <!-- Formspree honeypot field for spam protection (hidden from visitors) -->
                 <div class="contact-honeypot" aria-hidden="true">
-                  <label for="contactWebsite">Website</label>
-                  <input type="text" id="contactWebsite" name="website" tabindex="-1" autocomplete="off" />
+                  <label for="contactGotcha">Leave this field empty</label>
+                  <input type="text" id="contactGotcha" name="_gotcha" tabindex="-1" autocomplete="off" />
                 </div>
 
                 <div class="contact-form-row">
@@ -1161,7 +1161,7 @@
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="three-hero.js?v=4.2"></script>
-  <script src="script.js?v=4.8"></script>
+  <script src="script.js?v=4.9"></script>
   <script src="chatbot.js?v=4.5"></script>
   <script src="assets/js/pdf.min.js"></script>
   <script src="resume-viewer.js?v=4.4"></script>
