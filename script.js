@@ -350,10 +350,9 @@ const initPortfolio = () => {
     };
 
     const EMAIL_REGEX = /^[^\s@<>()[\]\\.,;:\s@"]+(\.[^\s@<>()[\]\\.,;:\s@"]+)*@[^\s@<>()[\]\\.,;:\s@"]+\.[^\s@]{2,}$/;
-    const FAILURE_MESSAGE = 'Unable to send your message right now. Please try again in a moment.';
-    const UNAVAILABLE_MESSAGE = 'Our email service is temporarily unavailable.';
+    const FAILURE_MESSAGE = 'Unable to send your message right now. Please try again or contact me directly by email.';
     const RATE_LIMIT_MESSAGE = 'Too many attempts. Please try again later.';
-    const SUCCESS_MESSAGE = 'Your message has been sent successfully. Thank you for reaching out!';
+    const SUCCESS_MESSAGE = "Your message has been sent successfully. Thank you for reaching out! I'll get back to you soon.";
     const RATE_LIMIT_STORAGE_KEY = 'portfolio_contact_submissions';
     const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
     const RATE_LIMIT_MAX_ATTEMPTS = 5;
@@ -430,8 +429,8 @@ const initPortfolio = () => {
         isValid = false;
         hasMissingRequired = true;
         firstInvalid = firstInvalid || nameInput;
-      } else if (nameVal.length < 2 || nameVal.length > 100) {
-        setFieldError('name', nameInput, 'Name must be between 2 and 100 characters.');
+      } else if (nameVal.length > 100) {
+        setFieldError('name', nameInput, 'Name cannot exceed 100 characters.');
         isValid = false;
         firstInvalid = firstInvalid || nameInput;
       }
@@ -453,8 +452,8 @@ const initPortfolio = () => {
         isValid = false;
         hasMissingRequired = true;
         firstInvalid = firstInvalid || subjectInput;
-      } else if (subjectVal.length < 2 || subjectVal.length > 160) {
-        setFieldError('subject', subjectInput, 'Subject must be between 2 and 160 characters.');
+      } else if (subjectVal.length > 160) {
+        setFieldError('subject', subjectInput, 'Subject cannot exceed 160 characters.');
         isValid = false;
         firstInvalid = firstInvalid || subjectInput;
       }
@@ -463,10 +462,6 @@ const initPortfolio = () => {
         setFieldError('message', messageInput, 'Please write your message.');
         isValid = false;
         hasMissingRequired = true;
-        firstInvalid = firstInvalid || messageInput;
-      } else if (messageVal.length < 10) {
-        setFieldError('message', messageInput, 'Message must be at least 10 characters.');
-        isValid = false;
         firstInvalid = firstInvalid || messageInput;
       } else if (messageVal.length > 3000) {
         setFieldError('message', messageInput, 'Message cannot exceed 3000 characters.');
@@ -549,7 +544,7 @@ const initPortfolio = () => {
       const endpoint = (window.PORTFOLIO_CONTACT_ENDPOINT || rawAction || form.getAttribute('data-endpoint') || '').trim();
       if (!endpoint || endpoint.includes('YOUR_FORMSPREE_ID')) {
         console.error('Contact form endpoint is not configured yet.');
-        setStatus('error', UNAVAILABLE_MESSAGE);
+        setStatus('error', FAILURE_MESSAGE);
         return;
       }
 
@@ -559,21 +554,21 @@ const initPortfolio = () => {
       const timeoutId = window.setTimeout(() => controller.abort(), 15000);
 
       try {
-        const formData = new FormData();
-        formData.append('name', values.name);
-        formData.append('email', values.email);
-        formData.append('_replyto', values.email);
-        formData.append('subject', values.subject);
-        formData.append('_subject', `[Portfolio Contact] ${values.subject}`);
-        formData.append('message', values.message);
-        formData.append('_gotcha', values.gotcha || '');
-
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: formData,
+          body: JSON.stringify({
+            name: values.name,
+            email: values.email,
+            subject: values.subject,
+            message: values.message,
+            _replyto: values.email,
+            _subject: `[Portfolio Contact] ${values.subject}`,
+            _gotcha: values.gotcha || ''
+          }),
           signal: controller.signal
         });
 
@@ -584,11 +579,9 @@ const initPortfolio = () => {
           data = {};
         }
 
-        if (!response.ok) {
+        if (!response.ok || data.ok === false) {
           if (response.status === 429) {
             setStatus('error', RATE_LIMIT_MESSAGE);
-          } else if (response.status === 503) {
-            setStatus('error', UNAVAILABLE_MESSAGE);
           } else if (response.status === 400 || response.status === 422) {
             if (Array.isArray(data.errors) && data.errors.length > 0) {
               data.errors.forEach((errItem) => {
@@ -614,7 +607,7 @@ const initPortfolio = () => {
         setStatus('success', SUCCESS_MESSAGE);
       } catch (err) {
         console.error('Contact form network error:', err && err.name ? err.name : 'Request failed');
-        setStatus('error', UNAVAILABLE_MESSAGE);
+        setStatus('error', FAILURE_MESSAGE);
       } finally {
         window.clearTimeout(timeoutId);
         setLoadingState(false);

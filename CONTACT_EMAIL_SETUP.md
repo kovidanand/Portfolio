@@ -1,13 +1,10 @@
-# Formspree Contact Form Setup
+# Formspree Contact Form Configuration
 
-Your portfolio contact form in `index.html` and `script.js` is pre-configured for **Formspree** AJAX delivery (`POST` with `Accept: application/json`), `_replyto`, `_subject`, and `_gotcha` honeypot spam protection.
+The portfolio contact form in `index.html` and `script.js` is connected to Formspree (`https://formspree.io/f/xrpqrwba`).
 
-## Connect Your Formspree Endpoint
+## Configuration Summary
 
-1. Sign in at [Formspree](https://formspree.io) and create a new form targeting `kovidanand05@gmail.com`.
-2. Copy your Formspree form endpoint URL (e.g., `https://formspree.io/f/abcdefgh`).
-3. Share the endpoint URL (or paste it into `action="..."` on `<form id="contactForm">` in `index.html`).
-4. *(Optional)* In your Formspree form's **Settings** tab:
-   - Keep **Email Notifications** enabled so you receive submissions directly in your inbox (Reply-To is automatically set to the visitor's email via `_replyto`).
-   - Enable **Autoresponse** if your Formspree plan includes it, to send an automatic receipt to the visitor.
-   - Keep Formspree's built-in **Spam Protection / Akismet** enabled alongside the form's `_gotcha` honeypot field.
+- **Endpoint**: `https://formspree.io/f/xrpqrwba` (`action` attribute on `#contactForm` in `index.html`)
+- **Method & Headers**: `POST` with `Accept: application/json` and `Content-Type: application/json`
+- **Mapped Fields**: `name`, `email`, `subject`, `message`, `_replyto`, `_subject`, and `_gotcha` (honeypot spam protection)
+- **Recipient**: Configured in the Formspree dashboard (`kovidanand05@gmail.com`)

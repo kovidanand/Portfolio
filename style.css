@@ -1571,7 +1571,7 @@ button {
 .contact-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .contact-label {
@@ -1629,12 +1629,8 @@ button {
 .contact-field-error {
   font-size: 12px;
   color: #DC2626;
-  min-height: 0;
+  min-height: 16px;
   line-height: 1.35;
-}
-
-.contact-field-error:empty {
-  display: none;
 }
 
 .contact-form-status {
